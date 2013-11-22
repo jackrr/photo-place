@@ -16,7 +16,7 @@ var app = express();
 
 app.get('/', function(req, res){
     console.log('Received GET request');
-    res.send('Hello, world!');
+    res.send('Hello, beautiful world!');
 });
 
 app.listen(3000);

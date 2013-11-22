@@ -1,5 +1,7 @@
 <Alloy>
 	<Window class="container">
-		<Label id="label" onClick="doClick">Hello, World</Label>
+		<Label id="label" top="30" onClick="getTextFromServer">Hello, World</Label>
+		<Label id="imageLabel" top="50" onClick="getImageFromServer"></Label>
+		<ImageView id="image" top="70" image=""></ImageView>
 	</Window>
 </Alloy>
