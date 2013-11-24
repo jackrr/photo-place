@@ -1,10 +1,10 @@
 function Controller() {
     function getImageFromServer() {
-        var url = "http://132.162.82.253:3000";
+        var url = serverUrl;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 alert("Success!");
-                $.image.setImage = client.getResponseData();
+                $.image.setImage(imagePath);
             },
             onerror: function(e) {
                 alert("Failure: " + e.error);
@@ -15,11 +15,11 @@ function Controller() {
         client.send();
     }
     function getTextFromServer() {
-        var url = "http://132.162.82.253:3000";
+        var url = serverUrl;
         var client = Ti.Network.createHTTPClient({
             onload: function() {
                 alert("Success!");
-                $.label.text = client.getResponseData().getText();
+                $.label.setText(client.getResponseData().getText());
             },
             onerror: function(e) {
                 alert("Failure: " + e.error);
@@ -56,6 +56,7 @@ function Controller() {
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
+        text: "Get photo",
         id: "imageLabel",
         top: "50"
     });
@@ -69,6 +70,7 @@ function Controller() {
     $.__views.index.add($.__views.image);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var serverUrl = "http://127.0.0.1:3000";
     $.index.open();
     __defers["$.__views.label!click!getTextFromServer"] && $.__views.label.addEventListener("click", getTextFromServer);
     __defers["$.__views.imageLabel!click!getImageFromServer"] && $.__views.imageLabel.addEventListener("click", getImageFromServer);
