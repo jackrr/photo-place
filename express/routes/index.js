@@ -3,6 +3,16 @@
  * GET home page.
  */
 
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+module.exports = function(db) {
+
+	var index = function(req, res){
+	  res.json({ title: 'Express' });
+	};
+
+	var user = require('./user')(db);
+
+	return {
+		index: index,
+		user: user
+	};
 };
