@@ -1,0 +1,5 @@
+<Alloy>
+	<Window class="container">
+		<Label id="usersList" top="10"></Label>
+	</Window>
+</Alloy>
