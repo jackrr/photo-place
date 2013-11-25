@@ -37,4 +37,8 @@ function getTextFromServer(e) {
 	client.send();
 }
 
+function openUserPage(e) {
+	Alloy.createController('user');
+}
+
 $.index.open();
