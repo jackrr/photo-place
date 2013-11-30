@@ -1,3 +1,5 @@
+var ServerUtil = require("serverUtil");
+
 exports.definition = {
     config: {
         URL: "http://localhost:3000/photos",
@@ -10,7 +12,13 @@ exports.definition = {
     extendModel: function(Model) {
         _.extend(Model.prototype, {
             url: function() {
-                return "http://localhost:3000/photo/" + this.get("_id");
+                return this.get("_id") ? "http://localhost:3000/photo/" + this.get("_id") : void 0;
+            },
+            setPhotoURL: function() {
+                return this.url() || "http://localhost:3000/photos";
+            },
+            setImage: function(image) {
+                ServerUtil.sendPhoto(this.setPhotoURL(), image);
             }
         });
         return Model;

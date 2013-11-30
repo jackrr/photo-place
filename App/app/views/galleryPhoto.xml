@@ -1,3 +1,5 @@
 <Alloy>
-	<TableViewRow id="rowView"/>
+	<TableViewRow id="rowView">
+		<ImageView id="imageView"/>
+	</TableViewRow>
 </Alloy>

@@ -35,7 +35,9 @@ function log(req, res, next) {
 	next();
 }
 
-app.get('/photos', log, photos.all);
+app.post('/photos', log, photos.newFromUser);
+app.get('/photos', log, photos.byPage);
+app.get('/photos/page/:pageNum', log, photos.byPage);
 app.get('/photos/place/:placeName', log, photos.atPlace);
 app.get('/photos/user/:userName', log, photos.byUser);
 app.post('/photos/user/:userID', log, photos.newFromUser);

@@ -10,12 +10,16 @@ function Controller() {
         id: "rowView"
     });
     $.__views.rowView && $.addTopLevelView($.__views.rowView);
+    $.__views.imageView = Ti.UI.createImageView({
+        id: "imageView"
+    });
+    $.__views.rowView.add($.__views.imageView);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
     var photo = args.photo;
     $.rowView.title = photo.get("name");
-    $.rowView.backgroundImage = photo.url();
+    $.imageView.image = photo.get("image");
     _.extend($, exports);
 }
 

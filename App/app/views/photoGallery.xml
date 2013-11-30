@@ -1,6 +1,7 @@
 <Alloy>
 	<Window class="container">
 		<Label id="loadPhoto" top="10" onClick="clickLabel">Click to fetch!</Label>
+		<Label id="uploadPhoto" top="30" onClick="choosePhoto">Click to upload!</Label>
 		<TableView id="tableView"></TableView>
 	</Window>
 </Alloy>

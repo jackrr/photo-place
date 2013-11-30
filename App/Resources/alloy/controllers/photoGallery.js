@@ -9,6 +9,22 @@ function Controller() {
         });
         $.tableView.setData(rows);
     }
+    function choosePhoto() {
+        Ti.Media.openPhotoGallery({
+            mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
+            success: function(event) {
+                Ti.API.info("Pick success");
+                if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+                    var photo = Alloy.createModel("photo");
+                    photo.setImage(event.media);
+                }
+            },
+            cancel: function() {},
+            error: function(error) {
+                alert(error);
+            }
+        });
+    }
     function clickLabel() {
         photos.fetch({
             success: function() {
@@ -43,6 +59,16 @@ function Controller() {
     });
     $.__views.photoGallery.add($.__views.loadPhoto);
     clickLabel ? $.__views.loadPhoto.addEventListener("click", clickLabel) : __defers["$.__views.loadPhoto!click!clickLabel"] = true;
+    $.__views.uploadPhoto = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        top: "30",
+        color: "#000",
+        text: "Click to upload!",
+        id: "uploadPhoto"
+    });
+    $.__views.photoGallery.add($.__views.uploadPhoto);
+    choosePhoto ? $.__views.uploadPhoto.addEventListener("click", choosePhoto) : __defers["$.__views.uploadPhoto!click!choosePhoto"] = true;
     $.__views.tableView = Ti.UI.createTableView({
         id: "tableView"
     });
@@ -50,8 +76,10 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var photos = Alloy.createCollection("photo");
+    Ti.API.info("IN PHOTO GALLERY");
     $.photoGallery.open();
     __defers["$.__views.loadPhoto!click!clickLabel"] && $.__views.loadPhoto.addEventListener("click", clickLabel);
+    __defers["$.__views.uploadPhoto!click!choosePhoto"] && $.__views.uploadPhoto.addEventListener("click", choosePhoto);
     _.extend($, exports);
 }
 

@@ -1,5 +1,6 @@
 var photos = Alloy.createCollection('photo');
 
+Ti.API.info('IN PHOTO GALLERY');
 $.photoGallery.open();
 
 function openPhotos(newPhotos) {
@@ -10,6 +11,26 @@ function openPhotos(newPhotos) {
 	});
 	
 	$.tableView.setData(rows);	
+}
+
+function choosePhoto() {
+	Ti.Media.openPhotoGallery({
+		mediaTypes:[Ti.Media.MEDIA_TYPE_PHOTO],
+		
+		success: function(event) {
+			Ti.API.info('Pick success');
+			if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+				var photo = Alloy.createModel('photo');
+				photo.setImage(event.media);
+			}
+		},
+		cancel: function() {
+			
+		},
+		error: function(error) {
+			alert(error);
+		}
+	});
 }
 
 function clickLabel() {

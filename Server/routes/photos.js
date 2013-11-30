@@ -1,8 +1,21 @@
-module.exports = function(db) {
+function error(err, res) {
+	console.log(err);
+	res.json(500, {err: err});
+}
 
-	function all(req, res) {
-		console.log('sending stuff');
-		res.json({photos: [{'_id': '1111', 'name':'jack'}, {'_id': '2222', 'name': 'nate'}]});
+module.exports = function(db) {
+	var Photo = db.Photo;
+
+	function byPage(req, res) {
+		var page = 0;
+		if (req.params.page) {
+			page = req.params.page;
+		}
+		Photo.findPageWithImages(page, function(err, photos) {
+			if (err) return error(err, res);
+			res.json({photos: photos});
+		});
+		// res.json({photos: [{'_id': '1111', 'name':'jack', 'image': 'AHHH'}, {'_id': '2222', 'name': 'nate', 'image': 'BAHH'}]});
 	}
 
 	function atPlace(req, res) {
@@ -16,17 +29,27 @@ module.exports = function(db) {
 	}
 
 	function newFromUser(req, res) {
-		var user = req.body.user;
-		res.send();
+		// var user = req.body.user;
+		var options = {};
+		options.user = req.body.user;
+		options.image = req.body.image;
+		if (!options.image) {
+			return error('no image sent', res);
+		}
+		Photo.newPhotoByUser(options, function(err, photo) {
+			if (err) return error(err, res);
+			res.json({photo: photo});
+		});
 	}
 
 	function byID(req, res) {
 		id = req.params.id;
-		res.send();
+		console.log(id);
+		res.json({photo: {'_id': '1111', 'name':'jack'}});
 	}
 
 	return {
-		all: all,
+		byPage: byPage,
 		atPlace: atPlace,
 		byUser: byUser,
 		newFromUser: newFromUser,

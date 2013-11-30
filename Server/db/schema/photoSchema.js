@@ -9,7 +9,16 @@ var photoSchema = new Schema({
 	dimensions: {
 		width: Number,
 		height: Number
-	}
+	},
+
+	// non-persisted
+	image: String
+});
+
+photoSchema.pre('save', function(next) {
+	this.image = undefined;
+
+	next();
 });
 
 module.exports = mongoose.model('Photo', photoSchema);
