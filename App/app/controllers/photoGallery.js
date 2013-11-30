@@ -1,6 +1,5 @@
 var photos = Alloy.createCollection('photo');
 
-Ti.API.info('IN PHOTO GALLERY');
 $.photoGallery.open();
 
 function openPhotos(newPhotos) {
