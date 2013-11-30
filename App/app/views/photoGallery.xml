@@ -1,0 +1,6 @@
+<Alloy>
+	<Window class="container">
+		<Label id="loadPhoto" top="10" onClick="clickLabel">Click to fetch!</Label>
+		<TableView id="tableView"></TableView>
+	</Window>
+</Alloy>
