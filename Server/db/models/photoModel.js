@@ -4,8 +4,8 @@ var _ = require('underscore');
 var fs = require('fs');
 var uuid = require('node-uuid');
 
-var relativePath = "public/upload_images/";
-var serverDir = __dirname + "/../../";
+var relativePath = "upload_images/";
+var serverDir = __dirname + "/../../public/";
 var mediaDir = serverDir + relativePath;
 var remoteDir = "http://localhost:3000/" + relativePath;
 
