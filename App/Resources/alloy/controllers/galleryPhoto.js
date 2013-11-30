@@ -18,8 +18,8 @@ function Controller() {
     _.extend($, $.__views);
     var args = arguments[0] || {};
     var photo = args.photo;
-    $.rowView.title = photo.get("name");
-    $.imageView.image = photo.get("image");
+    $.rowView.title = photo.get("_id");
+    $.imageView.image = photo.get("fullPath");
     _.extend($, exports);
 }
 

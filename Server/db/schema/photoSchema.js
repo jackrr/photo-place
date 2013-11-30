@@ -12,11 +12,11 @@ var photoSchema = new Schema({
 	},
 
 	// non-persisted
-	image: String
+	fullPath: String
 });
 
 photoSchema.pre('save', function(next) {
-	this.image = undefined;
+	this.fullPath = undefined;
 
 	next();
 });

@@ -4,9 +4,18 @@ var _ = require('underscore');
 var fs = require('fs');
 var uuid = require('node-uuid');
 
-var mediaDir = __dirname + "/../../public/upload_images/";
+var relativePath = "public/upload_images/";
+var serverDir = __dirname + "/../../";
+var mediaDir = serverDir + relativePath;
+var remoteDir = "http://localhost:3000/" + relativePath;
 
 var pageSize = 10;
+
+function preSend(photos) {
+	_.each(photos, function(photo) {
+		photo.fullPath = remoteDir + photo.path;
+	});
+}
 
 function newPhoto(base64EncodeData, cb) {
 	var path = uuid.v1() + '.jpg';
@@ -21,10 +30,8 @@ function newPhoto(base64EncodeData, cb) {
 Photo.findPageWithImages = function(page, cb) {
 	Photo.find().skip(page*pageSize).limit(pageSize).exec(function(err, photos) {
 		if (err) return cb(err);
-		_.each(photos, function(photo) {
-			console.log('reading from: ', mediaDir + photo.path);
-			photo.image = fs.readFileSync(mediaDir + photo.path);
-		});
+		preSend(photos);
+		console.log('sending: ', photos);
 		cb(null, photos);
 	});
 };
