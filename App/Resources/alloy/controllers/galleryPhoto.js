@@ -19,7 +19,7 @@ function Controller() {
     var args = arguments[0] || {};
     var photo = args.photo;
     $.rowView.title = photo.get("_id");
-    $.imageView.image = photo.get("fullPath");
+    $.imageView.image = photo.get("smallPath");
     _.extend($, exports);
 }
 

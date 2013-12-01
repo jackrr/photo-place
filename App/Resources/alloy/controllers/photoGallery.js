@@ -76,7 +76,6 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var photos = Alloy.createCollection("photo");
-    Ti.API.info("IN PHOTO GALLERY");
     $.photoGallery.open();
     __defers["$.__views.loadPhoto!click!clickLabel"] && $.__views.loadPhoto.addEventListener("click", clickLabel);
     __defers["$.__views.uploadPhoto!click!choosePhoto"] && $.__views.uploadPhoto.addEventListener("click", choosePhoto);
