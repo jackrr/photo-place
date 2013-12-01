@@ -52,7 +52,6 @@ function Controller() {
     addUser ? $.__views.addUser.addEventListener("click", addUser) : __defers["$.__views.addUser!click!addUser"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.title.text = "Hello, " + Ti.App.Properties.getObject("authInfo").username;
     $.index.open();
     if (!Ti.App.Properties.getObject("authInfo", false)) {
         var authWin = Alloy.createController("auth").getView();

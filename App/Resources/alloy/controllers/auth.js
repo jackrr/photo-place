@@ -3,21 +3,16 @@ function Controller() {
         if ("" == $.username.value || "" == $.password1.value || "" == $.password2.value) alert("All fields are required"); else if ($.password1.value != $.password2.value) alert("Passwords do not match"); else {
             var newUser = {
                 username: $.username.value,
-                password: Titatnium.Utils.md5HexDigest($.password1.value)
+                password: Titanium.Utils.md5HexDigest($.password1.value)
             };
-            Ti.API.info("username: " + newUser.username + "\nhex digest: " + newUser.password + "\npassword: " + $.password1.value);
-            Ti.App.Properties.setObject("authInfo", newUser);
-            var http = Ti.Network.createHTTPClient({
-                onload: function() {
-                    alert("New user added");
-                },
-                onerror: function() {
-                    alert("Error adding user");
-                }
+            user.set({
+                username: $.username.value,
+                password: $.password1.value
             });
-            http.open("POST", "https://127.0.0.1:3000/users");
-            http.send(JSON.stringify(newUser));
-            $.auth.close();
+            Ti.API.info(JSON.stringify(user));
+            Ti.App.Properties.setObject("authInfo", newUser);
+            user.save();
+            self.getView().close();
         }
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -88,6 +83,8 @@ function Controller() {
     submitInfo ? $.__views.submit.addEventListener("click", submitInfo) : __defers["$.__views.submit!click!submitInfo"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var user = Alloy.createModel("user");
+    var self = this;
     __defers["$.__views.submit!click!submitInfo"] && $.__views.submit.addEventListener("click", submitInfo);
     _.extend($, exports);
 }

@@ -20,7 +20,8 @@ module.exports = function(db) {
 	};
 
 	var createNew = function(req, res) {
-		console.log(req);
+		console.log(req.body);
+		console.log("SAVE USER TO DB AND GIVE RELEVANT RESPONSE");
 	};
 
 	return {

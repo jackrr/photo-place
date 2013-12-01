@@ -44,7 +44,7 @@ function openUserPage(e) {
 	usersWin.open();
 }
 
-$.title.text = 'Hello, ' + Ti.App.Properties.getObject('authInfo').username;
+// $.title.text = 'Hello, ' + Ti.App.Properties.getObject('authInfo').username;
 $.index.open();
 
 if (!Ti.App.Properties.getObject('authInfo',false)) {
