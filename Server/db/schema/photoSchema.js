@@ -4,8 +4,10 @@ var mongoose = require('mongoose'),
 var photoSchema = new Schema({
 	locationID: String,
 	userID: String,
-	path: String,
-	thumbPath: String,
+	originalPath: String,
+	smallPath: String,
+	mediumPath: String,
+	largePath: String,
 	dimensions: {
 		width: Number,
 		height: Number

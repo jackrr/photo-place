@@ -3,6 +3,7 @@ var Photo = require('../schema/photoSchema');
 var _ = require('underscore');
 var fs = require('fs');
 var uuid = require('node-uuid');
+var im = require('imagemagick');
 
 var relativePath = "upload_images/";
 var serverDir = __dirname + "/../../public/";
@@ -18,12 +19,21 @@ function preSend(photos) {
 }
 
 function newPhoto(base64EncodeData, cb) {
+	var paths = {};
 	var path = uuid.v1() + '.jpg';
-	var fullPath = mediaDir + path;
-	console.log('writing to: ', fullPath);
-	fs.writeFile(fullPath, new Buffer(base64EncodeData, "base64"), function(err) {
+	paths.smallPath = mediaDir + 'small_' + path;
+	paths.mediumPath = mediaDir + 'medium_' + path;
+	paths.largePath = mediaDir + 'large_' + path;
+	paths.originalPath = mediaDir + 'original_' + path;
+	console.log('writing to: ', paths.originalPath);
+	fs.writeFile(paths.originalPath, new Buffer(base64EncodeData, "base64"), function(err) {
 		if (err) cb(err);
-		cb(null, path);
+		im.resize({
+			srcPath: paths.originalPath,
+			dstPath: paths.smallPath,
+			width: 50
+		}, function())
+		cb(null, paths);
 	});
 }
 
