@@ -1,1 +1,1 @@
-module.exports = [];
+module.exports = [{"isApi":true,"priority":1000.0015,"key":"Label","style":{top:10,width:Ti.UI.SIZE,}},{"isId":true,"priority":100000.0014,"key":"win","style":{backgroundColor:"white",layout:"vertical",}},{"isId":true,"priority":100000.0016,"key":"usersTable","style":{top:10,width:Ti.UI.SIZE,height:250,scrollable:true,}}];

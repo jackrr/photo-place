@@ -1,36 +1,12 @@
 function Controller() {
-    function getImageFromServer() {
-        var url = "http://132.162.82.253:3000";
-        var client = Ti.Network.createHTTPClient({
-            onload: function() {
-                alert("Success!");
-                $.image.setImage = client.getResponseData();
-            },
-            onerror: function(e) {
-                alert("Failure: " + e.error);
-            },
-            timeout: 5e3
-        });
-        client.open("GET", url);
-        client.send();
-    }
-    function getTextFromServer() {
-        var url = "http://132.162.82.253:3000";
-        var client = Ti.Network.createHTTPClient({
-            onload: function() {
-                alert("Success!");
-                $.label.text = client.getResponseData().getText();
-            },
-            onerror: function(e) {
-                alert("Failure: " + e.error);
-            },
-            timeout: 5e3
-        });
-        client.open("GET", url);
-        client.send();
+    function addUser() {
+        Ti.API.info("addUser click registered");
+        var authWin = Alloy.createController("auth").getView();
+        authWin.open();
     }
     function openUserPage() {
-        Alloy.createController("user");
+        var usersWin = Alloy.createController("user").getView();
+        usersWin.open();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
@@ -42,50 +18,52 @@ function Controller() {
     var __defers = {};
     $.__views.index = Ti.UI.createWindow({
         backgroundColor: "white",
+        layout: "vertical",
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
-    $.__views.label = Ti.UI.createLabel({
+    $.__views.title = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
-        text: "Hello, World",
-        id: "label",
-        top: "30"
+        top: 30,
+        id: "title"
     });
-    $.__views.index.add($.__views.label);
-    getTextFromServer ? $.__views.label.addEventListener("click", getTextFromServer) : __defers["$.__views.label!click!getTextFromServer"] = true;
-    $.__views.imageLabel = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        color: "#000",
-        id: "imageLabel",
-        top: "50"
-    });
-    $.__views.index.add($.__views.imageLabel);
-    getImageFromServer ? $.__views.imageLabel.addEventListener("click", getImageFromServer) : __defers["$.__views.imageLabel!click!getImageFromServer"] = true;
-    $.__views.image = Ti.UI.createImageView({
-        id: "image",
-        top: "70",
-        image: ""
-    });
-    $.__views.index.add($.__views.image);
+    $.__views.index.add($.__views.title);
     $.__views.userPage = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
+        top: 30,
         text: "Click to open users page",
-        id: "userPage",
-        top: "90"
+        id: "userPage"
     });
     $.__views.index.add($.__views.userPage);
     openUserPage ? $.__views.userPage.addEventListener("click", openUserPage) : __defers["$.__views.userPage!click!openUserPage"] = true;
+    $.__views.addUser = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "#000",
+        top: 30,
+        text: "Add user",
+        id: "addUser"
+    });
+    $.__views.index.add($.__views.addUser);
+    addUser ? $.__views.addUser.addEventListener("click", addUser) : __defers["$.__views.addUser!click!addUser"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    $.title.text = "Hello, " + Ti.App.Properties.getObject("authInfo").username;
     $.index.open();
-    __defers["$.__views.label!click!getTextFromServer"] && $.__views.label.addEventListener("click", getTextFromServer);
-    __defers["$.__views.imageLabel!click!getImageFromServer"] && $.__views.imageLabel.addEventListener("click", getImageFromServer);
+    if (!Ti.App.Properties.getObject("authInfo", false)) {
+        var authWin = Alloy.createController("auth").getView();
+        authWin.addEventListener("close", function() {
+            var user = Ti.App.Properties.getObject("authInfo");
+            $.title.text = "Hello, " + user.username;
+        });
+        authWin.open();
+    }
     __defers["$.__views.userPage!click!openUserPage"] && $.__views.userPage.addEventListener("click", openUserPage);
+    __defers["$.__views.addUser!click!addUser"] && $.__views.addUser.addEventListener("click", addUser);
     _.extend($, exports);
 }
 

@@ -1,22 +1,30 @@
 var users = Alloy.createCollection("user");
-$.user.open();
+
+Ti.API.info('opening users page');
 
 function updateUsers(newUsers) {
-	newtext = '';
+	data = [];
 	_.each(newUsers.models, function(user) {
-		newtext = newtext + user.get('name');
+		data.push({
+			'title' : user.get('name')
+		});
 	});
-	// $.usersList.text = JSON.stringify(newUsers);
-	$.usersList.text = newtext;
+
+	//$.usersList.text = JSON.stringify(newUsers);
+	$.usersTable.setData(data);
 }
 
 users.fetch({
-	success: function() {
-		updateUsers(users);		
+	success : function() {
+		updateUsers(users);
 	},
-	error: function() {
-		Ti.API.error('oops!');
+	error : function() {
+		Ti.API.info('oops!');
 	}
 });
 
+function closeWindow(){
+	$.win.close();
+}
 
+//$.user.open();

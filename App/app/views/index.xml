@@ -1,8 +1,7 @@
 <Alloy>
 	<Window class="container">
-		<Label id="label" top="30" onClick="getTextFromServer">Hello, World</Label>
-		<Label id="imageLabel" top="50" onClick="getImageFromServer"></Label>
-		<ImageView id="image" top="70" image=""></ImageView>
-		<Label id="userPage" top="90" onClick="openUserPage">Click to open users page</Label>
+		<Label id="title"></Label>
+		<Label id="userPage" onClick="openUserPage">Click to open users page</Label>
+		<Label id="addUser" onClick="addUser">Add user</Label>
 	</Window>
 </Alloy>

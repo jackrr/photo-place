@@ -1,0 +1,19 @@
+
+"#win": {
+	backgroundColor : "white",
+	layout : "vertical"
+},
+
+"Label": {
+	top : 10,
+	width : Ti.UI.SIZE
+},
+
+"#usersTable": {
+	top : 10,
+	width : Ti.UI.SIZE,
+	height : 250,
+	scrollable : true
+},
+
+

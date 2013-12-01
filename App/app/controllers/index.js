@@ -1,9 +1,5 @@
-function doClick(e) {
-	alert($.label.text);
-}
-
 function getImageFromServer(e) {
-	var url = "http://132.162.82.253:3000";
+	var url = "http://127.0.0.1:3000";
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
 			alert('Success!');
@@ -17,11 +13,11 @@ function getImageFromServer(e) {
 
 	client.open('GET', url);
 	client.send();
-	
+
 }
 
 function getTextFromServer(e) {
-	var url = "http://132.162.82.253:3000";
+	var url = "http://127.0.0.1:3000";
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
 			alert('Success!');
@@ -37,8 +33,27 @@ function getTextFromServer(e) {
 	client.send();
 }
 
-function openUserPage(e) {
-	Alloy.createController('user');
+function addUser(e){
+	Ti.API.info('addUser click registered');
+	var authWin = Alloy.createController('auth').getView();
+	authWin.open();
 }
 
+function openUserPage(e) {
+	var usersWin = Alloy.createController('user').getView();
+	usersWin.open();
+}
+
+$.title.text = 'Hello, ' + Ti.App.Properties.getObject('authInfo').username;
 $.index.open();
+
+if (!Ti.App.Properties.getObject('authInfo',false)) {
+	var authWin = Alloy.createController('auth').getView();
+	authWin.addEventListener('close', function(e){
+		var user = Ti.App.Properties.getObject('authInfo');
+		$.title.text = 'Hello, ' + user.username;
+	});
+	
+	authWin.open();
+}
+
