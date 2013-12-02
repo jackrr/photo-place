@@ -6,12 +6,13 @@ SALT_WORK_FACTOR = 10;
 var userSchema = new Schema({
 	email: {type: String, required: true},
 	password: {type: String, required: true},
-	username: String
+	username: {type: String, required: true}
 });
 
 userSchema.pre('save', function(next) {
+	var user = this;
 	// note that 'this' is the user being saved
-	if (!this.isModified('password')) return next();
+	if (!user.isModified('password')) return next();
 	// the user's password has changed
 
 	bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
@@ -22,7 +23,7 @@ userSchema.pre('save', function(next) {
 			if (err) return next(err);
 
 			// override the cleartext password with the hashed one
-			this.password = hash;
+			user.password = hash;
 			next();
 		});
 	});

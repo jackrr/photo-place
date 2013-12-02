@@ -4,7 +4,7 @@ exports.definition = {
         adapter: {
             type: "restapi",
             collection_name: "Users",
-            idAttribute: "id"
+            idAttribute: "_id"
         }
     },
     extendModel: function(Model) {

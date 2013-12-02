@@ -21,7 +21,11 @@ module.exports = function(db) {
 
 	var createNew = function(req, res) {
 		console.log(req.body);
-		console.log("SAVE USER TO DB AND GIVE RELEVANT RESPONSE");
+		User.create(req.body, function(err, user) {
+			if (err) return error(err, res);
+			console.log(user);
+			res.json({user: user});
+		});
 	};
 
 	return {
