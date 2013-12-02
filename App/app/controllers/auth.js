@@ -1,7 +1,9 @@
 //alert('Auth window opened');
+var user = Alloy.createModel("user");
+var self = this;
 
-function closeWindow(){
-	$.win.close();	
+function closeWindow() {
+	$.win.close();
 }
 
 function submitInfo() {
@@ -15,13 +17,20 @@ function submitInfo() {
 			'password' : $.password1.value,
 			'email' : $.email.value
 		};
-		Ti.API.info(JSON.stringify(newUser));
-		
-		var userModel = Alloy.createModel('user', newUser);
-		userModel.save();
+
+		user.set({
+			username : $.username.value,
+			password : $.password1.value,
+			email : $.email.value
+		});
+
+		Ti.API.info(JSON.stringify(user));
+		// Ti.API.info('username: ' + newUser.username + '\nhex digest: ' + newUser.password + '\npassword: ' + $.password1.value);
 
 		Ti.App.Properties.setObject('authInfo', newUser);
-		
+
+		user.save();
+
 		closeWindow();
 	}
 }

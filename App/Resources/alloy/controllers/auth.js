@@ -9,10 +9,14 @@ function Controller() {
                 password: $.password1.value,
                 email: $.email.value
             };
-            Ti.API.info(JSON.stringify(newUser));
-            var userModel = Alloy.createModel("user", newUser);
-            userModel.save();
+            user.set({
+                username: $.username.value,
+                password: $.password1.value,
+                email: $.email.value
+            });
+            Ti.API.info(JSON.stringify(user));
             Ti.App.Properties.setObject("authInfo", newUser);
+            user.save();
             closeWindow();
         }
     }
@@ -98,6 +102,7 @@ function Controller() {
     closeWindow ? $.__views.cancel.addEventListener("click", closeWindow) : __defers["$.__views.cancel!click!closeWindow"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var user = Alloy.createModel("user");
     __defers["$.__views.submit!click!submitInfo"] && $.__views.submit.addEventListener("click", submitInfo);
     __defers["$.__views.cancel!click!closeWindow"] && $.__views.cancel.addEventListener("click", closeWindow);
     _.extend($, exports);
