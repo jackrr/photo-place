@@ -44,12 +44,8 @@ function openUserPage(e) {
 	usersWin.open();
 }
 
-// $.title.text = 'Hello, ' + Ti.App.Properties.getObject('authInfo').username;
+$.title.text = 'Hello, ' + Ti.App.Properties.getObject('authInfo').username;
 $.index.open();
-
-// FOR TESTING PURPOSES I AM RESETING AUTH INFO
-// DON'T FORGET TO REMOVE
-Ti.App.Properties.setObject('authInfo', null);
 
 if (!Ti.App.Properties.getObject('authInfo', false)) {
 	var authWin = Alloy.createController('auth').getView();

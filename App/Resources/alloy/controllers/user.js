@@ -1,9 +1,11 @@
 function Controller() {
     function updateUsers(newUsers) {
-        data = [];
-        _.each(newUsers.models, function(user) {
+        Ti.API.info(JSON.stringify(newUsers));
+        var data = [];
+        _.each(newUsers, function(user) {
+            Ti.API.info(user);
             data.push({
-                title: user.get("name")
+                title: user
             });
         });
         $.usersTable.setData(data);
@@ -51,7 +53,6 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var users = Alloy.createCollection("user");
-    Ti.API.info("opening users page");
     users.fetch({
         success: function() {
             updateUsers(users);

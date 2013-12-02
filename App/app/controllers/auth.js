@@ -27,7 +27,8 @@ function submitInfo() {
 		Ti.API.info(JSON.stringify(user));
 		// Ti.API.info('username: ' + newUser.username + '\nhex digest: ' + newUser.password + '\npassword: ' + $.password1.value);
 
-		Ti.App.Properties.setObject('authInfo', newUser);
+		if (!Ti.App.Properties.getObject('authInfo', false))
+			Ti.App.Properties.setObject('authInfo', newUser);
 
 		user.save();
 

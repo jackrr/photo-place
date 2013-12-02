@@ -15,7 +15,7 @@ function Controller() {
                 email: $.email.value
             });
             Ti.API.info(JSON.stringify(user));
-            Ti.App.Properties.setObject("authInfo", newUser);
+            Ti.App.Properties.getObject("authInfo", false) || Ti.App.Properties.setObject("authInfo", newUser);
             user.save();
             closeWindow();
         }
