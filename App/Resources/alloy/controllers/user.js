@@ -50,7 +50,7 @@ function Controller() {
     closeWindow ? $.__views.closeButton.addEventListener("click", closeWindow) : __defers["$.__views.closeButton!click!closeWindow"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var users = Alloy.createCollection("user");
+    var users = Alloy.createCollection("Users");
     Ti.API.info("opening users page");
     users.fetch({
         success: function() {

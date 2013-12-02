@@ -54,6 +54,7 @@ function Controller() {
     _.extend($, $.__views);
     $.title.text = "Hello, " + Ti.App.Properties.getObject("authInfo").username;
     $.index.open();
+    Ti.App.Properties.setObject("authInfo", null);
     if (!Ti.App.Properties.getObject("authInfo", false)) {
         var authWin = Alloy.createController("auth").getView();
         authWin.addEventListener("close", function() {

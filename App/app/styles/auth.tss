@@ -4,8 +4,14 @@
 	top : 10,
 	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
 	autocorrect : false,
-	width : Ti.UI.SIZE
+	width : 250,
+	autocapitalization : Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
 },
+
+"Label": {
+	top : 10,
+	width : Ti.UI.SIZE
+}
 
 "#win": {
 	layout : "vertical",
@@ -13,7 +19,8 @@
 },
 
 "#email": {
-	hintText : "Email" 
+	hintText : "Email",
+	keyboardType : Ti.UI.KEYBOARD_EMAIL
 },
 
 "#winlabel": {
@@ -33,8 +40,3 @@
 	hintText : "Re-enter Password",
 	passwordMask : true
 },
-
-"#submit": {
-	top : 10,
-	touchEnabled : true
-}

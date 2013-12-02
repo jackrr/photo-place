@@ -33,7 +33,7 @@ function getTextFromServer(e) {
 	client.send();
 }
 
-function addUser(e){
+function addUser(e) {
 	Ti.API.info('addUser click registered');
 	var authWin = Alloy.createController('auth').getView();
 	authWin.open();
@@ -47,13 +47,17 @@ function openUserPage(e) {
 $.title.text = 'Hello, ' + Ti.App.Properties.getObject('authInfo').username;
 $.index.open();
 
-if (!Ti.App.Properties.getObject('authInfo',false)) {
+// FOR TESTING PURPOSES I AM RESETING AUTH INFO
+// DON'T FORGET TO REMOVE
+Ti.App.Properties.setObject('authInfo', null);
+
+if (!Ti.App.Properties.getObject('authInfo', false)) {
 	var authWin = Alloy.createController('auth').getView();
-	authWin.addEventListener('close', function(e){
+	authWin.addEventListener('close', function(e) {
 		var user = Ti.App.Properties.getObject('authInfo');
 		$.title.text = 'Hello, ' + user.username;
 	});
-	
+
 	authWin.open();
 }
 

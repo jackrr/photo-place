@@ -6,5 +6,6 @@
 		<TextField id="password1"></TextField>
 		<TextField id="password2"></TextField>
 		<Label id="submit" onClick="submitInfo">Submit</Label>
+		<Label id="cancel" onClick="closeWindow">Cancel</Label>
 	</Window>
 </Alloy>
