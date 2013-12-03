@@ -1,5 +1,7 @@
 <Alloy>
 	<Window class="container">
-		<Label id="usersList" top="10"></Label>
+		<Label id="title">List of Users</Label>
+		<!--<TableView id="usersTable"></TableView>-->
+		<Label id="closeButton" onClick="closeWindow">Close Window</Label>
 	</Window>
 </Alloy>

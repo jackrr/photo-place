@@ -2,31 +2,37 @@ var photos = Alloy.createCollection('photo');
 
 $.photoGallery.open();
 
+function closeWindow() {
+	$.photoGallery.close();
+}
+
 function openPhotos(newPhotos) {
 	var rows = [];
 	_.each(newPhotos.models, function(photo, index) {
-		var row = Alloy.createController('galleryPhoto', {photo: photo}).getView();
+		var row = Alloy.createController('galleryPhoto', {
+			photo : photo
+		}).getView();
 		rows.push(row);
 	});
-	
-	$.tableView.setData(rows);	
+
+	$.tableView.setData(rows);
 }
 
 function choosePhoto() {
 	Ti.Media.openPhotoGallery({
-		mediaTypes:[Ti.Media.MEDIA_TYPE_PHOTO],
-		
-		success: function(event) {
+		mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
+
+		success : function(event) {
 			Ti.API.info('Pick success');
 			if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 				var photo = Alloy.createModel('photo');
 				photo.setImage(event.media);
 			}
 		},
-		cancel: function() {
-			
+		cancel : function() {
+
 		},
-		error: function(error) {
+		error : function(error) {
 			alert(error);
 		}
 	});
@@ -34,10 +40,10 @@ function choosePhoto() {
 
 function clickLabel() {
 	photos.fetch({
-		success: function() {
+		success : function() {
 			openPhotos(photos);
 		},
-		error: function(e) {
+		error : function(e) {
 			alert(JSON.stringify(e));
 		}
 	});

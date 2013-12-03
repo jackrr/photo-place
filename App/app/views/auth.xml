@@ -1,0 +1,11 @@
+<Alloy>
+	<Window id="win">
+		<Label id="winlabel">Create Account</Label>
+		<TextField id="email"></TextField>
+		<TextField id="username"></TextField>
+		<TextField id="password1"></TextField>
+		<TextField id="password2"></TextField>
+		<Label id="submit" onClick="submitInfo">Submit</Label>
+		<Label id="cancel" onClick="closeWindow">Cancel</Label>
+	</Window>
+</Alloy>

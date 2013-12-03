@@ -1,4 +1,7 @@
 function Controller() {
+    function closeWindow() {
+        $.photoGallery.close();
+    }
     function openPhotos(newPhotos) {
         var rows = [];
         _.each(newPhotos.models, function(photo) {
@@ -52,7 +55,7 @@ function Controller() {
     $.__views.loadPhoto = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        top: "10",
+        top: 20,
         color: "#000",
         text: "Click to fetch!",
         id: "loadPhoto"
@@ -62,14 +65,25 @@ function Controller() {
     $.__views.uploadPhoto = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        top: "30",
+        top: 20,
         color: "#000",
         text: "Click to upload!",
         id: "uploadPhoto"
     });
     $.__views.photoGallery.add($.__views.uploadPhoto);
     choosePhoto ? $.__views.uploadPhoto.addEventListener("click", choosePhoto) : __defers["$.__views.uploadPhoto!click!choosePhoto"] = true;
+    $.__views.back = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        top: 20,
+        color: "#000",
+        text: "Back to Home",
+        id: "back"
+    });
+    $.__views.photoGallery.add($.__views.back);
+    closeWindow ? $.__views.back.addEventListener("click", closeWindow) : __defers["$.__views.back!click!closeWindow"] = true;
     $.__views.tableView = Ti.UI.createTableView({
+        top: 30,
         id: "tableView"
     });
     $.__views.photoGallery.add($.__views.tableView);
@@ -79,6 +93,7 @@ function Controller() {
     $.photoGallery.open();
     __defers["$.__views.loadPhoto!click!clickLabel"] && $.__views.loadPhoto.addEventListener("click", clickLabel);
     __defers["$.__views.uploadPhoto!click!choosePhoto"] && $.__views.uploadPhoto.addEventListener("click", choosePhoto);
+    __defers["$.__views.back!click!closeWindow"] && $.__views.back.addEventListener("click", closeWindow);
     _.extend($, exports);
 }
 
