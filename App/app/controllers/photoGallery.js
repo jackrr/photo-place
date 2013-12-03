@@ -2,6 +2,13 @@ var photos = Alloy.createCollection('photo');
 
 $.photoGallery.open();
 
+// Ti.Geolocation.addEventListener('location', function(location) {
+	// if (!location.success) {
+		// return Ti.API.error(location.error);
+	// }
+	// Ti.API.info(location.coords);
+// });
+
 function closeWindow() {
 	$.photoGallery.close();
 }

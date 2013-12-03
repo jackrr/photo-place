@@ -11,8 +11,14 @@ exports.sendPhoto = function(url, blob) {
     client.onsendstream = function(e) {
         Ti.API.info("ONSENDSTREAM - PROGRESS: " + e.progress);
     };
-    client.open("POST", url);
-    client.send({
-        image: Ti.Utils.base64encode(blob).toString()
+    Ti.Geolocation.getCurrentPosition(function(location) {
+        if (location.success) {
+            Ti.API.info("found location!");
+            client.open("POST", url);
+            client.send({
+                coords: location.coords,
+                image: Ti.Utils.base64encode(blob).toString()
+            });
+        } else Ti.API.error(location.error);
     });
 };

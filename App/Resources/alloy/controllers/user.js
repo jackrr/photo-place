@@ -4,12 +4,10 @@ function Controller() {
         userList = newUsers.toJSON();
         var data = [];
         _.each(userList, function(user) {
-            Ti.API.info(user["username"]);
             data.push(Ti.UI.createTableViewRow({
                 title: user["username"]
             }));
         });
-        Ti.API.info(data);
         var usersTable = Ti.UI.createTableView({
             data: data,
             top: 10

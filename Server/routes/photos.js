@@ -31,8 +31,12 @@ module.exports = function(db) {
 	function newFromUser(req, res) {
 		// var user = req.body.user;
 		var options = {};
+		console.log(req.body);
 		options.user = req.body.user;
 		options.image = req.body.image;
+		var coords = {};
+		coords.latitude = req.body.coords.latitude;
+		coords.longitude = req.body.coords.longitude;
 		if (!options.image) {
 			return error('no image sent', res);
 		}

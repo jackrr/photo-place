@@ -1,8 +1,10 @@
-var ServerUtil = require('serverUtil'); 
+var ServerUtil = require('serverUtil');
+var serverURL = "http://localhost:3000/";
+// var serverURL = Alloy.CFG.serverURL; WHY DOESN'T THIS WORK?? 
 
 exports.definition = {
 	config : {
-		"URL": "http://localhost:3000/photos",
+		"URL": serverURL+"photos",
 		// table schema and adapter information
 		"adapter": {
 			"type": "restapi",
@@ -16,7 +18,7 @@ exports.definition = {
             // Extend, override or implement Backbone.Model 
             url: function () {
             	if (this.get('_id')) {
-            		return "http://localhost:3000/photo/" + this.get('_id');	
+            		return serverURL + "photo/" + this.get('_id');	
             	} else {
             		return undefined;
             	}
