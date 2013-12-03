@@ -13,7 +13,7 @@ module.exports = function(db) {
 
 	var list = function(req, res) {
 		User.find({}, function(err, users) {
-			if (err) return error(err, res);
+		    if (err) return error(err, res);
 		    //res.json({users: [{'name':'jack'}, {'name': 'nate'}]});
 		    res.json({users: users});
 		});

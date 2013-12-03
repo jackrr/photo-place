@@ -10,9 +10,11 @@ module.exports = function(db) {
 	};
 
 	var user = require('./user')(db);
+	var photos = require('./photos')(db);
 
 	return {
 		index: index,
-		user: user
+		user: user,
+		photos: photos
 	};
 };
