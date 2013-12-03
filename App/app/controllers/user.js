@@ -12,10 +12,11 @@ function updateUsers(newUsers) {
 
 users.fetch({
 	success: function() {
+		alert(JSON.stringify(users));
 		updateUsers(users);		
 	},
-	error: function() {
-		Ti.API.error('oops!');
+	error: function(e) {
+		alert(e);
 	}
 });
 

@@ -28,10 +28,11 @@ function Controller() {
     $.user.open();
     users.fetch({
         success: function() {
+            alert(JSON.stringify(users));
             updateUsers(users);
         },
-        error: function() {
-            Ti.API.error("oops!");
+        error: function(e) {
+            alert(e);
         }
     });
     _.extend($, exports);
