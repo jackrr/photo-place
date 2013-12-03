@@ -1,4 +1,6 @@
 # Build folder and log file
 build/
 build.log
-public/upload_images/*
+Server/public/upload_images/*
+*.swp_emacs
+Server/node_modules/
