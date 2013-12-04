@@ -20,8 +20,8 @@ Place.getPossibleLocations = function(coords, cb) {
 				name: place.name,
 				icon: place.icon,
 				coordinates: {
-					lat: place.gemetry.location.lat,
-					lon: place.gemetry.location.lng
+					lat: place.geometry.location.lat,
+					lon: place.geometry.location.lng
 				},
 				address: place.vicinity
 			});

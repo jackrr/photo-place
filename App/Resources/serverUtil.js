@@ -1,7 +1,10 @@
 exports.sendPhoto = function(url, blob) {
+    var userID = Ti.App.Properties.getObject("authInfo").id;
     var client = Ti.Network.createHTTPClient({
         onload: function() {
-            Ti.API.info("Info received: " + this.responseText);
+            var response = JSON.parse(this.responseText);
+            Ti.API.info("Info received: " + response.toSource());
+            response.photo || response.places || Ti.API.error("Error uploading photo: " + this.responseText);
         },
         onerror: function() {
             Ti.API.error("Error uploading photo: " + this.responseText);
@@ -16,6 +19,7 @@ exports.sendPhoto = function(url, blob) {
             Ti.API.info("found location!");
             client.open("POST", url);
             client.send({
+                userID: userID,
                 coords: JSON.stringify(location.coords),
                 image: Ti.Utils.base64encode(blob).toString()
             });
