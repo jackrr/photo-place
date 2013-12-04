@@ -6,7 +6,7 @@ $.photoGallery.open();
 	// if (!location.success) {
 		// return Ti.API.error(location.error);
 	// }
-	// Ti.API.info(location.coords);
+	// Ti.API.info('new location!');
 // });
 
 function closeWindow() {

@@ -16,7 +16,7 @@ exports.sendPhoto = function(url, blob) {
             Ti.API.info("found location!");
             client.open("POST", url);
             client.send({
-                coords: location.coords,
+                coords: JSON.stringify(location.coords),
                 image: Ti.Utils.base64encode(blob).toString()
             });
         } else Ti.API.error(location.error);
