@@ -1,0 +1,5 @@
+<Alloy>
+	<Window id="win" backgroundColor="white" layout="vertical" exitOnClose="true">
+        <Picker id="thePicker" top="50" selectionIndicator="true"></Picker>
+    </Window>
+</Alloy>

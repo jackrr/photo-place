@@ -1,5 +1,7 @@
 {
-	"global": {}, 
+	"global": {
+		"nearRadius": 300
+	},
 	"env:development": {
 		"serverURL": "http://localhost:3000/"
 	}, 
@@ -9,10 +11,13 @@
 	"env:production": {
 		"serverURL": "http://photoplace.cs.oberlin.edu/"
 	}, 
-	"os:android": {},
+	"os:android": {
+		"placesAPIKEY": "AIzaSyDzAtfghpVg3KCauixn7IBapHLOp7b9YYE"
+	},
 	"os:blackberry": {},
 	"os:ios": {
-		"geolocPurpose": "Location is needed for all photo uploads and to find content relevant to the user."
+		"geolocPurpose": "Location is needed for all photo uploads and to find content relevant to the user.",
+		"placesAPIKEY": "AIzaSyArT0aKwmkYczPWImIJuChUQozmDzEE0eM"
 	},
 	"os:mobileweb": {},
 	"dependencies": {}

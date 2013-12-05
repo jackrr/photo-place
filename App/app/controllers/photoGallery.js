@@ -1,7 +1,8 @@
+var ServerUtil = require('serverUtil');
+
 var photos = Alloy.createCollection('photo');
 
 $.photoGallery.open();
-
 // Ti.Geolocation.addEventListener('location', function(location) {
 	// if (!location.success) {
 		// return Ti.API.error(location.error);
@@ -25,6 +26,23 @@ function openPhotos(newPhotos) {
 	$.tableView.setData(rows);
 }
 
+function getLocation(cb) {
+	ServerUtil.getNearbyPlaces(function(err, places) {
+		// present a prompt for user to select the correct place
+		Ti.API.info(JSON.stringify(places));
+		var rows = [];
+		_.each(places, function(place) {
+			rows.push(Ti.UI.createPickerRow({
+				title: place.name,
+				value: place.id
+			}));
+		});
+		var picker = Alloy.createController('picker');
+		picker.setRows(rows);
+		picker.getView().open();
+	});
+}
+
 function choosePhoto() {
 	Ti.Media.openPhotoGallery({
 		mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
@@ -33,7 +51,9 @@ function choosePhoto() {
 			Ti.API.info('Pick success');
 			if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 				var photo = Alloy.createModel('photo');
-				photo.setImage(event.media);
+				getLocation(function(err, location) {
+					photo.setImage(event.media, place);	
+				});
 			}
 		},
 		cancel : function() {
