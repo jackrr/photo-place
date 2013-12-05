@@ -28,16 +28,22 @@ function openPhotos(newPhotos) {
 
 function getLocation(cb) {
 	ServerUtil.getNearbyPlaces(function(err, places) {
+		if (err) return cb(err);
 		// present a prompt for user to select the correct place
 		Ti.API.info(JSON.stringify(places));
 		var rows = [];
+		var placeHash = {};
 		_.each(places, function(place) {
 			rows.push(Ti.UI.createPickerRow({
 				title: place.name,
 				value: place.id
 			}));
+			placeHash[place.id] = place;
 		});
 		var picker = Alloy.createController('picker');
+		picker.setCallback(function(selectedRow) {
+			cb(null, placeHash[selectedRow.value]);
+		});
 		picker.setRows(rows);
 		picker.getView().open();
 	});
@@ -51,7 +57,7 @@ function choosePhoto() {
 			Ti.API.info('Pick success');
 			if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 				var photo = Alloy.createModel('photo');
-				getLocation(function(err, location) {
+				getLocation(function(err, place) {
 					photo.setImage(event.media, place);	
 				});
 			}

@@ -1,6 +1,6 @@
 {
 	"global": {
-		"nearRadius": 300
+		"nearRadius": 200
 	},
 	"env:development": {
 		"serverURL": "http://localhost:3000/"

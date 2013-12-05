@@ -53,7 +53,11 @@ module.exports = function(db) {
 
 	function newFromUser(req, res) {
 		if (!req.body.userID) {
-			return error('bad parameters', res);
+			return error('no user', res);
+		}
+
+		if (!req.body.place) {
+			return error('no place', res);
 		}
 
 		var photo = {};
@@ -63,31 +67,12 @@ module.exports = function(db) {
 			return error('no image sent', res);
 		}
 
-		var coords = {};
-		req.body.coords = JSON.parse(req.body.coords);
-		coords.latitude = req.body.coords.latitude;
-		coords.longitude = req.body.coords.longitude;
-
-		Place.getPossibleLocations(coords, function(err, places) {
+		Place.updateOrCreate(JSON.parse(req.body.place), function(err, sPlace) {
 			if (err) return error(err, res);
-
-			if (places.length == 1) {
-				Photo.newPhotoByUser(photo, places[0], function(err, photo) {
-					if (err) return error(err, res);
-					res.json({photo: photo});
-				});
-
-			} else if (places.length) {
-				// prompt user with location options
-				pendingPhotos[req.body.user] = {
-					photo: photo,
-					places: places
-				};
-				res.json({places: places});
-
-			} else {
-				error('No places found!', res);
-			}
+			Photo.newPhotoByUser(photo, sPlace._id, function(err, photo) {
+				if (err) return error(err, res);
+				res.json({photo: photo});
+			});
 		});
 	}
 

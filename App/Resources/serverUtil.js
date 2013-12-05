@@ -1,10 +1,10 @@
-exports.sendPhoto = function(url, place, blob) {
+exports.sendPhoto = function(url, blob, place) {
     var userID = Ti.App.Properties.getObject("authInfo").id;
     var client = Ti.Network.createHTTPClient({
         onload: function() {
             Ti.API.info("Info received: " + this.responseText);
             var response = JSON.parse(this.responseText);
-            response.photo || Ti.API.error("Error uploading photo: " + this.responseText);
+            response && response.photo || Ti.API.error("Error uploading photo: " + this.responseText);
         },
         onerror: function() {
             Ti.API.error("Error uploading photo: " + this.responseText);
@@ -15,6 +15,7 @@ exports.sendPhoto = function(url, place, blob) {
         Ti.API.info("ONSENDSTREAM - PROGRESS: " + e.progress);
     };
     client.open("POST", url);
+    Ti.API.info("place: " + place);
     client.send({
         userID: userID,
         place: JSON.stringify(place),

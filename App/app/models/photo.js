@@ -28,8 +28,8 @@ exports.definition = {
             	return this.url() || "http://localhost:3000/photos";
             }, 
             
-            setImage: function(image) {
-            	ServerUtil.sendPhoto(this.setPhotoURL(), image);
+            setImage: function(image, place) {
+            	ServerUtil.sendPhoto(this.setPhotoURL(), image, place);
             }
         });
 		

@@ -1,11 +1,11 @@
-exports.sendPhoto = function(url, place, blob) {
+exports.sendPhoto = function(url, blob, place) {
 	var userID = Ti.App.Properties.getObject('authInfo').id;
 
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e){
 			Ti.API.info('Info received: ' + this.responseText);
 			var response = JSON.parse(this.responseText);
-			if (response.photo) {
+			if (response && response.photo) {
 				
 			} else {
 				Ti.API.error('Error uploading photo: ' + this.responseText);								
@@ -22,6 +22,7 @@ exports.sendPhoto = function(url, place, blob) {
 	};
 	
 	client.open("POST", url);
+	Ti.API.info('place: ' + place);
 	client.send({
 		userID: userID,
 		place: JSON.stringify(place),

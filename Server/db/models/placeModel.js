@@ -7,26 +7,33 @@ var GooglePlaces = require('google-places');
 var gp = new GooglePlaces(APIKEY);
 var radius = 100;
 
-Place.getPossibleLocations = function(coords, cb) {
-	gp.search({
-		location: [coords.latitude, coords.longitude],
-		radius: radius
-	}, function(err, response) {
+Place.updateOrCreate = function(place, cb) {
+	Place.find({_id: place.id}, function(err, sPlace) {
 		if (err) return cb(err);
-		var places = [];
-		_.each(response.results, function(place) {
-			places.push({
-				_id: place.id,
+		if (sPlace && sPlace.length) {
+			sPlace[0].update({
 				name: place.name,
+				address: place.vicinity,
 				icon: place.icon,
 				coordinates: {
 					lat: place.geometry.location.lat,
 					lon: place.geometry.location.lng
-				},
-				address: place.vicinity
+				}
+			}, function(err, success) {
+				cb(err, sPlace[0]);
 			});
-		});
-		cb(null, places);
+		} else {
+			Place.create({
+				_id: place.id,
+				name: place.name,
+				coordinates: {
+					lat: place.geometry.location.lat,
+					lon: place.geometry.location.lng
+				},
+				icon: place.icon,
+				address: place.vicinity
+			}, cb);
+		}
 	});
 };
 
