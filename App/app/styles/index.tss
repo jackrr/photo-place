@@ -10,3 +10,15 @@
 	top : 30
 },
 
+"#userPage": {
+	text : 'List of Users'
+},
+
+"#addUser": {
+	text : 'Create Account / Log In'
+},
+
+"#photoOpts": {
+	text : 'Photo Menu'
+}
+

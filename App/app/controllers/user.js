@@ -7,9 +7,9 @@ function updateUsers(newUsers) {
 	userList = newUsers.toJSON();
 
 	var data = [];
-	_.each(userList, function(user) {
+	_.each(newUsers.models, function(user) {
 		data.push(Ti.UI.createTableViewRow({
-			'title' : user["username"]
+			'title' : user.get('username')
 		}));
 	});
 

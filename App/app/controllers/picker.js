@@ -10,5 +10,7 @@ self.setCallback = function(cb) {
 };
 
 function done() {
-	callback($.thePicker.getSelectedRow(0));		
+	callback($.thePicker.getSelectedRow(0));
+	$.destroy();	
+	$.picker.close();
 }
