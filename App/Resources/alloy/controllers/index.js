@@ -36,7 +36,7 @@ function Controller() {
         height: Ti.UI.SIZE,
         color: "#000",
         top: 30,
-        text: "Click to open users page",
+        text: "List of Users",
         id: "userPage"
     });
     $.__views.index.add($.__views.userPage);
@@ -46,7 +46,7 @@ function Controller() {
         height: Ti.UI.SIZE,
         color: "#000",
         top: 30,
-        text: "Add user",
+        text: "Create Accont / Log In",
         id: "addUser"
     });
     $.__views.index.add($.__views.addUser);
@@ -63,8 +63,6 @@ function Controller() {
     openPhotoOpts ? $.__views.photoOpts.addEventListener("click", openPhotoOpts) : __defers["$.__views.photoOpts!click!openPhotoOpts"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.title.text = "Hello, " + Ti.App.Properties.getObject("authInfo").username;
-    $.index.open();
     if (!Ti.App.Properties.getObject("authInfo", false)) {
         var authWin = Alloy.createController("auth").getView();
         authWin.addEventListener("close", function() {
@@ -73,6 +71,14 @@ function Controller() {
         });
         authWin.open();
     }
+    Ti.App.addEventListener("signIn", function(e) {
+        Ti.API.info("signIn event");
+        var user = Ti.App.Properties.getObject("authInfo");
+        Ti.API.info(JSON.stringify(e.user));
+        $.title.text = "Hello, " + user.username;
+    });
+    $.title.text = "Hello, " + Ti.App.Properties.getObject("authInfo").username;
+    $.index.open();
     __defers["$.__views.userPage!click!openUserPage"] && $.__views.userPage.addEventListener("click", openUserPage);
     __defers["$.__views.addUser!click!addUser"] && $.__views.addUser.addEventListener("click", addUser);
     __defers["$.__views.photoOpts!click!openPhotoOpts"] && $.__views.photoOpts.addEventListener("click", openPhotoOpts);

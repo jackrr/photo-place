@@ -1,24 +1,15 @@
 function Controller() {
     function closeWindow() {
-        $.win.close();
+        $.destroy();
+        $.auth.close();
     }
-    function submitInfo() {
-        if ("" == $.username.value || "" == $.password1.value || "" == $.password2.value) alert("All fields are required"); else if ($.password1.value != $.password2.value) alert("Passwords do not match"); else {
-            var newUser = {
-                username: $.username.value,
-                password: $.password1.value,
-                email: $.email.value
-            };
-            user.set({
-                username: $.username.value,
-                password: $.password1.value,
-                email: $.email.value
-            });
-            Ti.API.info(JSON.stringify(user));
-            Ti.App.Properties.getObject("authInfo", false) || Ti.App.Properties.setObject("authInfo", newUser);
-            user.save();
-            closeWindow();
-        }
+    function openCreateAccount() {
+        Alloy.createController("createAccount");
+        closeWindow();
+    }
+    function openLogIn() {
+        Alloy.createController("logIn");
+        closeWindow();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "auth";
@@ -28,83 +19,39 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.win = Ti.UI.createWindow({
-        layout: "vertical",
+    $.__views.auth = Ti.UI.createWindow({
         backgroundColor: "white",
-        id: "win"
+        layout: "vertical",
+        id: "auth"
     });
-    $.__views.win && $.addTopLevelView($.__views.win);
-    $.__views.winlabel = Ti.UI.createLabel({
-        top: 50,
+    $.__views.auth && $.addTopLevelView($.__views.auth);
+    $.__views.title = Ti.UI.createLabel({
+        top: 30,
+        width: Ti.UI.SIZE,
+        id: "title",
+        text: "Welcome to\nPhoto Place"
+    });
+    $.__views.auth.add($.__views.title);
+    $.__views.createAccount = Ti.UI.createLabel({
+        top: 100,
         width: Ti.UI.SIZE,
         text: "Create Account",
-        id: "winlabel"
+        id: "createAccount"
     });
-    $.__views.win.add($.__views.winlabel);
-    $.__views.email = Ti.UI.createTextField({
-        top: 10,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        autocorrect: false,
-        width: 250,
-        autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        hintText: "Email",
-        keyboardType: Ti.UI.KEYBOARD_EMAIL,
-        id: "email"
-    });
-    $.__views.win.add($.__views.email);
-    $.__views.username = Ti.UI.createTextField({
-        top: 10,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        autocorrect: false,
-        width: 250,
-        autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        hintText: "Username",
-        id: "username"
-    });
-    $.__views.win.add($.__views.username);
-    $.__views.password1 = Ti.UI.createTextField({
-        top: 10,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        autocorrect: false,
-        width: 250,
-        autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        hintText: "Password",
-        passwordMask: true,
-        id: "password1"
-    });
-    $.__views.win.add($.__views.password1);
-    $.__views.password2 = Ti.UI.createTextField({
-        top: 10,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        autocorrect: false,
-        width: 250,
-        autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        hintText: "Re-enter Password",
-        passwordMask: true,
-        id: "password2"
-    });
-    $.__views.win.add($.__views.password2);
-    $.__views.submit = Ti.UI.createLabel({
+    $.__views.auth.add($.__views.createAccount);
+    openCreateAccount ? $.__views.createAccount.addEventListener("click", openCreateAccount) : __defers["$.__views.createAccount!click!openCreateAccount"] = true;
+    $.__views.logIn = Ti.UI.createLabel({
         top: 10,
         width: Ti.UI.SIZE,
-        text: "Submit",
-        id: "submit"
+        text: "Log In",
+        id: "logIn"
     });
-    $.__views.win.add($.__views.submit);
-    submitInfo ? $.__views.submit.addEventListener("click", submitInfo) : __defers["$.__views.submit!click!submitInfo"] = true;
-    $.__views.cancel = Ti.UI.createLabel({
-        top: 10,
-        width: Ti.UI.SIZE,
-        text: "Cancel",
-        id: "cancel"
-    });
-    $.__views.win.add($.__views.cancel);
-    closeWindow ? $.__views.cancel.addEventListener("click", closeWindow) : __defers["$.__views.cancel!click!closeWindow"] = true;
+    $.__views.auth.add($.__views.logIn);
+    openLogIn ? $.__views.logIn.addEventListener("click", openLogIn) : __defers["$.__views.logIn!click!openLogIn"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var user = Alloy.createModel("user");
-    __defers["$.__views.submit!click!submitInfo"] && $.__views.submit.addEventListener("click", submitInfo);
-    __defers["$.__views.cancel!click!closeWindow"] && $.__views.cancel.addEventListener("click", closeWindow);
+    __defers["$.__views.createAccount!click!openCreateAccount"] && $.__views.createAccount.addEventListener("click", openCreateAccount);
+    __defers["$.__views.logIn!click!openLogIn"] && $.__views.logIn.addEventListener("click", openLogIn);
     _.extend($, exports);
 }
 

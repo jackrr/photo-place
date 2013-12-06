@@ -17,11 +17,25 @@
 	width : Ti.UI.SIZE
 },
 
-"#title": {
-	top : 30,
+"#email": {
+	hintText : "Email",
+	keyboardType : Ti.UI.KEYBOARD_EMAIL
 },
 
-"#createAccount": {
-	top : 100
-}
+"#winlabel": {
+	top : 50
+},
 
+"#username": {
+	hintText : "Username",
+},
+
+"#password1": {
+	hintText : "Password",
+	passwordMask : true
+},
+
+"#password2": {
+	hintText : "Re-enter Password",
+	passwordMask : true
+}

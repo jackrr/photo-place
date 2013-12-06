@@ -30,6 +30,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.post('/users', user.createNew);
+app.post('/users/auth', user.authUser);
 
 function log(req, res, next) {
 	next();
