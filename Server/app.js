@@ -37,11 +37,13 @@ function log(req, res, next) {
 
 app.post('/photos', log, photos.newFromUser);
 app.get('/photos', log, photos.byPage);
-app.get('/photos/page/:pageNum', log, photos.byPage);
-app.get('/photos/place/:placeName', log, photos.atPlace);
-app.get('/photos/user/:userName', log, photos.byUser);
-app.post('/photos/user/:userID', log, photos.newFromUser);
-app.get('/photo/:id', photos.byID);
+app.post('/photos/placeselect', log, photos.placeConfirm);
+
+// app.get('/photos/page/:pageNum', log, photos.byPage);
+// app.get('/photos/place/:placeName', log, photos.atPlace);
+// app.get('/photos/user/:userName', log, photos.byUser);
+// app.post('/photos/user/:userID', log, photos.newFromUser);
+// app.get('/photo/:id', photos.byID);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

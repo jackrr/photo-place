@@ -9,3 +9,13 @@
 // object. For example:
 //
 // Alloy.Globals.someGlobalFunction = function(){};
+
+if (Alloy.CFG.geolocPurpose) {
+	Ti.API.info('setting geoloc');
+	Ti.Geolocation.setPurpose(Alloy.CFG.geolocPurpose);	
+}
+
+Ti.Geolocation.setAccuracy(Ti.Geolocation.ACCURACY_BEST);
+
+// bootstrap location services because they're stupid
+Ti.Geolocation.getCurrentPosition(function(){});

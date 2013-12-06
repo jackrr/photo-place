@@ -11,6 +11,7 @@
     "underscore": "*",
     "bcrypt": "*",
     "node-uuid": "*",
-    "imagemagick": "*"
+    "imagemagick": "*",
+    "google-places": "*"
   }
 }

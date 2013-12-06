@@ -3,8 +3,11 @@ function error(err, res) {
 	res.json(500, {err: err});
 }
 
+var pendingPhotos = {};
+
 module.exports = function(db) {
 	var Photo = db.Photo;
+	var Place = db.Place;
 
 	function byPage(req, res) {
 		var page = 0;
@@ -28,17 +31,48 @@ module.exports = function(db) {
 		res.send();
 	}
 
+	function placeConfirm(req, res) {
+		if (!req.body.userID || !req.body.placeID) {
+			return error('bad parameters', res);
+		}
+		var pend = pendingPhotos[req.body.userID];
+		var place;
+		_.each(pend.places, function(gplace) {
+			if (gplace._id == req.body.placeID) {
+				place = gplace;
+			}
+		});
+		if (!place) {
+			return error('Place not found!', res);
+		}
+
+		Photo.newPhotoByUser(pend.photo, place, function(err, photo) {
+			res.json({photo: photo});
+		});
+	}
+
 	function newFromUser(req, res) {
-		// var user = req.body.user;
-		var options = {};
-		options.user = req.body.user;
-		options.image = req.body.image;
-		if (!options.image) {
+		if (!req.body.userID) {
+			return error('no user', res);
+		}
+
+		if (!req.body.place) {
+			return error('no place', res);
+		}
+
+		var photo = {};
+		photo.userID = req.body.userID;
+		photo.image = req.body.image;
+		if (!photo.image) {
 			return error('no image sent', res);
 		}
-		Photo.newPhotoByUser(options, function(err, photo) {
+
+		Place.updateOrCreate(JSON.parse(req.body.place), function(err, sPlace) {
 			if (err) return error(err, res);
-			res.json({photo: photo});
+			Photo.newPhotoByUser(photo, sPlace._id, function(err, photo) {
+				if (err) return error(err, res);
+				res.json({photo: photo});
+			});
 		});
 	}
 
@@ -53,6 +87,7 @@ module.exports = function(db) {
 		atPlace: atPlace,
 		byUser: byUser,
 		newFromUser: newFromUser,
-		byID: byID
+		byID: byID,
+		placeConfirm: placeConfirm
 	};
 };

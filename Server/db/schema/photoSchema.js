@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
 		Schema = mongoose.Schema;
 
 var photoSchema = new Schema({
-	locationID: String,
+	placeID: String,
 	userID: String,
 	originalPath: String,
 	smallPath: String,
