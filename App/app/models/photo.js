@@ -38,12 +38,24 @@ exports.definition = {
 
     extendCollection: function(Collection) {		
         _.extend(Collection.prototype, {
-            // Extend, override or implement Backbone.Collection
-			// page: 1,
-			// grabPage: function() {
-            	// page++;
-            	// this.fetch(page);
-            // }
+			page: 0,
+			
+			nextPage: function(options) {
+            	this.page++;
+            	options.url = serverURL + "photos/page/" + this.page;
+            	this.fetch(options);
+           },
+           previousPage: function(options) {
+           		if (this.page > 0) {
+           	    	this.page--;
+           	    }
+           		options.url = serverURL + "photos/page/" + this.page;
+           		this.fetch(options);
+           },
+           currentPage: function(options) {
+           		options.url = serverURL + "photos/page/" + this.page;
+           		this.fetch(options);
+           }
         });
 		
         return Collection;

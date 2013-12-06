@@ -32,14 +32,16 @@ app.get('/users', user.list);
 app.post('/users', user.createNew);
 
 function log(req, res, next) {
+			console.log(req.params);
+		console.log(req.body);
 	next();
 }
 
 app.post('/photos', log, photos.newFromUser);
 app.get('/photos', log, photos.byPage);
 app.post('/photos/placeselect', log, photos.placeConfirm);
+app.get('/photos/page/:page', log, photos.byPage);
 
-// app.get('/photos/page/:pageNum', log, photos.byPage);
 // app.get('/photos/place/:placeName', log, photos.atPlace);
 // app.get('/photos/user/:userName', log, photos.byUser);
 // app.post('/photos/user/:userID', log, photos.newFromUser);

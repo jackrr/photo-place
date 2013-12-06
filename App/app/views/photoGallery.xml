@@ -1,6 +1,7 @@
 <Alloy>
 	<Window class="container">
-		<Label id="loadPhoto" onClick="clickLabel">Click to fetch!</Label>
+		<Label id="nextPage" onClick="nextPage">Next Page!</Label>
+		<Label id="previousPage" onClick="previousPage">Previous Page!</Label>
 		<Label id="uploadPhoto" onClick="choosePhoto">Click to upload!</Label>
 		<Label id="back" onClick="closeWindow">Back to Home</Label>
 		<TableView id="tableView"></TableView>

@@ -3,12 +3,8 @@ var ServerUtil = require('serverUtil');
 var photos = Alloy.createCollection('photo');
 
 $.photoGallery.open();
-// Ti.Geolocation.addEventListener('location', function(location) {
-	// if (!location.success) {
-		// return Ti.API.error(location.error);
-	// }
-	// Ti.API.info('new location!');
-// });
+
+currentPage();
 
 function closeWindow() {
 	$.photoGallery.close();
@@ -71,10 +67,33 @@ function choosePhoto() {
 	});
 }
 
-function clickLabel() {
-	photos.fetch({
-		success : function() {
-			openPhotos(photos);
+function nextPage() {
+	photos.nextPage({
+		success : function(newPhotos) {
+			openPhotos(newPhotos);
+		},
+		error : function(e) {
+			alert(JSON.stringify(e));
+		}
+	});
+}
+
+function previousPage() {
+	photos.previousPage({
+		success : function(newPhotos) {
+			openPhotos(newPhotos);
+		},
+		error : function(e) {
+			alert(JSON.stringify(e));
+		}
+	});
+}
+
+
+function currentPage() {
+	photos.currentPage({
+		success : function(newPhotos) {
+			openPhotos(newPhotos);
 		},
 		error : function(e) {
 			alert(JSON.stringify(e));

@@ -18,7 +18,6 @@ module.exports = function(db) {
 			if (err) return error(err, res);
 			res.json({photos: photos});
 		});
-		// res.json({photos: [{'_id': '1111', 'name':'jack', 'image': 'AHHH'}, {'_id': '2222', 'name': 'nate', 'image': 'BAHH'}]});
 	}
 
 	function atPlace(req, res) {
