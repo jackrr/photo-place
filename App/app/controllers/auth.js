@@ -1,4 +1,4 @@
-function closeWindow(){
+function closeWindow() {
 	$.destroy();
 	$.auth.close();
 }

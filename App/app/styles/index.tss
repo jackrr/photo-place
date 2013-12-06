@@ -15,7 +15,7 @@
 },
 
 "#addUser": {
-	text : 'Create Accont / Log In'
+	text : 'Create Account / Log In'
 },
 
 "#photoOpts": {

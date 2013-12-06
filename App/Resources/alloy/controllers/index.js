@@ -9,6 +9,9 @@ function Controller() {
     function openPhotoOpts() {
         Alloy.createController("photoGallery");
     }
+    function titleHeader(username) {
+        return "Hello, " + username;
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -46,7 +49,7 @@ function Controller() {
         height: Ti.UI.SIZE,
         color: "#000",
         top: 30,
-        text: "Create Accont / Log In",
+        text: "Create Account / Log In",
         id: "addUser"
     });
     $.__views.index.add($.__views.addUser);
@@ -67,7 +70,7 @@ function Controller() {
         var authWin = Alloy.createController("auth").getView();
         authWin.addEventListener("close", function() {
             var user = Ti.App.Properties.getObject("authInfo");
-            $.title.text = "Hello, " + user.username;
+            $.title.text = titleHeader(user.username);
         });
         authWin.open();
     }
@@ -75,9 +78,9 @@ function Controller() {
         Ti.API.info("signIn event");
         var user = Ti.App.Properties.getObject("authInfo");
         Ti.API.info(JSON.stringify(e.user));
-        $.title.text = "Hello, " + user.username;
+        $.title.text = titleHeader(user.username);
     });
-    $.title.text = "Hello, " + Ti.App.Properties.getObject("authInfo").username;
+    $.title.text = titleHeader(Ti.App.Properties.getObject("authInfo").username);
     $.index.open();
     __defers["$.__views.userPage!click!openUserPage"] && $.__views.userPage.addEventListener("click", openUserPage);
     __defers["$.__views.addUser!click!addUser"] && $.__views.addUser.addEventListener("click", addUser);

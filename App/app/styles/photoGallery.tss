@@ -12,4 +12,8 @@
 
 "#tableView": {
 	top : 30
+},
+
+"#placePicker": {
+	
 }

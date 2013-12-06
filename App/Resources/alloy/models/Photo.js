@@ -1,8 +1,10 @@
 var ServerUtil = require("serverUtil");
 
+var serverURL = "http://localhost:3000/";
+
 exports.definition = {
     config: {
-        URL: "http://localhost:3000/photos",
+        URL: serverURL + "photos",
         adapter: {
             type: "restapi",
             collection_name: "Photos",
@@ -12,13 +14,13 @@ exports.definition = {
     extendModel: function(Model) {
         _.extend(Model.prototype, {
             url: function() {
-                return this.get("_id") ? "http://localhost:3000/photo/" + this.get("_id") : void 0;
+                return this.get("_id") ? serverURL + "photo/" + this.get("_id") : void 0;
             },
             setPhotoURL: function() {
                 return this.url() || "http://localhost:3000/photos";
             },
-            setImage: function(image) {
-                ServerUtil.sendPhoto(this.setPhotoURL(), image);
+            setImage: function(image, place) {
+                ServerUtil.sendPhoto(this.setPhotoURL(), image, place);
             }
         });
         return Model;

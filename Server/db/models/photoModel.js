@@ -67,11 +67,11 @@ Photo.findPageWithImages = function(page, cb) {
 	});
 };
 
-Photo.newPhotoByUser = function(options, cb) {
-	console.log(options.image);
-	newPhoto(options.image, function(err, photo) {
+Photo.newPhotoByUser = function(pic, placeID, cb) {
+	newPhoto(pic.image, function(err, photo) {
 		if (err) return cb(err);
-		photo.userID = options.user;
+		photo.userID = pic.userID;
+		photo.placeID = placeID;
 		Photo.create(photo, function(err, ret) {
 			console.log('photo created: ', ret);
 			cb(err, ret);
