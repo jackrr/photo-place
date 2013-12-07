@@ -5,7 +5,7 @@ function Controller() {
     function openPhotos(newPhotos) {
         var rows = [];
         _.each(newPhotos.models, function(photo) {
-            var row = Alloy.createController("galleryPhoto", {
+            var row = Alloy.createController("galleryRow", {
                 photo: photo
             }).getView();
             rows.push(row);
