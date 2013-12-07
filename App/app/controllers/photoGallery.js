@@ -1,5 +1,8 @@
 var ServerUtil = require('serverUtil');
 
+var self = this;
+var args = arguments[0] || {};
+var parent = args.parent;
 var photos = Alloy.createCollection('photo');
 
 $.photoGallery.open();
@@ -10,11 +13,24 @@ function closeWindow() {
 	$.photoGallery.close();
 }
 
+function eliminate() {
+	closeWindow();
+	self.destroy();
+	parent.openWindow();
+};
+
+self.closeWindow = closeWindow;
+
+self.openWindow = function() {
+	$.photoGallery.open();
+};
+
 function openPhotos(newPhotos) {
 	var rows = [];
 	_.each(newPhotos.models, function(photo, index) {
 		var row = Alloy.createController('galleryRow', {
-			photo : photo
+			photo : photo,
+			parent : self
 		}).getView();
 		rows.push(row);
 	});

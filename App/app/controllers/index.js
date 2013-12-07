@@ -1,3 +1,13 @@
+var self = this;
+
+self.closeWindow = function() {
+	$.index.close();
+};
+
+self.openWindow = function() {
+	$.index.open();
+};
+
 function addUser(e) {
 	var authWin = Alloy.createController('auth').getView();
 	authWin.open();
@@ -5,10 +15,12 @@ function addUser(e) {
 
 function openUserPage(e) {
 	Alloy.createController('user');
+	self.closeWindow();
 }
 
 function openPhotoOpts(e) {
-	Alloy.createController('photoGallery');
+	Alloy.createController('photoGallery', {parent: self});
+	self.closeWindow();
 }
 
 function titleHeader(username) {
@@ -22,6 +34,7 @@ if (!Ti.App.Properties.getObject('authInfo', false)) {
 		$.title.text = titleHeader(user.username);
 	});
 
+	self.closeWindow();
 	authWin.open();
 }
 

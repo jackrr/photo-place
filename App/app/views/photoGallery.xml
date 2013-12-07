@@ -3,7 +3,7 @@
 		<Label id="nextPage" onClick="nextPage">Next Page!</Label>
 		<Label id="previousPage" onClick="previousPage">Previous Page!</Label>
 		<Label id="uploadPhoto" onClick="choosePhoto">Click to upload!</Label>
-		<Label id="back" onClick="closeWindow">Back to Home</Label>
+		<Label id="back" onClick="eliminate">Back to Home</Label>
 		<TableView id="tableView"></TableView>
 		<!-- <Picker id="placePicker"></Picker> -->
 	</Window>

@@ -2,11 +2,17 @@ function Controller() {
     function closeWindow() {
         $.photoGallery.close();
     }
+    function eliminate() {
+        closeWindow();
+        self.destroy();
+        parent.openWindow();
+    }
     function openPhotos(newPhotos) {
         var rows = [];
         _.each(newPhotos.models, function(photo) {
             var row = Alloy.createController("galleryRow", {
-                photo: photo
+                photo: photo,
+                parent: self
             }).getView();
             rows.push(row);
         });
@@ -134,7 +140,7 @@ function Controller() {
         id: "back"
     });
     $.__views.photoGallery.add($.__views.back);
-    closeWindow ? $.__views.back.addEventListener("click", closeWindow) : __defers["$.__views.back!click!closeWindow"] = true;
+    eliminate ? $.__views.back.addEventListener("click", eliminate) : __defers["$.__views.back!click!eliminate"] = true;
     $.__views.tableView = Ti.UI.createTableView({
         top: 30,
         id: "tableView"
@@ -143,13 +149,20 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var ServerUtil = require("serverUtil");
+    var self = this;
+    var args = arguments[0] || {};
+    var parent = args.parent;
     var photos = Alloy.createCollection("photo");
     $.photoGallery.open();
     currentPage();
+    self.closeWindow = closeWindow;
+    self.openWindow = function() {
+        $.photoGallery.open();
+    };
     __defers["$.__views.nextPage!click!nextPage"] && $.__views.nextPage.addEventListener("click", nextPage);
     __defers["$.__views.previousPage!click!previousPage"] && $.__views.previousPage.addEventListener("click", previousPage);
     __defers["$.__views.uploadPhoto!click!choosePhoto"] && $.__views.uploadPhoto.addEventListener("click", choosePhoto);
-    __defers["$.__views.back!click!closeWindow"] && $.__views.back.addEventListener("click", closeWindow);
+    __defers["$.__views.back!click!eliminate"] && $.__views.back.addEventListener("click", eliminate);
     _.extend($, exports);
 }
 

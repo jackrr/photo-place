@@ -1,6 +1,13 @@
 function Controller() {
     function openPhotoView() {
-        $.createController("photoView");
+        Alloy.createController("photoView", {
+            photo: photo,
+            parent: parent
+        });
+        closeWindow();
+    }
+    function closeWindow() {
+        parent.closeWindow();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "galleryRow";
@@ -48,6 +55,7 @@ function Controller() {
     var dateUtil = require("dateUtil");
     var args = arguments[0] || {};
     var photo = args.photo;
+    var parent = args.parent;
     $.userName.text = photo.get("userName");
     $.placeName.text = photo.get("placeName");
     $.uploadDate.text = dateUtil.prettyDate(photo.get("createdDate"));
