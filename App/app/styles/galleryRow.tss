@@ -1,3 +1,22 @@
-"rowView": {
+"#rowView": {
 	height: 80
+},
+"#userName": {
+	right: 20,
+	top: 20
+},
+"#placeName": {
+	right: 20,
+	top: 50
+},
+"#uploadDate": {
+	left: 5,
+	bottom: 2,
+	font: {
+		fontSize: 10
+	}
+},
+"#imageView": {
+	left: 5,
+	top: 4
 }
