@@ -52,7 +52,6 @@ function Controller() {
         });
     }
     function nextPage() {
-        Ti.API.info("next page");
         photos.nextPage({
             success: function(newPhotos) {
                 openPhotos(newPhotos);
@@ -63,7 +62,6 @@ function Controller() {
         });
     }
     function previousPage() {
-        Ti.API.info("previous page");
         photos.previousPage({
             success: function(newPhotos) {
                 openPhotos(newPhotos);
@@ -74,7 +72,6 @@ function Controller() {
         });
     }
     function currentPage() {
-        Ti.API.info("current page");
         photos.currentPage({
             success: function(newPhotos) {
                 openPhotos(newPhotos);
