@@ -28,18 +28,40 @@ exports.definition = {
     extendCollection: function(Collection) {
         _.extend(Collection.prototype, {
             page: 0,
+            nextURL: function(pageinc) {
+                var url = serverURL + "photos";
+                if (pageinc && 0 !== pageinc) {
+                    this.page = this.page + pageinc;
+                    0 > this.page && (this.page = 0);
+                }
+                this.placeID && (url = url + "/place/" + this.placeID);
+                this.userID && (url = url + "/user/" + this.userID);
+                return url + "/page/" + this.page;
+            },
             nextPage: function(options) {
-                this.page++;
-                options.url = serverURL + "photos/page/" + this.page;
+                options.url = this.nextURL(1);
                 this.fetch(options);
             },
             previousPage: function(options) {
-                this.page > 0 && this.page--;
-                options.url = serverURL + "photos/page/" + this.page;
+                options.url = this.nextURL(-1);
                 this.fetch(options);
             },
             currentPage: function(options) {
-                options.url = serverURL + "photos/page/" + this.page;
+                options.url = this.nextURL();
+                this.fetch(options);
+            },
+            byPlaceID: function(id, options) {
+                this.page = 0;
+                this.placeID = id;
+                this.userID = void 0;
+                options.url = this.nextURL();
+                this.fetch(options);
+            },
+            byUserID: function(id, options) {
+                this.page = 0;
+                this.userID = id;
+                this.placeID = void 0;
+                options.url = this.nextURL();
                 this.fetch(options);
             }
         });

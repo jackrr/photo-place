@@ -25,6 +25,28 @@ self.openWindow = function() {
 	$.photoGallery.open();
 };
 
+self.byPlace = function(placeID) {
+	photos.byPlaceID(placeID, {
+		success: function(newPhotos) {
+			openPhotos(newPhotos);
+		},
+		error: function(e) {
+			alert(JSON.stringify(e));	
+		}
+	});
+};
+
+self.byUser = function(userID) {
+	photos.byUserID(userID, {
+		success: function(newPhotos) {
+			openPhotos(newPhotos);
+		},
+		error: function(e) {
+			alert(JSON.stringify(e));	
+		}
+	});
+};
+
 function openPhotos(newPhotos) {
 	var rows = [];
 	_.each(newPhotos.models, function(photo, index) {

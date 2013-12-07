@@ -4,8 +4,14 @@ function Controller() {
         self.destroy();
         parent.openWindow();
     }
-    function openUser() {}
-    function openPlace() {}
+    function openUser() {
+        parent.byUser(self.photo.get("userID"));
+        back();
+    }
+    function openPlace() {
+        parent.byPlace(self.photo.get("placeID"));
+        back();
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "photoView";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;

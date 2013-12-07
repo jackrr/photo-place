@@ -21,11 +21,13 @@ function back() {
 };
 
 function openUser() {
-	// Alloy.createController('photoGallery', {user: photo.get('userID')});	
+	parent.byUser(self.photo.get('userID'));
+	back();
 }
 
 function openPlace() {
-	// Alloy.createController('photoGallery', {place: photo.get('placeID')});
+	parent.byPlace(self.photo.get('placeID'));
+	back();
 }
 
 

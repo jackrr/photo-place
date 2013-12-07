@@ -12,7 +12,7 @@ var serverDir = __dirname + "/../../public/";
 var mediaDir = serverDir + relativePath;
 var remoteDir = "http://localhost:3000/" + relativePath;
 
-var pageSize = 10;
+var pageSize = 5;
 
 function preSend(photos, cb) {
 	var numRunningQueries = photos.length;
@@ -23,14 +23,12 @@ function preSend(photos, cb) {
 		photo.largePath = remoteDir + photo.largePath;
 
 		Place.find({_id: photo.placeID}, function(err, place) {
-			console.log(err, place);
 			if (err || !(place && place.length)) {
 				photo.placeName = "";
 			} else {
 				photo.placeName = place[0].name;
 			}
 			User.find({_id: photo.userID}, function(err, user) {
-			console.log(err, user);
 				if (err || !(user && user.length)) {
 					photo.username = "";
 				} else {
@@ -38,7 +36,6 @@ function preSend(photos, cb) {
 				}
 				--numRunningQueries;
 				if (numRunningQueries === 0) {
-					console.log(photo);
 		      // finally, AFTER all callbacks did return:
 		      cb(photos);
 		    }
@@ -46,7 +43,6 @@ function preSend(photos, cb) {
 		});
 	});
 	if (numRunningQueries === 0) {
-		console.log('callback');
 		cb(photos);
 	}
 }
@@ -92,6 +88,24 @@ function newPhoto(base64EncodeData, cb) {
 
 Photo.findPageWithImages = function(page, cb) {
 	Photo.find().skip(page*pageSize).limit(pageSize).exec(function(err, photos) {
+		if (err) return cb(err);
+		preSend(photos, function(finalPhotos) {
+			cb(null, finalPhotos);
+		});
+	});
+};
+
+Photo.findPageWithImagesByUser = function(page, userID, cb) {
+	Photo.find({userID: userID}).skip(page*pageSize).limit(pageSize).exec(function(err, photos) {
+		if (err) return cb(err);
+		preSend(photos, function(finalPhotos) {
+			cb(null, finalPhotos);
+		});
+	});
+};
+
+Photo.findPageWithImagesByPlace = function(page, placeID, cb) {
+	Photo.find({placeID: placeID}).skip(page*pageSize).limit(pageSize).exec(function(err, photos) {
 		if (err) return cb(err);
 		preSend(photos, function(finalPhotos) {
 			cb(null, finalPhotos);

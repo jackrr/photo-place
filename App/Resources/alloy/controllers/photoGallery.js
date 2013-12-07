@@ -159,6 +159,26 @@ function Controller() {
     self.openWindow = function() {
         $.photoGallery.open();
     };
+    self.byPlace = function(placeID) {
+        photos.byPlaceID(placeID, {
+            success: function(newPhotos) {
+                openPhotos(newPhotos);
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+    };
+    self.byUser = function(userID) {
+        photos.byUserID(userID, {
+            success: function(newPhotos) {
+                openPhotos(newPhotos);
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+    };
     __defers["$.__views.nextPage!click!nextPage"] && $.__views.nextPage.addEventListener("click", nextPage);
     __defers["$.__views.previousPage!click!previousPage"] && $.__views.previousPage.addEventListener("click", previousPage);
     __defers["$.__views.uploadPhoto!click!choosePhoto"] && $.__views.uploadPhoto.addEventListener("click", choosePhoto);
