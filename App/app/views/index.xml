@@ -1,8 +1,8 @@
 <Alloy>
 	<Window class="container">
 		<Label id="title"></Label>
-		<Label id="userPage" onClick="openUserPage">Click to open users page</Label>
-		<Label id="addUser" onClick="addUser">Add user</Label>
-		<Label id="photoOpts" onClick="openPhotoOpts">Photo Menu</Label>
+		<Label id="userPage" onClick="openUserPage"/>
+		<Label id="addUser" onClick="addUser"/>
+		<Label id="photoOpts" onClick="openPhotoOpts"/>
 	</Window>
 </Alloy>

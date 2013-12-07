@@ -23,6 +23,25 @@ exports.sendPhoto = function(url, blob, place) {
     });
 };
 
+exports.checkPassword = function(url, info, cb) {
+    var client = Ti.Network.createHTTPClient({
+        onload: function() {
+            Ti.API.info("Response: " + this.responseText);
+            cb(null, this.responseText);
+        },
+        onerror: function() {
+            Ti.API.info("Error: " + this.responseText);
+            cb(JSON.parse(this.responseText).err, null);
+        },
+        timeout: 1e4
+    });
+    client.open("POST", url);
+    client.send({
+        username: info.username,
+        password: info.password
+    });
+};
+
 exports.getNearbyPlaces = function(cb) {
     var placesURL = "https://maps.googleapis.com/maps/api/place/search/json?key=" + Alloy.CFG.placesAPIKEY;
     var radius = Alloy.CFG.nearRadius;
