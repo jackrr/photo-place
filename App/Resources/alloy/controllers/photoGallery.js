@@ -7,7 +7,19 @@ function Controller() {
         self.destroy();
         parent.openWindow();
     }
-    function openPhotos(newPhotos) {
+    function addPhotos(newPhotos) {
+        var rows = [];
+        _.each(newPhotos.models, function(photo) {
+            var row = Alloy.createController("galleryRow", {
+                photo: photo,
+                parent: self
+            }).getView();
+            rows.push(row);
+        });
+        $.tableView.appendRow(rows);
+        self.updating = false;
+    }
+    function changePhotos(newPhotos) {
         var rows = [];
         _.each(newPhotos.models, function(photo) {
             var row = Alloy.createController("galleryRow", {
@@ -17,6 +29,7 @@ function Controller() {
             rows.push(row);
         });
         $.tableView.setData(rows);
+        self.updating = false;
     }
     function getLocation(cb) {
         ServerUtil.getNearbyPlaces(function(err, places) {
@@ -58,19 +71,10 @@ function Controller() {
         });
     }
     function nextPage() {
+        self.updating = true;
         photos.nextPage({
             success: function(newPhotos) {
-                openPhotos(newPhotos);
-            },
-            error: function(e) {
-                alert(JSON.stringify(e));
-            }
-        });
-    }
-    function previousPage() {
-        photos.previousPage({
-            success: function(newPhotos) {
-                openPhotos(newPhotos);
+                addPhotos(newPhotos);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -78,9 +82,10 @@ function Controller() {
         });
     }
     function currentPage() {
+        self.updating = true;
         photos.currentPage({
             success: function(newPhotos) {
-                openPhotos(newPhotos);
+                addPhotos(newPhotos);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -101,26 +106,6 @@ function Controller() {
         id: "photoGallery"
     });
     $.__views.photoGallery && $.addTopLevelView($.__views.photoGallery);
-    $.__views.nextPage = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        top: 20,
-        color: "#000",
-        text: "Next Page!",
-        id: "nextPage"
-    });
-    $.__views.photoGallery.add($.__views.nextPage);
-    nextPage ? $.__views.nextPage.addEventListener("click", nextPage) : __defers["$.__views.nextPage!click!nextPage"] = true;
-    $.__views.previousPage = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        top: 20,
-        color: "#000",
-        text: "Previous Page!",
-        id: "previousPage"
-    });
-    $.__views.photoGallery.add($.__views.previousPage);
-    previousPage ? $.__views.previousPage.addEventListener("click", previousPage) : __defers["$.__views.previousPage!click!previousPage"] = true;
     $.__views.uploadPhoto = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -154,15 +139,22 @@ function Controller() {
     var parent = args.parent;
     var photos = Alloy.createCollection("photo");
     $.photoGallery.open();
+    $.tableView.addEventListener("scrollEnd", function(e) {
+        Ti.API.info(JSON.stringify(e.contentSize));
+        Ti.API.info(JSON.stringify(e.size));
+        Ti.API.info(JSON.stringify(e.contentOffset));
+        !self.updating && e.contentOffset.y + e.size.height + 50 > e.contentSize.height && nextPage();
+    });
     currentPage();
     self.closeWindow = closeWindow;
     self.openWindow = function() {
         $.photoGallery.open();
     };
     self.byPlace = function(placeID) {
+        self.updating = true;
         photos.byPlaceID(placeID, {
             success: function(newPhotos) {
-                openPhotos(newPhotos);
+                changePhotos(newPhotos);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -170,17 +162,16 @@ function Controller() {
         });
     };
     self.byUser = function(userID) {
+        self.updating = true;
         photos.byUserID(userID, {
             success: function(newPhotos) {
-                openPhotos(newPhotos);
+                changePhotos(newPhotos);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
             }
         });
     };
-    __defers["$.__views.nextPage!click!nextPage"] && $.__views.nextPage.addEventListener("click", nextPage);
-    __defers["$.__views.previousPage!click!previousPage"] && $.__views.previousPage.addEventListener("click", previousPage);
     __defers["$.__views.uploadPhoto!click!choosePhoto"] && $.__views.uploadPhoto.addEventListener("click", choosePhoto);
     __defers["$.__views.back!click!eliminate"] && $.__views.back.addEventListener("click", eliminate);
     _.extend($, exports);

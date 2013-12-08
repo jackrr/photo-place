@@ -7,6 +7,15 @@ var photos = Alloy.createCollection('photo');
 
 $.photoGallery.open();
 
+$.tableView.addEventListener('scrollEnd', function(e) {
+	Ti.API.info(JSON.stringify(e.contentSize));
+	Ti.API.info(JSON.stringify(e.size));
+	Ti.API.info(JSON.stringify(e.contentOffset));
+	if (!self.updating && (e.contentOffset.y + e.size.height + 50 > e.contentSize.height)) {
+		nextPage();
+	}
+});
+
 currentPage();
 
 function closeWindow() {
@@ -26,9 +35,10 @@ self.openWindow = function() {
 };
 
 self.byPlace = function(placeID) {
+	self.updating = true;
 	photos.byPlaceID(placeID, {
 		success: function(newPhotos) {
-			openPhotos(newPhotos);
+			changePhotos(newPhotos);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -37,9 +47,10 @@ self.byPlace = function(placeID) {
 };
 
 self.byUser = function(userID) {
+	self.updating = true;
 	photos.byUserID(userID, {
 		success: function(newPhotos) {
-			openPhotos(newPhotos);
+			changePhotos(newPhotos);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -47,7 +58,21 @@ self.byUser = function(userID) {
 	});
 };
 
-function openPhotos(newPhotos) {
+function addPhotos(newPhotos) {
+	var rows = [];
+	_.each(newPhotos.models, function(photo, index) {
+		var row = Alloy.createController('galleryRow', {
+			photo : photo,
+			parent : self
+		}).getView();
+		rows.push(row);
+	});
+
+	$.tableView.appendRow(rows);
+	self.updating = false;
+}
+
+function changePhotos(newPhotos) {
 	var rows = [];
 	_.each(newPhotos.models, function(photo, index) {
 		var row = Alloy.createController('galleryRow', {
@@ -58,6 +83,7 @@ function openPhotos(newPhotos) {
 	});
 
 	$.tableView.setData(rows);
+	self.updating = false;
 }
 
 function getLocation(cb) {
@@ -106,9 +132,10 @@ function choosePhoto() {
 }
 
 function nextPage() {
+	self.updating = true;
 	photos.nextPage({
 		success : function(newPhotos) {
-			openPhotos(newPhotos);
+			addPhotos(newPhotos);
 		},
 		error : function(e) {
 			alert(JSON.stringify(e));
@@ -116,22 +143,23 @@ function nextPage() {
 	});
 }
 
-function previousPage() {
-	photos.previousPage({
-		success : function(newPhotos) {
-			openPhotos(newPhotos);
-		},
-		error : function(e) {
-			alert(JSON.stringify(e));
-		}
-	});
-}
+// function previousPage() {
+	// photos.previousPage({
+		// success : function(newPhotos) {
+			// openPhotos(newPhotos);
+		// },
+		// error : function(e) {
+			// alert(JSON.stringify(e));
+		// }
+	// });
+// }
 
 
 function currentPage() {
+	self.updating = true;
 	photos.currentPage({
 		success : function(newPhotos) {
-			openPhotos(newPhotos);
+			addPhotos(newPhotos);
 		},
 		error : function(e) {
 			alert(JSON.stringify(e));
