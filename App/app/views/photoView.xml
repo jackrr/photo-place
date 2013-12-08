@@ -1,6 +1,6 @@
 <Alloy>
 	<Window class="container">
-		<ImageView id="image"></ImageView>
+		<ImageView id="image" onClick="fullPhoto"></ImageView>
 		<View class="userArea">
 			<Label class="label">By User:</Label>
 			<Label id="userName" class="value" onClick="openUser"></Label>

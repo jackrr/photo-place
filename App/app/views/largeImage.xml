@@ -1,0 +1,5 @@
+<Alloy>
+	<Window id="largeImage" class="container" onClick="back">
+		<ImageView id="image"></ImageView>>
+	</Window>
+</Alloy>

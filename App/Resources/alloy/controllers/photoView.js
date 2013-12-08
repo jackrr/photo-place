@@ -4,6 +4,13 @@ function Controller() {
         self.destroy();
         parent.openWindow();
     }
+    function fullPhoto() {
+        Alloy.createController("largeImage", {
+            photo: self.photo,
+            parent: self
+        });
+        self.closeWindow();
+    }
     function openUser() {
         parent.byUser(self.photo.get("userID"));
         back();
@@ -31,6 +38,7 @@ function Controller() {
         id: "image"
     });
     $.__views.photoView.add($.__views.image);
+    fullPhoto ? $.__views.image.addEventListener("click", fullPhoto) : __defers["$.__views.image!click!fullPhoto"] = true;
     $.__views.__alloyId1 = Ti.UI.createView({
         layout: "horizontal",
         height: 40,
@@ -101,10 +109,14 @@ function Controller() {
     self.closeWindow = function() {
         $.photoView.close();
     };
+    self.openWindow = function() {
+        $.photoView.open();
+    };
     var args = arguments[0] || {};
     var parent = args.parent;
     self.setPhoto(args.photo);
     $.photoView.open();
+    __defers["$.__views.image!click!fullPhoto"] && $.__views.image.addEventListener("click", fullPhoto);
     __defers["$.__views.userName!click!openUser"] && $.__views.userName.addEventListener("click", openUser);
     __defers["$.__views.placeName!click!openPlace"] && $.__views.placeName.addEventListener("click", openPlace);
     __defers["$.__views.__alloyId7!click!back"] && $.__views.__alloyId7.addEventListener("click", back);
