@@ -113,6 +113,32 @@ Photo.findPageWithImagesByPlace = function(page, placeID, cb) {
 	});
 };
 
+Photo.findTopPhotosForPlaces = function(placeIDs, cb) {
+	var photos = [];
+	var errored;
+	var numRunningQueries = placeIDs.length;
+	_.each(placeIDs, function(id) {
+		Photo.find({placeID: id}, function(err, placePhotos) {
+			if (err) errored = err;
+			photos.concat(placePhotos);
+			--numRunningQueries;
+			if (numRunningQueries === 0) {
+		    // finally, AFTER all callbacks did return:
+		    if (errored) {
+		    	cb(errored);
+		    } else {
+		    	preSend(photos, function(finalPhotos) {
+			      cb(null, finalPhotos);
+		    	});
+		    }
+	    }
+		});
+	});
+	if (numRunningQueries === 0) {
+		cb(null);
+	}
+}
+
 Photo.newPhotoByUser = function(pic, placeID, cb) {
 	newPhoto(pic.image, function(err, photo) {
 		if (err) return cb(err);

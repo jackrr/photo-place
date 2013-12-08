@@ -71,3 +71,35 @@ exports.getNearbyPlaces = function(cb) {
         } else cb(location.error);
     });
 };
+
+exports.nearbyPlaceIdsForURL = function(page, cb) {
+    var placesURL = "https://maps.googleapis.com/maps/api/place/search/json?key=" + Alloy.CFG.placesAPIKEY;
+    var radius = Alloy.CFG.nearRadius;
+    var client = Ti.Network.createHTTPClient({
+        onload: function() {
+            var response = JSON.parse(this.responseText);
+            if (response.results) {
+                var places = [];
+                _.each(response.results, function(place) {
+                    places.push(place.id);
+                });
+                places = places.toString();
+                cb(null, places);
+            } else cb("Error finding nearby locations: " + this.responseText);
+        },
+        onerror: function() {
+            cb("Error finding nearby locations: " + this.responseText);
+        },
+        timeout: 5e3
+    });
+    Ti.Geolocation.getCurrentPosition(function(location) {
+        if (location.success) {
+            var lat = location.coords.latitude;
+            var lng = location.coords.longitude;
+            placesURL = placesURL + "&location=" + lat + "," + lng + "&radius=" + radius + "&sensor=false";
+            page > 0 && (placesURL = placesURL + "&pagetoken=" + page);
+            client.open("GET", placesURL);
+            client.send();
+        } else cb(location.error);
+    });
+};

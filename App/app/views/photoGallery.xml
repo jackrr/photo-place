@@ -1,8 +1,20 @@
 <Alloy>
 	<Window class="container">
-		<Label id="uploadPhoto" onClick="choosePhoto">Click to upload!</Label>
-		<Label id="back" onClick="eliminate">Back to Home</Label>
+		<View id="uploadBar">
+			<Label id="back" onClick="eliminate">Back</Label>
+			<Button id="uploadPhoto" onClick="choosePhoto"></Button>
+		</View>
+		<View id="navigation">
+			<View class="buttonContainer selected" id="globalContainer" onClick="globeButt">
+				<Button id="global" class="navButt"></Button>
+			</View>
+			<View class="buttonContainer" id="nearbyContainer" onClick="nearButt">
+				<Button id="nearby" class="navButt">Nearby</Button>
+			</View>
+			<View class="buttonContainer" id="hereContainer">
+				<Button id="here" class="navButt">Here</Button>
+			</View>
+		</View>
 		<TableView id="tableView"></TableView>
-		<!-- <Picker id="placePicker"></Picker> -->
 	</Window>
 </Alloy>

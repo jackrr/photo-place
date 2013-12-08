@@ -5,18 +5,47 @@ var args = arguments[0] || {};
 var parent = args.parent;
 var photos = Alloy.createCollection('photo');
 
-$.photoGallery.open();
 
-$.tableView.addEventListener('scrollEnd', function(e) {
-	Ti.API.info(JSON.stringify(e.contentSize));
-	Ti.API.info(JSON.stringify(e.size));
-	Ti.API.info(JSON.stringify(e.contentOffset));
-	if (!self.updating && (e.contentOffset.y + e.size.height + 50 > e.contentSize.height)) {
-		nextPage();
+function changeGallery(options) {
+	if (options) {
+		if (options.placeID) {
+			self.byPlace(options.placeID);
+		} else if (options.userID) {
+			self.byUser(options.userID);
+		} else if (options.nearby) {
+			self.nearby();
+		} else {
+			self.here();
+		}
+	} else {
+		self.openGlobal();
 	}
-});
+}
 
-currentPage();
+function globeButt() {
+	changeGallery();
+	setTab(0);
+}
+
+function nearButt() {
+	changeGallery({nearby: true});
+	setTab(1);
+}
+
+function setTab(tabnum, text) {
+	$.removeClass(selected, 'selected');
+	if (tabnum === 0) {
+		selected = $.globalContainer;
+	} else if (tabnum == 1) {
+		selected = $.nearbyContainer;
+	} else if (tabnum == 2) {
+		selected = $.hereContainer;
+		if (text) {
+			$.here.text = text;			
+		}
+	}
+	$.addClass(selected, 'selected');
+}
 
 function closeWindow() {
 	$.photoGallery.close();
@@ -32,6 +61,42 @@ self.closeWindow = closeWindow;
 
 self.openWindow = function() {
 	$.photoGallery.open();
+};
+
+self.here = function() {
+	self.updating = true;
+	photos.byPlace(Ti.App.Properties.getObject('curLocID'), {
+		success: function(newPhotos) {
+			changePhotos(newPhotos);
+		},
+		error: function(e) {
+			alert(JSON.stringify(e));	
+		}
+	});
+};
+
+self.nearby = function() {
+	self.updating = true;
+	photos.nearby({
+		success: function(newPhotos) {
+			changePhotos(newPhotos, true);
+		},
+		error: function(e) {
+			alert(JSON.stringify(e));	
+		}
+	});
+};
+
+self.openGlobal = function() {
+	self.updating = true;
+	photos.global({
+		success: function(newPhotos) {
+			changePhotos(newPhotos);
+		},
+		error: function(e) {
+			alert(JSON.stringify(e));	
+		}
+	});
 };
 
 self.byPlace = function(placeID) {
@@ -58,9 +123,17 @@ self.byUser = function(userID) {
 	});
 };
 
-function addPhotos(newPhotos) {
+function addPhotos(newPhotos, placeLabels) {
 	var rows = [];
+	var lastPlace;
 	_.each(newPhotos.models, function(photo, index) {
+		if (placeLabels && photo.get('placeName') != lastPlace.name) {
+			lastPlace = photo.get('placeName');
+			var placeRow = Ti.UI.createTableViewRow({
+				title: lastPlace
+			});
+			rows.push(placeRow);
+		}
 		var row = Alloy.createController('galleryRow', {
 			photo : photo,
 			parent : self
@@ -72,9 +145,17 @@ function addPhotos(newPhotos) {
 	self.updating = false;
 }
 
-function changePhotos(newPhotos) {
+function changePhotos(newPhotos, placeLabels) {
 	var rows = [];
+	var lastPlace;
 	_.each(newPhotos.models, function(photo, index) {
+		if (placeLabels && photo.get('placeName') != lastPlace.name) {
+			lastPlace = photo.get('placeName');
+			var placeRow = Ti.UI.createTableViewRow({
+				title: lastPlace
+			});
+			rows.push(placeRow);
+		}
 		var row = Alloy.createController('galleryRow', {
 			photo : photo,
 			parent : self
@@ -159,10 +240,24 @@ function currentPage() {
 	self.updating = true;
 	photos.currentPage({
 		success : function(newPhotos) {
-			addPhotos(newPhotos);
+			changePhotos(newPhotos);
 		},
 		error : function(e) {
 			alert(JSON.stringify(e));
 		}
 	});
 }
+
+var selected = $.globalContainer;
+globeButt();
+
+$.photoGallery.open();
+
+$.tableView.addEventListener('scrollEnd', function(e) {
+	Ti.API.info(JSON.stringify(e.contentSize));
+	Ti.API.info(JSON.stringify(e.size));
+	Ti.API.info(JSON.stringify(e.contentOffset));
+	if (!self.updating && (e.contentOffset.y + e.size.height + 50 > e.contentSize.height)) {
+		nextPage();
+	}
+});

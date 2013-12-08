@@ -36,11 +36,25 @@ exports.definition = {
                 }
                 this.placeID && (url = url + "/place/" + this.placeID);
                 this.userID && (url = url + "/user/" + this.userID);
+                if (this.nearbyBool) return url += "/nearby/";
                 return url + "/page/" + this.page;
+            },
+            resetValues: function() {
+                this.placeID = void 0;
+                this.userID = void 0;
+                this.page = 0;
+                this.nearbyBool = void 0;
             },
             nextPage: function(options) {
                 options.url = this.nextURL(1);
-                this.fetch(options);
+                if (this.nearby) {
+                    var self = this;
+                    ServerUtil.nearbyPlaceIdsForURL(this.page, function(err, placestring) {
+                        if (err) return Ti.API.error(err);
+                        options.url = options.url + placestring;
+                        self.fetch(options);
+                    });
+                } else this.fetch(options);
             },
             previousPage: function(options) {
                 options.url = this.nextURL(-1);
@@ -50,17 +64,31 @@ exports.definition = {
                 options.url = this.nextURL();
                 this.fetch(options);
             },
+            global: function(options) {
+                this.resetValues();
+                options.url = this.nextURL();
+                this.fetch(options);
+            },
+            nearby: function(options) {
+                this.resetValues();
+                this.nearbyBool = true;
+                options.url = this.nextURL();
+                var self = this;
+                ServerUtil.nearbyPlaceIdsForURL(this.page, function(err, placestring) {
+                    if (err) return Ti.API.error(err);
+                    options.url = options.url + placestring;
+                    self.fetch(options);
+                });
+            },
             byPlaceID: function(id, options) {
-                this.page = 0;
+                this.resetValues();
                 this.placeID = id;
-                this.userID = void 0;
                 options.url = this.nextURL();
                 this.fetch(options);
             },
             byUserID: function(id, options) {
-                this.page = 0;
+                this.resetValues();
                 this.userID = id;
-                this.placeID = void 0;
                 options.url = this.nextURL();
                 this.fetch(options);
             }

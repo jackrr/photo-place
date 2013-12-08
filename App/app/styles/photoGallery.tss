@@ -14,6 +14,49 @@
 	top : 30
 },
 
-"#placePicker": {
-	
+"#uploadBar": {
+	height: 40,
+	backgroundColor: "#33dd99",
+	width: "100%"
+},
+
+"#back": {
+	left: 5
+},
+
+"#uploadPhoto": {
+	right: 5,
+	backgroundImage: '/images/camera-icon.png'
+},
+
+"#navigation": {
+	height: 60,
+	width: "100%"
+},
+
+".buttonContainer": {
+	width: "33.33%"
+},
+
+".selected": {
+	backgroundColor: "#4433dd",
+	color: "#ffffff"
+},
+
+"#globalContainer": {
+	left: 0
+},
+
+"#global": {
+	backgroundImage: '/images/earth-icon.png',
+	width: 50,
+	height: 50
 }
+
+"#nearbyContainer": {
+	left: "33.33%"
+},
+"#hereContainer": {
+	left: "66.66%"
+}
+
