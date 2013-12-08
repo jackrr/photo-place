@@ -2,11 +2,17 @@ function Controller() {
     function closeWindow() {
         $.photoGallery.close();
     }
+    function eliminate() {
+        closeWindow();
+        self.destroy();
+        parent.openWindow();
+    }
     function openPhotos(newPhotos) {
         var rows = [];
         _.each(newPhotos.models, function(photo) {
-            var row = Alloy.createController("galleryPhoto", {
-                photo: photo
+            var row = Alloy.createController("galleryRow", {
+                photo: photo,
+                parent: self
             }).getView();
             rows.push(row);
         });
@@ -51,10 +57,30 @@ function Controller() {
             }
         });
     }
-    function clickLabel() {
-        photos.fetch({
-            success: function() {
-                openPhotos(photos);
+    function nextPage() {
+        photos.nextPage({
+            success: function(newPhotos) {
+                openPhotos(newPhotos);
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+    }
+    function previousPage() {
+        photos.previousPage({
+            success: function(newPhotos) {
+                openPhotos(newPhotos);
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+    }
+    function currentPage() {
+        photos.currentPage({
+            success: function(newPhotos) {
+                openPhotos(newPhotos);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -75,16 +101,26 @@ function Controller() {
         id: "photoGallery"
     });
     $.__views.photoGallery && $.addTopLevelView($.__views.photoGallery);
-    $.__views.loadPhoto = Ti.UI.createLabel({
+    $.__views.nextPage = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         top: 20,
         color: "#000",
-        text: "Click to fetch!",
-        id: "loadPhoto"
+        text: "Next Page!",
+        id: "nextPage"
     });
-    $.__views.photoGallery.add($.__views.loadPhoto);
-    clickLabel ? $.__views.loadPhoto.addEventListener("click", clickLabel) : __defers["$.__views.loadPhoto!click!clickLabel"] = true;
+    $.__views.photoGallery.add($.__views.nextPage);
+    nextPage ? $.__views.nextPage.addEventListener("click", nextPage) : __defers["$.__views.nextPage!click!nextPage"] = true;
+    $.__views.previousPage = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        top: 20,
+        color: "#000",
+        text: "Previous Page!",
+        id: "previousPage"
+    });
+    $.__views.photoGallery.add($.__views.previousPage);
+    previousPage ? $.__views.previousPage.addEventListener("click", previousPage) : __defers["$.__views.previousPage!click!previousPage"] = true;
     $.__views.uploadPhoto = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -104,7 +140,7 @@ function Controller() {
         id: "back"
     });
     $.__views.photoGallery.add($.__views.back);
-    closeWindow ? $.__views.back.addEventListener("click", closeWindow) : __defers["$.__views.back!click!closeWindow"] = true;
+    eliminate ? $.__views.back.addEventListener("click", eliminate) : __defers["$.__views.back!click!eliminate"] = true;
     $.__views.tableView = Ti.UI.createTableView({
         top: 30,
         id: "tableView"
@@ -113,11 +149,40 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var ServerUtil = require("serverUtil");
+    var self = this;
+    var args = arguments[0] || {};
+    var parent = args.parent;
     var photos = Alloy.createCollection("photo");
     $.photoGallery.open();
-    __defers["$.__views.loadPhoto!click!clickLabel"] && $.__views.loadPhoto.addEventListener("click", clickLabel);
+    currentPage();
+    self.closeWindow = closeWindow;
+    self.openWindow = function() {
+        $.photoGallery.open();
+    };
+    self.byPlace = function(placeID) {
+        photos.byPlaceID(placeID, {
+            success: function(newPhotos) {
+                openPhotos(newPhotos);
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+    };
+    self.byUser = function(userID) {
+        photos.byUserID(userID, {
+            success: function(newPhotos) {
+                openPhotos(newPhotos);
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+    };
+    __defers["$.__views.nextPage!click!nextPage"] && $.__views.nextPage.addEventListener("click", nextPage);
+    __defers["$.__views.previousPage!click!previousPage"] && $.__views.previousPage.addEventListener("click", previousPage);
     __defers["$.__views.uploadPhoto!click!choosePhoto"] && $.__views.uploadPhoto.addEventListener("click", choosePhoto);
-    __defers["$.__views.back!click!closeWindow"] && $.__views.back.addEventListener("click", closeWindow);
+    __defers["$.__views.back!click!eliminate"] && $.__views.back.addEventListener("click", eliminate);
     _.extend($, exports);
 }
 

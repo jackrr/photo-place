@@ -5,9 +5,13 @@ function Controller() {
     }
     function openUserPage() {
         Alloy.createController("user");
+        self.closeWindow();
     }
     function openPhotoOpts() {
-        Alloy.createController("photoGallery");
+        Alloy.createController("photoGallery", {
+            parent: self
+        });
+        self.closeWindow();
     }
     function titleHeader(username) {
         return "Hello, " + username;
@@ -66,12 +70,20 @@ function Controller() {
     openPhotoOpts ? $.__views.photoOpts.addEventListener("click", openPhotoOpts) : __defers["$.__views.photoOpts!click!openPhotoOpts"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var self = this;
+    self.closeWindow = function() {
+        $.index.close();
+    };
+    self.openWindow = function() {
+        $.index.open();
+    };
     if (!Ti.App.Properties.getObject("authInfo", false)) {
         var authWin = Alloy.createController("auth").getView();
         authWin.addEventListener("close", function() {
             var user = Ti.App.Properties.getObject("authInfo");
             $.title.text = titleHeader(user.username);
         });
+        self.closeWindow();
         authWin.open();
     }
     Ti.App.addEventListener("signIn", function(e) {

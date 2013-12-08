@@ -2,7 +2,7 @@ function Controller() {
     function done() {
         callback($.thePicker.getSelectedRow(0));
         $.destroy();
-        $.picker.close();
+        self.getView().close();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "picker";

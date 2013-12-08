@@ -18,17 +18,30 @@ module.exports = function(db) {
 			if (err) return error(err, res);
 			res.json({photos: photos});
 		});
-		// res.json({photos: [{'_id': '1111', 'name':'jack', 'image': 'AHHH'}, {'_id': '2222', 'name': 'nate', 'image': 'BAHH'}]});
 	}
 
-	function atPlace(req, res) {
-		res.send();
-
+	function byPlace(req, res) {
+		var placeID = req.params.placeID;
+		var page = 0;
+		if (req.params.page) {
+			page = req.params.page;
+		}
+		Photo.findPageWithImagesByPlace(page, placeID, function(err, photos) {
+			if (err) return error(err, res);
+			res.json({photos: photos});
+		});
 	}
 
 	function byUser(req, res) {
-		var user = req.params.user;
-		res.send();
+		var userID = req.params.userID;
+		var page = 0;
+		if (req.params.page) {
+			page = req.params.page;
+		}
+		Photo.findPageWithImagesByUser(page, userID, function(err, photos) {
+			if (err) return error(err, res);
+			res.json({photos: photos});
+		});
 	}
 
 	function placeConfirm(req, res) {
@@ -84,7 +97,7 @@ module.exports = function(db) {
 
 	return {
 		byPage: byPage,
-		atPlace: atPlace,
+		byPlace: byPlace,
 		byUser: byUser,
 		newFromUser: newFromUser,
 		byID: byID,

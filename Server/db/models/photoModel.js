@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Photo = require('../schema/photoSchema');
+var User = require('../schema/userSchema');
+var Place = require('../schema/placeSchema');
 var _ = require('underscore');
 var fs = require('fs');
 var uuid = require('node-uuid');
@@ -10,14 +12,39 @@ var serverDir = __dirname + "/../../public/";
 var mediaDir = serverDir + relativePath;
 var remoteDir = "http://localhost:3000/" + relativePath;
 
-var pageSize = 10;
+var pageSize = 5;
 
-function preSend(photos) {
+function preSend(photos, cb) {
+	var numRunningQueries = photos.length;
+
 	_.each(photos, function(photo) {
 		photo.smallPath = remoteDir + photo.smallPath;
 		photo.mediumPath = remoteDir + photo.mediumPath;
 		photo.largePath = remoteDir + photo.largePath;
+
+		Place.find({_id: photo.placeID}, function(err, place) {
+			if (err || !(place && place.length)) {
+				photo.placeName = "";
+			} else {
+				photo.placeName = place[0].name;
+			}
+			User.find({_id: photo.userID}, function(err, user) {
+				if (err || !(user && user.length)) {
+					photo.username = "";
+				} else {
+					photo.userName = user[0].username;
+				}
+				--numRunningQueries;
+				if (numRunningQueries === 0) {
+		      // finally, AFTER all callbacks did return:
+		      cb(photos);
+		    }
+		  });
+		});
 	});
+	if (numRunningQueries === 0) {
+		cb(photos);
+	}
 }
 
 function localPath(file) {
@@ -62,8 +89,27 @@ function newPhoto(base64EncodeData, cb) {
 Photo.findPageWithImages = function(page, cb) {
 	Photo.find().skip(page*pageSize).limit(pageSize).exec(function(err, photos) {
 		if (err) return cb(err);
-		preSend(photos);
-		cb(null, photos);
+		preSend(photos, function(finalPhotos) {
+			cb(null, finalPhotos);
+		});
+	});
+};
+
+Photo.findPageWithImagesByUser = function(page, userID, cb) {
+	Photo.find({userID: userID}).skip(page*pageSize).limit(pageSize).exec(function(err, photos) {
+		if (err) return cb(err);
+		preSend(photos, function(finalPhotos) {
+			cb(null, finalPhotos);
+		});
+	});
+};
+
+Photo.findPageWithImagesByPlace = function(page, placeID, cb) {
+	Photo.find({placeID: placeID}).skip(page*pageSize).limit(pageSize).exec(function(err, photos) {
+		if (err) return cb(err);
+		preSend(photos, function(finalPhotos) {
+			cb(null, finalPhotos);
+		});
 	});
 };
 
@@ -72,6 +118,7 @@ Photo.newPhotoByUser = function(pic, placeID, cb) {
 		if (err) return cb(err);
 		photo.userID = pic.userID;
 		photo.placeID = placeID;
+		photo.createdDate = Date.now();
 		Photo.create(photo, function(err, ret) {
 			console.log('photo created: ', ret);
 			cb(err, ret);

@@ -1,1 +1,0 @@
-module.exports = [{"isApi":true,"priority":1000.0017,"key":"rowView","style":{height:80,}}];
