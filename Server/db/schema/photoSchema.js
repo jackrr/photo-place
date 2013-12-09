@@ -11,16 +11,19 @@ var photoSchema = new Schema({
 	dimensions: {
 		width: Number,
 		height: Number
-	}
+	},
+	createdDate: Date,
 
 	// non-persisted
-	// fullPath: String
+	placeName: String,
+	userName: String
 });
 
-// photoSchema.pre('save', function(next) {
-// 	this.fullPath = undefined;
+photoSchema.pre('save', function(next) {
+	this.placeName = undefined;
+	this.userName = undefined;
 
-// 	next();
-// });
+	next();
+});
 
 module.exports = mongoose.model('Photo', photoSchema);

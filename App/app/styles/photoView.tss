@@ -1,0 +1,24 @@
+".container" : {
+	backgroundColor : "white",
+	layout : 'vertical'
+},
+"ImageView": {
+	top: 30
+},
+"View": {
+	layout : 'horizontal'
+},
+".userArea": {
+	height: 40
+},
+".placeArea": {
+	height: 40
+},
+".dateArea": {
+	height: 40
+},
+".label": {
+	left: 10
+},
+".value": {
+}

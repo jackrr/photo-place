@@ -4,9 +4,13 @@ function Controller() {
     }
     function openUserList() {
         Alloy.createController("user");
+        self.closeWindow();
     }
     function openPhotoOpts() {
-        Alloy.createController("photoGallery");
+        Alloy.createController("photoGallery", {
+            parent: self
+        });
+        self.closeWindow();
     }
     function titleHeader(username) {
         return "Hello, " + username;
@@ -63,20 +67,16 @@ function Controller() {
     });
     $.__views.index.add($.__views.photoOpts);
     openPhotoOpts ? $.__views.photoOpts.addEventListener("click", openPhotoOpts) : __defers["$.__views.photoOpts!click!openPhotoOpts"] = true;
-    $.__views.logLoc = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        color: "#000",
-        top: 30,
-        text: "Log Location",
-        id: "logLoc"
-    });
-    $.__views.index.add($.__views.logLoc);
-    logLocation ? $.__views.logLoc.addEventListener("click", logLocation) : __defers["$.__views.logLoc!click!logLocation"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var LocationUtil = require("locationUtil");
-    var logLocation = LocationUtil.getUserLocation();
+    require("locationUtil");
+    var self = this;
+    self.closeWindow = function() {
+        $.index.close();
+    };
+    self.openWindow = function() {
+        $.index.open();
+    };
     Ti.App.addEventListener("signIn", function(e) {
         Ti.API.info("signIn event");
         var user = Ti.App.Properties.getObject("authInfo");
@@ -95,7 +95,6 @@ function Controller() {
     __defers["$.__views.userPage!click!openUserList"] && $.__views.userPage.addEventListener("click", openUserList);
     __defers["$.__views.addUser!click!openUserOptions"] && $.__views.addUser.addEventListener("click", openUserOptions);
     __defers["$.__views.photoOpts!click!openPhotoOpts"] && $.__views.photoOpts.addEventListener("click", openPhotoOpts);
-    __defers["$.__views.logLoc!click!logLocation"] && $.__views.logLoc.addEventListener("click", logLocation);
     _.extend($, exports);
 }
 

@@ -1,0 +1,18 @@
+<Alloy>
+	<Window class="container">
+		<ImageView id="image"></ImageView>
+		<View class="userArea">
+			<Label class="label">By User:</Label>
+			<Label id="userName" class="value" onClick="openUser"></Label>
+		</View>
+		<View class="placeArea">
+			<Label class="label">Taken at:</Label>
+			<Label id="placeName" class="value" onClick="openPlace"></Label>
+		</View>
+		<View class="dateArea">
+			<Label class="label">Uploaded:</Label>
+			<Label id="uploadDate" class="value"></Label>
+		</View>
+		<Label onClick="back">Back</Label>
+	</Window>
+</Alloy>
