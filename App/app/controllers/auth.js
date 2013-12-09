@@ -12,3 +12,5 @@ function openLogIn(e) {
 	Alloy.createController('logIn');
 	closeWindow();
 }
+
+$.auth.open();
