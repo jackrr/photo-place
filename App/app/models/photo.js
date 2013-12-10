@@ -54,13 +54,32 @@ exports.definition = {
 				if (this.userID) {
 					url = url + "/user/" + this.userID;
 				}
+				if (this.nearbyBool) {
+					return url = url + "/nearby/";
+				}
 				return url + "/page/" + this.page;
+			},
+			
+			resetValues: function() {
+				this.placeID = undefined;
+				this.userID = undefined;
+				this.page = 0;
+				this.nearbyBool = undefined;
 			},
 
 			nextPage: function(options) {
             	options.url = this.nextURL(1);
-            	this.fetch(options);
-           },
+            	if (this.nearby) {
+            		var self = this;
+					ServerUtil.nearbyPlaceIdsForURL(this.page, function(err, placestring) {
+						if (err) return Ti.API.error(err);
+						options.url = options.url + placestring;
+						self.fetch(options);
+					});            		
+            	} else {
+            		this.fetch(options);	
+            	}
+          	},
            previousPage: function(options) {
            		options.url = this.nextURL(-1);
            		this.fetch(options);
@@ -70,18 +89,34 @@ exports.definition = {
            		this.fetch(options);
            },
            
+           global: function(options) {
+           		this.resetValues();
+           		options.url = this.nextURL();
+           		this.fetch(options);
+           },
+           
+           nearby: function(options) {
+				this.resetValues();
+				this.nearbyBool = true;
+           		options.url = this.nextURL();
+           		var self = this;
+           		ServerUtil.nearbyPlaceIdsForURL(this.page, function(err, placestring) {
+           			if (err) return Ti.API.error(err);
+					options.url = options.url + placestring;
+					self.fetch(options);
+				}); 
+           },
+           
            byPlaceID: function(id, options) {
-           		this.page = 0;
+           		this.resetValues();
            		this.placeID = id; 
-           		this.userID = undefined;
            		options.url = this.nextURL();
            		this.fetch(options);
            },
            
            byUserID: function(id, options) {
-           		this.page = 0;
+           		this.resetValues();
            		this.userID = id;
-           		this.placeID = undefined;
            		options.url = this.nextURL();
            		this.fetch(options); 
            }

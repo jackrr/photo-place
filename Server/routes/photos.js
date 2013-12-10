@@ -95,12 +95,21 @@ module.exports = function(db) {
 		res.json({photo: {'_id': '1111', 'name':'jack'}});
 	}
 
+	function nearby(req, res) {
+		var placeArray = req.params.placeIDs.split(",");
+		if (!(placeArray || placeArray.length)) return error('bad request', res);
+		Photo.findTopPhotosForPlaces(placeArray, function(err, places) {
+			res.json({places: places});
+		});
+	}
+
 	return {
 		byPage: byPage,
 		byPlace: byPlace,
 		byUser: byUser,
 		newFromUser: newFromUser,
 		byID: byID,
+		nearby: nearby,
 		placeConfirm: placeConfirm
 	};
 };

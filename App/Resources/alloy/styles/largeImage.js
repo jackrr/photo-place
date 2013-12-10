@@ -1,0 +1,1 @@
+module.exports = [{"isId":true,"priority":100000.0029,"key":"largeImage","style":{orientationModes:[Ti.UI.PORTRAIT,Ti.UI.LANDSCAPE_LEFT,Ti.UI.LANDSCAPE_RIGHT,],}}];

@@ -14,11 +14,23 @@ self.closeWindow = function() {
 	$.photoView.close();
 };
 
+self.openWindow = function() {
+	$.photoView.open();
+};
+
 function back() {
 	self.closeWindow();
 	self.destroy();
 	parent.openWindow();
-};
+}
+
+function fullPhoto() {
+	var full = Alloy.createController('largeImage', {
+		photo: self.photo,
+		parent: self
+	});
+	self.closeWindow();
+}
 
 function openUser() {
 	parent.byUser(self.photo.get('userID'));

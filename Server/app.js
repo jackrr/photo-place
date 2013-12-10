@@ -44,6 +44,7 @@ app.post('/photos/placeselect', log, photos.placeConfirm);
 app.get('/photos/page/:page', log, photos.byPage);
 app.get('/photos/place/:placeID/page/:page', log, photos.byPlace);
 app.get('/photos/user/:userID/page/:page', log, photos.byUser);
+app.get('/photos/nearby/:placeIDs', log, photos.nearby);
 
 // app.post('/photos/user/:userID', log, photos.newFromUser);
 // app.get('/photo/:id', photos.byID);
