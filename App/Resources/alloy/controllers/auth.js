@@ -50,6 +50,7 @@ function Controller() {
     openLogIn ? $.__views.logIn.addEventListener("click", openLogIn) : __defers["$.__views.logIn!click!openLogIn"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    $.auth.open();
     __defers["$.__views.createAccount!click!openCreateAccount"] && $.__views.createAccount.addEventListener("click", openCreateAccount);
     __defers["$.__views.logIn!click!openLogIn"] && $.__views.logIn.addEventListener("click", openLogIn);
     _.extend($, exports);

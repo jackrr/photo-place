@@ -18,4 +18,9 @@ if (Alloy.CFG.geolocPurpose) {
 Ti.Geolocation.setAccuracy(Ti.Geolocation.ACCURACY_BEST);
 
 // bootstrap location services because they're stupid
-Ti.Geolocation.getCurrentPosition(function(){});
+Ti.Geolocation.getCurrentPosition(function(e){
+	// Ti.App.Properties.setObject('prevCoordinates',{
+		// lat : e.coords.latitude,
+		// lon : e.coords.longitude
+	// });
+});

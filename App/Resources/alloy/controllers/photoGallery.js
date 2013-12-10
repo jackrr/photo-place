@@ -149,12 +149,14 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var ServerUtil = require("serverUtil");
+    require("locationUtil");
     var self = this;
     var args = arguments[0] || {};
     var parent = args.parent;
     var photos = Alloy.createCollection("photo");
     $.photoGallery.open();
     currentPage();
+    Ti.API.info("Parent: " + parent);
     self.closeWindow = closeWindow;
     self.openWindow = function() {
         $.photoGallery.open();

@@ -1,4 +1,5 @@
 var ServerUtil = require('serverUtil');
+var LocationUtil = require('locationUtil');
 
 var self = this;
 var args = arguments[0] || {};
@@ -8,6 +9,8 @@ var photos = Alloy.createCollection('photo');
 $.photoGallery.open();
 
 currentPage();
+
+Ti.API.info('Parent: '+parent);
 
 function closeWindow() {
 	$.photoGallery.close();

@@ -1,9 +1,8 @@
 function Controller() {
-    function addUser() {
-        var authWin = Alloy.createController("auth").getView();
-        authWin.open();
+    function openUserOptions() {
+        Alloy.createController("auth");
     }
-    function openUserPage() {
+    function openUserList() {
         Alloy.createController("user");
         self.closeWindow();
     }
@@ -47,7 +46,7 @@ function Controller() {
         id: "userPage"
     });
     $.__views.index.add($.__views.userPage);
-    openUserPage ? $.__views.userPage.addEventListener("click", openUserPage) : __defers["$.__views.userPage!click!openUserPage"] = true;
+    openUserList ? $.__views.userPage.addEventListener("click", openUserList) : __defers["$.__views.userPage!click!openUserList"] = true;
     $.__views.addUser = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -57,7 +56,7 @@ function Controller() {
         id: "addUser"
     });
     $.__views.index.add($.__views.addUser);
-    addUser ? $.__views.addUser.addEventListener("click", addUser) : __defers["$.__views.addUser!click!addUser"] = true;
+    openUserOptions ? $.__views.addUser.addEventListener("click", openUserOptions) : __defers["$.__views.addUser!click!openUserOptions"] = true;
     $.__views.photoOpts = Ti.UI.createLabel({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -70,6 +69,7 @@ function Controller() {
     openPhotoOpts ? $.__views.photoOpts.addEventListener("click", openPhotoOpts) : __defers["$.__views.photoOpts!click!openPhotoOpts"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var LocationUtil = require("locationUtil");
     var self = this;
     self.closeWindow = function() {
         $.index.close();
@@ -77,25 +77,28 @@ function Controller() {
     self.openWindow = function() {
         $.index.open();
     };
-    if (!Ti.App.Properties.getObject("authInfo", false)) {
-        var authWin = Alloy.createController("auth").getView();
-        authWin.addEventListener("close", function() {
-            var user = Ti.App.Properties.getObject("authInfo");
-            $.title.text = titleHeader(user.username);
-        });
-        self.closeWindow();
-        authWin.open();
-    }
+    Ti.App.addEventListener("resumed", function() {
+        Ti.API.info("Activity resumed");
+        LocationUtil.checkForLocationUpdate();
+    });
     Ti.App.addEventListener("signIn", function(e) {
         Ti.API.info("signIn event");
         var user = Ti.App.Properties.getObject("authInfo");
         Ti.API.info(JSON.stringify(e.user));
+        $.index.open();
         $.title.text = titleHeader(user.username);
+        LocationUtil.checkForLocationUpdate();
     });
-    $.title.text = titleHeader(Ti.App.Properties.getObject("authInfo").username);
-    $.index.open();
-    __defers["$.__views.userPage!click!openUserPage"] && $.__views.userPage.addEventListener("click", openUserPage);
-    __defers["$.__views.addUser!click!addUser"] && $.__views.addUser.addEventListener("click", addUser);
+    Ti.App.Properties.removeProperty("authInfo");
+    if (Ti.App.Properties.getObject("authInfo", false)) {
+        Ti.API.info("authInfo property found, opening home page");
+        $.title.text = titleHeader(Ti.App.Properties.getObject("authInfo").username);
+    } else {
+        Ti.API.info("No authInfo property found");
+        openUserOptions();
+    }
+    __defers["$.__views.userPage!click!openUserList"] && $.__views.userPage.addEventListener("click", openUserList);
+    __defers["$.__views.addUser!click!openUserOptions"] && $.__views.addUser.addEventListener("click", openUserOptions);
     __defers["$.__views.photoOpts!click!openPhotoOpts"] && $.__views.photoOpts.addEventListener("click", openPhotoOpts);
     _.extend($, exports);
 }
