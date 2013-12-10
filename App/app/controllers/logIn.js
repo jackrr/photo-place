@@ -7,12 +7,14 @@ $.username.focus();
 function closeWindow(e) {
 	$.destroy();
 	$.logIn.close();
-	Alloy.createController('auth');
+	Alloy.createController('index');
 }
 
 function submitInfo(e) {
-	if ($.username.value == '' || $.password == '') {
-		alert('Please fill in all fields');
+	if ($.username.value == '' || $.password.value == '') {
+		Ti.UI.createAlertDialog({
+			message : 'Please fill in both fields'
+		}).show();
 	} else {
 		var url = "http://localhost:3000/users/auth";
 		ServerUtil.checkPassword(url, {

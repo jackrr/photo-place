@@ -149,6 +149,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var ServerUtil = require("serverUtil");
+    require("locationUtil");
     var self = this;
     var args = arguments[0] || {};
     var parent = args.parent;

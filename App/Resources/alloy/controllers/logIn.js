@@ -2,10 +2,12 @@ function Controller() {
     function closeWindow() {
         $.destroy();
         $.logIn.close();
-        Alloy.createController("auth");
+        Alloy.createController("index");
     }
     function submitInfo() {
-        if ("" == $.username.value || "" == $.password) alert("Please fill in all fields"); else {
+        if ("" == $.username.value || "" == $.password.value) Ti.UI.createAlertDialog({
+            message: "Please fill in both fields"
+        }).show(); else {
             var url = "http://localhost:3000/users/auth";
             ServerUtil.checkPassword(url, {
                 username: $.username.value,

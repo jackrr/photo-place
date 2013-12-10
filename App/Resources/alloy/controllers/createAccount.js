@@ -2,8 +2,33 @@ function Controller() {
     function closeWindow() {
         $.createAccount.close();
     }
+    function checkEmail(email) {
+        if (new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$").test(email)) return true;
+        Ti.UI.createAlertDialog({
+            message: "Email address is improperly formatted"
+        }).show();
+        return false;
+    }
+    function checkUsername(username) {
+        var myAlert = Ti.UI.createAlertDialog({
+            message: ""
+        });
+        "" == username ? myAlert.setMessage("Please fill in all fields") : username.length > 15 ? myAlert.setMessage("Username must be less than 15 characters long") : new RegExp("^[a-zA-Z0-9]+$").test(username) || myAlert.setMessage("Username may only contain letters and numbers");
+        if ("" == myAlert.message) return true;
+        myAlert.show();
+        return false;
+    }
+    function checkPassword(password1, password2) {
+        var myAlert = Ti.UI.createAlertDialog({
+            message: ""
+        });
+        "" == password1 || "" == password2 ? myAlert.setMessage("Please fill in all fields") : password1 != password2 ? myAlert.setMessage("Passwords do not match") : 6 > password1.length && myAlert.setMessage("Passwords must be at least 6 characters long");
+        if ("" == myAlert.message) return true;
+        myAlert.show();
+        return false;
+    }
     function submitInfo() {
-        if ("" == $.username.value || "" == $.password1.value || "" == $.password2.value) alert("All fields are required"); else if ($.password1.value != $.password2.value) alert("Passwords do not match"); else {
+        if (checkEmail($.email.value) && checkUsername($.username.value) && checkPassword($.password1.value, $.password2.value)) {
             user.set({
                 username: $.username.value,
                 password: $.password1.value,
@@ -19,8 +44,14 @@ function Controller() {
                     });
                     closeWindow();
                 },
-                error: function(err) {
-                    alert(err);
+                error: function(user, err) {
+                    Ti.API.info("err " + JSON.stringify(err.err));
+                    var errAlert = Ti.UI.createAlertDialog({
+                        title: "Whoops!",
+                        message: err
+                    });
+                    11e3 == err.err.code && errAlert.setMessage("That username is already taken");
+                    errAlert.show();
                 }
             });
         }
