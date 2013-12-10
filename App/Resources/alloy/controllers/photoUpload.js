@@ -1,8 +1,6 @@
 function Controller() {
     function done() {
-        var caption = $.caption.value;
-        Ti.API.info(caption);
-        photo.setImage(image, place, caption);
+        photo.setImage(image, place, $.caption.value);
         self.exit();
     }
     function cancel() {
