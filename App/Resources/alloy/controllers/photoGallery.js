@@ -68,37 +68,14 @@ function Controller() {
         $.tableView.setData(rows);
         self.updating = false;
     }
-    function getLocation(cb) {
-        ServerUtil.getNearbyPlaces(function(err, places) {
-            if (err) return cb(err);
-            Ti.API.info(JSON.stringify(places));
-            var rows = [];
-            var placeHash = {};
-            _.each(places, function(place) {
-                rows.push(Ti.UI.createPickerRow({
-                    title: place.name,
-                    value: place.id
-                }));
-                placeHash[place.id] = place;
-            });
-            var picker = Alloy.createController("picker");
-            picker.setCallback(function(selectedRow) {
-                cb(null, placeHash[selectedRow.value]);
-            });
-            picker.setRows(rows);
-            picker.getView().open();
-        });
-    }
     function choosePhoto() {
         Ti.Media.openPhotoGallery({
             mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
             success: function(event) {
-                Ti.API.info("Pick success");
                 if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
                     var photo = Alloy.createModel("photo");
-                    getLocation(function(err, place) {
-                        photo.setImage(event.media, place);
-                    });
+                    var place = Ti.App.Properties.getObject("currentPlace");
+                    photo.setImage(event.media, place);
                 }
             },
             cancel: function() {},
@@ -209,7 +186,8 @@ function Controller() {
     $.__views.photoGallery.add($.__views.tableView);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var ServerUtil = require("serverUtil");
+    require("serverUtil");
+    require("locationUtil");
     var self = this;
     var args = arguments[0] || {};
     var parent = args.parent;

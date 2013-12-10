@@ -50,9 +50,13 @@ exports.checkPassword = function(url, info, cb) {
 	});
 };
 
-exports.getNearbyPlaces = function(cb) {
-	var placesURL = "https://maps.googleapis.com/maps/api/place/search/json?key=" + Alloy.CFG.placesAPIKEY;
+exports.getNearbyPlaces = function(e,cb) {
+	var lat = e.coords.latitude;
+	var lng = e.coords.longitude;
 	var radius = Alloy.CFG.nearRadius;
+	
+	var placesURL = "https://maps.googleapis.com/maps/api/place/search/json?key=" + Alloy.CFG.placesAPIKEY +
+	  '&location=' + lat + ',' + lng + '&radius=' + radius + '&sensor=false'; 
 
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
@@ -60,30 +64,39 @@ exports.getNearbyPlaces = function(cb) {
 			if (response.results) {
 				var places = [];
 				_.each(response.results, function(place) {
-					places.push(place);
+					places.push({
+						name : place.name,
+						id : place.id,
+						icon : place.icon
+					});
 				});
-				cb(null, places);
+				// return the places to the callback function
+				cb(places);
 			} else {
-				cb('Error finding nearby locations: ' + this.responseText);
+				Ti.API.info('Error finding nearby locations: ' + this.responseText);
 			}
 		},
 		onerror : function(e) {
-			cb('Error finding nearby locations: ' + this.responseText);
+			Ti.API.info('Error finding nearby locations: ' + this.responseText);
 		},
 		timeout : 5000
 	});
+	
+	Ti.API.info('places url : '+placesURL);
+	client.open("GET",placesURL);
+	client.send();
 
-	Ti.Geolocation.getCurrentPosition(function(location) {
-		if (location.success) {
-			var lat = location.coords.latitude;
-			var lng = location.coords.longitude;
-			placesURL = placesURL + '&location=' + lat + ',' + lng + '&radius=' + radius + '&sensor=false';
-			client.open("GET", placesURL);
-			client.send();
-		} else {
-			cb(location.error);
-		}
-	});
+	// Ti.Geolocation.getCurrentPosition(function(location) {
+		// if (location.success) {
+			// var lat = location.coords.latitude;
+			// var lng = location.coords.longitude;
+			// placesURL = placesURL + '&location=' + lat + ',' + lng + '&radius=' + radius + '&sensor=false';
+			// client.open("GET", placesURL);
+			// client.send();
+		// } else {
+			// cb(location.error);
+		// }
+	// });
 };
 
 exports.nearbyPlaceIdsForURL = function(page, cb) {

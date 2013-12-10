@@ -13,12 +13,7 @@ Place.updateOrCreate = function(place, cb) {
 		if (sPlace && sPlace.length) {
 			sPlace[0].update({
 				name: place.name,
-				address: place.vicinity,
-				icon: place.icon,
-				coordinates: {
-					lat: place.geometry.location.lat,
-					lon: place.geometry.location.lng
-				}
+				icon: place.icon
 			}, function(err, success) {
 				cb(err, sPlace[0]);
 			});
@@ -26,12 +21,7 @@ Place.updateOrCreate = function(place, cb) {
 			Place.create({
 				_id: place.id,
 				name: place.name,
-				coordinates: {
-					lat: place.geometry.location.lat,
-					lon: place.geometry.location.lng
-				},
-				icon: place.icon,
-				address: place.vicinity
+				icon: place.icon
 			}, cb);
 		}
 	});

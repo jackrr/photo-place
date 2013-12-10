@@ -5,12 +5,7 @@ var mongoose = require('mongoose'),
 var placeSchema = new Schema({
 	_id: String,
 	name: String,
-	coordinates: {
-		lat: String,
-		lon: String
-	},
-	icon: String,
-	address: String
+	icon: String
 });
 
 module.exports = mongoose.model('Place', placeSchema);
