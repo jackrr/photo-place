@@ -97,6 +97,7 @@ function Controller() {
     var ServerUtil = require("serverUtil");
     Alloy.createCollection("user");
     $.logIn.open();
+    $.username.focus();
     __defers["$.__views.submit!click!submitInfo"] && $.__views.submit.addEventListener("click", submitInfo);
     __defers["$.__views.cancel!click!closeWindow"] && $.__views.cancel.addEventListener("click", closeWindow);
     _.extend($, exports);

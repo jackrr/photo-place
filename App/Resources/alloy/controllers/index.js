@@ -69,7 +69,7 @@ function Controller() {
     openPhotoOpts ? $.__views.photoOpts.addEventListener("click", openPhotoOpts) : __defers["$.__views.photoOpts!click!openPhotoOpts"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    require("locationUtil");
+    var LocationUtil = require("locationUtil");
     var self = this;
     self.closeWindow = function() {
         $.index.close();
@@ -77,12 +77,17 @@ function Controller() {
     self.openWindow = function() {
         $.index.open();
     };
+    Ti.App.addEventListener("resumed", function() {
+        Ti.API.info("Activity resumed");
+        LocationUtil.checkForLocationUpdate();
+    });
     Ti.App.addEventListener("signIn", function(e) {
         Ti.API.info("signIn event");
         var user = Ti.App.Properties.getObject("authInfo");
         Ti.API.info(JSON.stringify(e.user));
         $.index.open();
         $.title.text = titleHeader(user.username);
+        LocationUtil.checkForLocationUpdate();
     });
     Ti.App.Properties.removeProperty("authInfo");
     if (Ti.App.Properties.getObject("authInfo", false)) {

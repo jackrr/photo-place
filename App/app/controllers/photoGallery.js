@@ -1,4 +1,5 @@
 var ServerUtil = require('serverUtil');
+var LocationUtil = require('locationUtil');
 
 var self = this;
 var args = arguments[0] || {};

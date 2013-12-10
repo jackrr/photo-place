@@ -2,6 +2,7 @@ var ServerUtil = require('serverUtil');
 var users = Alloy.createCollection("user");
 
 $.logIn.open();
+$.username.focus();
 
 function closeWindow(e) {
 	$.destroy();
