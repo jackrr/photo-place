@@ -21,8 +21,8 @@ exports.definition = {
             setPhotoURL: function() {
                 return this.url() || "http://localhost:3000/photos";
             },
-            setImage: function(image, place) {
-                ServerUtil.sendPhoto(this.setPhotoURL(), image, place);
+            setImage: function(image, place, caption) {
+                ServerUtil.sendPhoto(this.setPhotoURL(), image, place, caption);
             }
         });
         return Model;

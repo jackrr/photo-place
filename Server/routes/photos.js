@@ -76,6 +76,10 @@ module.exports = function(db) {
 		var photo = {};
 		photo.userID = req.body.userID;
 		photo.image = req.body.image;
+		if (req.body.caption) {
+			photo.caption = req.body.caption;
+		}
+
 		if (!photo.image) {
 			return error('no image sent', res);
 		}

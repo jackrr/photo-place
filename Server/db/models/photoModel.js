@@ -131,7 +131,6 @@ Photo.findTopPhotosForPlaces = function(placeIDs, cb) {
 		    	cb(errored);
 		    } else {
 		    	preSend(photos, function(finalPhotos) {
-		    		console.log(finalPhotos);
 			      cb(null, finalPhotos);
 		    	});
 		    }
@@ -148,6 +147,7 @@ Photo.newPhotoByUser = function(pic, placeID, cb) {
 		if (err) return cb(err);
 		photo.userID = pic.userID;
 		photo.placeID = placeID;
+		photo.caption = pic.caption;
 		photo.createdDate = Date.now();
 		Photo.create(photo, function(err, ret) {
 			console.log('photo created: ', ret);

@@ -39,62 +39,62 @@ function Controller() {
     });
     $.__views.photoView.add($.__views.image);
     fullPhoto ? $.__views.image.addEventListener("click", fullPhoto) : __defers["$.__views.image!click!fullPhoto"] = true;
-    $.__views.__alloyId1 = Ti.UI.createView({
+    $.__views.__alloyId2 = Ti.UI.createView({
         layout: "horizontal",
         height: 40,
-        id: "__alloyId1"
-    });
-    $.__views.photoView.add($.__views.__alloyId1);
-    $.__views.__alloyId2 = Ti.UI.createLabel({
-        left: 10,
-        text: "By User:",
         id: "__alloyId2"
     });
-    $.__views.__alloyId1.add($.__views.__alloyId2);
+    $.__views.photoView.add($.__views.__alloyId2);
+    $.__views.__alloyId3 = Ti.UI.createLabel({
+        left: 10,
+        text: "By User:",
+        id: "__alloyId3"
+    });
+    $.__views.__alloyId2.add($.__views.__alloyId3);
     $.__views.userName = Ti.UI.createLabel({
         id: "userName"
     });
-    $.__views.__alloyId1.add($.__views.userName);
+    $.__views.__alloyId2.add($.__views.userName);
     openUser ? $.__views.userName.addEventListener("click", openUser) : __defers["$.__views.userName!click!openUser"] = true;
-    $.__views.__alloyId3 = Ti.UI.createView({
+    $.__views.__alloyId4 = Ti.UI.createView({
         layout: "horizontal",
         height: 40,
-        id: "__alloyId3"
-    });
-    $.__views.photoView.add($.__views.__alloyId3);
-    $.__views.__alloyId4 = Ti.UI.createLabel({
-        left: 10,
-        text: "Taken at:",
         id: "__alloyId4"
     });
-    $.__views.__alloyId3.add($.__views.__alloyId4);
+    $.__views.photoView.add($.__views.__alloyId4);
+    $.__views.__alloyId5 = Ti.UI.createLabel({
+        left: 10,
+        text: "Taken at:",
+        id: "__alloyId5"
+    });
+    $.__views.__alloyId4.add($.__views.__alloyId5);
     $.__views.placeName = Ti.UI.createLabel({
         id: "placeName"
     });
-    $.__views.__alloyId3.add($.__views.placeName);
+    $.__views.__alloyId4.add($.__views.placeName);
     openPlace ? $.__views.placeName.addEventListener("click", openPlace) : __defers["$.__views.placeName!click!openPlace"] = true;
-    $.__views.__alloyId5 = Ti.UI.createView({
+    $.__views.__alloyId6 = Ti.UI.createView({
         layout: "horizontal",
         height: 40,
-        id: "__alloyId5"
-    });
-    $.__views.photoView.add($.__views.__alloyId5);
-    $.__views.__alloyId6 = Ti.UI.createLabel({
-        left: 10,
-        text: "Uploaded:",
         id: "__alloyId6"
     });
-    $.__views.__alloyId5.add($.__views.__alloyId6);
+    $.__views.photoView.add($.__views.__alloyId6);
+    $.__views.__alloyId7 = Ti.UI.createLabel({
+        left: 10,
+        text: "Uploaded:",
+        id: "__alloyId7"
+    });
+    $.__views.__alloyId6.add($.__views.__alloyId7);
     $.__views.uploadDate = Ti.UI.createLabel({
         id: "uploadDate"
     });
-    $.__views.__alloyId5.add($.__views.uploadDate);
-    $.__views.__alloyId7 = Ti.UI.createLabel({
+    $.__views.__alloyId6.add($.__views.uploadDate);
+    $.__views.__alloyId8 = Ti.UI.createLabel({
         text: "Back",
-        id: "__alloyId7"
+        id: "__alloyId8"
     });
-    $.__views.photoView.add($.__views.__alloyId7);
-    back ? $.__views.__alloyId7.addEventListener("click", back) : __defers["$.__views.__alloyId7!click!back"] = true;
+    $.__views.photoView.add($.__views.__alloyId8);
+    back ? $.__views.__alloyId8.addEventListener("click", back) : __defers["$.__views.__alloyId8!click!back"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var dateUtil = require("dateUtil");
@@ -119,7 +119,7 @@ function Controller() {
     __defers["$.__views.image!click!fullPhoto"] && $.__views.image.addEventListener("click", fullPhoto);
     __defers["$.__views.userName!click!openUser"] && $.__views.userName.addEventListener("click", openUser);
     __defers["$.__views.placeName!click!openPlace"] && $.__views.placeName.addEventListener("click", openPlace);
-    __defers["$.__views.__alloyId7!click!back"] && $.__views.__alloyId7.addEventListener("click", back);
+    __defers["$.__views.__alloyId8!click!back"] && $.__views.__alloyId8.addEventListener("click", back);
     _.extend($, exports);
 }
 

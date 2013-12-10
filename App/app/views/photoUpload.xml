@@ -1,0 +1,10 @@
+<Alloy>
+	<Window class="container">
+		<ImageView id="imageView"></ImageView>
+		<TextField id="caption"></TextField>
+		<Label class="info">Taken at:</Label>
+		<Label id="placeName"></Label>
+		<Label id="submit" onClick="done">Upload Photo!</Label>
+		<Label id="cancel" onClick="cancel">Cancel</Label>
+	</Window>
+</Alloy>

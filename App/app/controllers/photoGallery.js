@@ -191,40 +191,40 @@ function changePhotos(newPhotos, placeLabels) {
 }
 
 function choosePhoto() {
-	Ti.Media.showCamera({
-		mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
-		
-		success : function(event) {
-			if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-				var photo = Alloy.createModel('photo');
-				var place = Ti.App.Properties.getObject('currentPlace');
-				photo.setImage(event.media, place);	
-			}
-		},
-		cancel : function() {
-
-		},
-		error : function(error) {
-			alert(JSON.stringify(error));
-		}
-	});
-	// Ti.Media.openPhotoGallery({
+	// Ti.Media.showCamera({
 		// mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
-// 
+// 		
 		// success : function(event) {
 			// if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-				// var photo = Alloy.createModel('photo');
+				// self.closeWindow();
 				// var place = Ti.App.Properties.getObject('currentPlace');
-				// photo.setImage(event.media, place);	
+				// Alloy.createController('photoUpload', {parent: self, image: event.media, place: place});
 			// }
 		// },
 		// cancel : function() {
 // 
 		// },
 		// error : function(error) {
-			// alert(error);
+			// alert(JSON.stringify(error));
 		// }
 	// });
+	Ti.Media.openPhotoGallery({
+		mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
+
+		success : function(event) {
+			if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+				self.closeWindow();
+				var place = Ti.App.Properties.getObject('currentPlace');
+				Alloy.createController('photoUpload', {parent: self, image: event.media, place: place});
+			}
+		},
+		cancel : function() {
+
+		},
+		error : function(error) {
+			alert(error);
+		}
+	});
 }
 
 function nextPage() {

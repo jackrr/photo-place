@@ -1,4 +1,4 @@
-exports.sendPhoto = function(url, blob, place) {
+exports.sendPhoto = function(url, blob, place, caption) {
     var userID = Ti.App.Properties.getObject("authInfo").id;
     var client = Ti.Network.createHTTPClient({
         onload: function() {
@@ -19,7 +19,8 @@ exports.sendPhoto = function(url, blob, place) {
     client.send({
         userID: userID,
         place: JSON.stringify(place),
-        image: Ti.Utils.base64encode(blob).toString()
+        image: Ti.Utils.base64encode(blob).toString(),
+        caption: caption
     });
 };
 

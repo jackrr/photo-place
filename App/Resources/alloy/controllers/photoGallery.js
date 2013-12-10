@@ -84,18 +84,22 @@ function Controller() {
         self.updating = false;
     }
     function choosePhoto() {
-        Ti.Media.showCamera({
+        Ti.Media.openPhotoGallery({
             mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
             success: function(event) {
                 if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-                    var photo = Alloy.createModel("photo");
+                    self.closeWindow();
                     var place = Ti.App.Properties.getObject("currentPlace");
-                    photo.setImage(event.media, place);
+                    Alloy.createController("photoUpload", {
+                        parent: self,
+                        image: event.media,
+                        place: place
+                    });
                 }
             },
             cancel: function() {},
             error: function(error) {
-                alert(JSON.stringify(error));
+                alert(error);
             }
         });
     }
