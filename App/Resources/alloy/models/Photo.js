@@ -1,5 +1,7 @@
 var ServerUtil = require("serverUtil");
 
+var LocationUtil = require("locationUtil");
+
 var serverURL = "http://localhost:3000/";
 
 exports.definition = {
@@ -47,14 +49,7 @@ exports.definition = {
             },
             nextPage: function(options) {
                 options.url = this.nextURL(1);
-                if (this.nearby) {
-                    var self = this;
-                    ServerUtil.nearbyPlaceIdsForURL(this.page, function(err, placestring) {
-                        if (err) return Ti.API.error(err);
-                        options.url = options.url + placestring;
-                        self.fetch(options);
-                    });
-                } else this.fetch(options);
+                this.fetch(options);
             },
             previousPage: function(options) {
                 options.url = this.nextURL(-1);
@@ -72,13 +67,8 @@ exports.definition = {
             nearby: function(options) {
                 this.resetValues();
                 this.nearbyBool = true;
-                options.url = this.nextURL();
-                var self = this;
-                ServerUtil.nearbyPlaceIdsForURL(this.page, function(err, placestring) {
-                    if (err) return Ti.API.error(err);
-                    options.url = options.url + placestring;
-                    self.fetch(options);
-                });
+                options.url = this.nextURL() + LocationUtil.nearbyPlaceIdsForURL();
+                this.fetch(options);
             },
             byPlaceID: function(id, options) {
                 this.resetValues();

@@ -31,7 +31,16 @@ function globeButt() {
 function nearButt() {
 	changeGallery({nearby: true});
 	setTab(1);
-	
+}
+
+function myPlaceButt() {
+	changeGallery({placeID: Ti.App.Properties.getObject('currentPlace').id});
+	setTab(2);
+}
+
+function myPhotosButt() {
+	changeGallery({userID: Ti.App.Properties.getObject('authInfo').id});
+	setTab(3);
 }
 
 function setTab(tabnum, text) {
@@ -41,12 +50,19 @@ function setTab(tabnum, text) {
 	} else if (tabnum == 1) {
 		selected = $.nearbyContainer;
 	} else if (tabnum == 2) {
-		selected = $.hereContainer;
+		selected = $.myPlaceContainer;
 		if (text) {
-			$.here.text = text;			
+			$.myPlace.setText(text);			
 		}
+	} else if (tabnum == 1) {
+		selected = $.myPhotosContainer;
 	}
 	$.addClass(selected, 'selected');
+	var here = Ti.App.Properties.getObject('currentPlace');
+	Ti.API.info(JSON.stringify(here.name));
+	if (here && here.name) {
+		$.myPlace.setText(here.name);
+	}
 }
 
 function closeWindow() {
@@ -175,9 +191,9 @@ function changePhotos(newPhotos, placeLabels) {
 }
 
 function choosePhoto() {
-	Ti.Media.openPhotoGallery({
+	Ti.Media.showCamera({
 		mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
-
+		
 		success : function(event) {
 			if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 				var photo = Alloy.createModel('photo');
@@ -189,9 +205,26 @@ function choosePhoto() {
 
 		},
 		error : function(error) {
-			alert(error);
+			alert(JSON.stringify(error));
 		}
 	});
+	// Ti.Media.openPhotoGallery({
+		// mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
+// 
+		// success : function(event) {
+			// if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+				// var photo = Alloy.createModel('photo');
+				// var place = Ti.App.Properties.getObject('currentPlace');
+				// photo.setImage(event.media, place);	
+			// }
+		// },
+		// cancel : function() {
+// 
+		// },
+		// error : function(error) {
+			// alert(error);
+		// }
+	// });
 }
 
 function nextPage() {
