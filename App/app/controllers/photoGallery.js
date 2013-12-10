@@ -31,6 +31,7 @@ function globeButt() {
 function nearButt() {
 	changeGallery({nearby: true});
 	setTab(1);
+	
 }
 
 function setTab(tabnum, text) {
@@ -69,6 +70,7 @@ self.here = function() {
 	photos.byPlace(Ti.App.Properties.getObject('curLocID'), {
 		success: function(newPhotos) {
 			changePhotos(newPhotos);
+			scrollLoadListener(true);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -81,6 +83,7 @@ self.nearby = function() {
 	photos.nearby({
 		success: function(newPhotos) {
 			changePhotos(newPhotos, true);
+			scrollLoadListener(false);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -93,6 +96,7 @@ self.openGlobal = function() {
 	photos.global({
 		success: function(newPhotos) {
 			changePhotos(newPhotos);
+			scrollLoadListener(true);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -105,6 +109,7 @@ self.byPlace = function(placeID) {
 	photos.byPlaceID(placeID, {
 		success: function(newPhotos) {
 			changePhotos(newPhotos);
+			scrollLoadListener(true);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -117,6 +122,7 @@ self.byUser = function(userID) {
 	photos.byUserID(userID, {
 		success: function(newPhotos) {
 			changePhotos(newPhotos);
+			scrollLoadListener(true);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -128,7 +134,7 @@ function addPhotos(newPhotos, placeLabels) {
 	var rows = [];
 	var lastPlace;
 	_.each(newPhotos.models, function(photo, index) {
-		if (placeLabels && photo.get('placeName') != lastPlace.name) {
+		if (placeLabels && photo.get('placeName') != lastPlace) {
 			lastPlace = photo.get('placeName');
 			var placeRow = Ti.UI.createTableViewRow({
 				title: lastPlace
@@ -150,7 +156,7 @@ function changePhotos(newPhotos, placeLabels) {
 	var rows = [];
 	var lastPlace;
 	_.each(newPhotos.models, function(photo, index) {
-		if (placeLabels && photo.get('placeName') != lastPlace.name) {
+		if (placeLabels && photo.get('placeName') != lastPlace) {
 			lastPlace = photo.get('placeName');
 			var placeRow = Ti.UI.createTableViewRow({
 				title: lastPlace
@@ -224,16 +230,27 @@ function currentPage() {
 	});
 }
 
+function scrollLoadListener(on) {
+	function loadMoreCheck(e) {
+		Ti.API.info(JSON.stringify(e.contentSize));
+		Ti.API.info(JSON.stringify(e.size));
+		Ti.API.info(JSON.stringify(e.contentOffset));
+		if (!self.updating && (e.contentOffset.y + e.size.height + 50 > e.contentSize.height)) {
+			nextPage();
+		}
+	}
+
+	if (on) {
+		$.tableView.addEventListener('scrollEnd', loadMoreCheck);
+	} else {
+		$.tableView.removeEventListener('scrollEnd', loadMoreCheck);
+	}
+
+}
+
 var selected = $.globalContainer;
 globeButt();
 
 $.photoGallery.open();
 
-$.tableView.addEventListener('scrollEnd', function(e) {
-	Ti.API.info(JSON.stringify(e.contentSize));
-	Ti.API.info(JSON.stringify(e.size));
-	Ti.API.info(JSON.stringify(e.contentOffset));
-	if (!self.updating && (e.contentOffset.y + e.size.height + 50 > e.contentSize.height)) {
-		nextPage();
-	}
-});
+

@@ -32,7 +32,7 @@ function Controller() {
         var rows = [];
         var lastPlace;
         _.each(newPhotos.models, function(photo) {
-            if (placeLabels && photo.get("placeName") != lastPlace.name) {
+            if (placeLabels && photo.get("placeName") != lastPlace) {
                 lastPlace = photo.get("placeName");
                 var placeRow = Ti.UI.createTableViewRow({
                     title: lastPlace
@@ -52,7 +52,7 @@ function Controller() {
         var rows = [];
         var lastPlace;
         _.each(newPhotos.models, function(photo) {
-            if (placeLabels && photo.get("placeName") != lastPlace.name) {
+            if (placeLabels && photo.get("placeName") != lastPlace) {
                 lastPlace = photo.get("placeName");
                 var placeRow = Ti.UI.createTableViewRow({
                     title: lastPlace
@@ -94,6 +94,15 @@ function Controller() {
                 alert(JSON.stringify(e));
             }
         });
+    }
+    function scrollLoadListener(on) {
+        function loadMoreCheck(e) {
+            Ti.API.info(JSON.stringify(e.contentSize));
+            Ti.API.info(JSON.stringify(e.size));
+            Ti.API.info(JSON.stringify(e.contentOffset));
+            !self.updating && e.contentOffset.y + e.size.height + 50 > e.contentSize.height && nextPage();
+        }
+        on ? $.tableView.addEventListener("scrollEnd", loadMoreCheck) : $.tableView.removeEventListener("scrollEnd", loadMoreCheck);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "photoGallery";
@@ -201,6 +210,7 @@ function Controller() {
         photos.byPlace(Ti.App.Properties.getObject("curLocID"), {
             success: function(newPhotos) {
                 changePhotos(newPhotos);
+                scrollLoadListener(true);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -212,6 +222,7 @@ function Controller() {
         photos.nearby({
             success: function(newPhotos) {
                 changePhotos(newPhotos, true);
+                scrollLoadListener(false);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -223,6 +234,7 @@ function Controller() {
         photos.global({
             success: function(newPhotos) {
                 changePhotos(newPhotos);
+                scrollLoadListener(true);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -234,6 +246,7 @@ function Controller() {
         photos.byPlaceID(placeID, {
             success: function(newPhotos) {
                 changePhotos(newPhotos);
+                scrollLoadListener(true);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -245,6 +258,7 @@ function Controller() {
         photos.byUserID(userID, {
             success: function(newPhotos) {
                 changePhotos(newPhotos);
+                scrollLoadListener(true);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -254,12 +268,6 @@ function Controller() {
     var selected = $.globalContainer;
     globeButt();
     $.photoGallery.open();
-    $.tableView.addEventListener("scrollEnd", function(e) {
-        Ti.API.info(JSON.stringify(e.contentSize));
-        Ti.API.info(JSON.stringify(e.size));
-        Ti.API.info(JSON.stringify(e.contentOffset));
-        !self.updating && e.contentOffset.y + e.size.height + 50 > e.contentSize.height && nextPage();
-    });
     __defers["$.__views.back!click!eliminate"] && $.__views.back.addEventListener("click", eliminate);
     __defers["$.__views.uploadPhoto!click!choosePhoto"] && $.__views.uploadPhoto.addEventListener("click", choosePhoto);
     __defers["$.__views.globalContainer!click!globeButt"] && $.__views.globalContainer.addEventListener("click", globeButt);
