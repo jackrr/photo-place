@@ -35,13 +35,17 @@
 },
 
 ".buttonContainer": {
-	width: "33.33%"
+	width: "25%",
+	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
 },
 
 ".selected": {
 	backgroundColor: "#4433dd",
 	color: "#ffffff"
 },
+
+".navButt": {
+}
 
 "#globalContainer": {
 	left: 0
@@ -54,9 +58,18 @@
 }
 
 "#nearbyContainer": {
-	left: "33.33%"
+	left: "25%"
 },
-"#hereContainer": {
-	left: "66.66%"
+"#myPlaceContainer": {
+	left: "50%"
+},
+"#myPlace": {
+	horizontalWrap: true
+},
+"#myPhotosContainer": {
+	left: "75%"
+},
+"#myPhotos": {
+	horizontalWrap: true
 }
 

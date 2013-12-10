@@ -13,6 +13,7 @@ var mediaDir = serverDir + relativePath;
 var remoteDir = "http://localhost:3000/" + relativePath;
 
 var pageSize = 5;
+var photosPerPlace = 3;
 
 function preSend(photos, cb) {
 	var numRunningQueries = photos.length;
@@ -118,9 +119,11 @@ Photo.findTopPhotosForPlaces = function(placeIDs, cb) {
 	var errored;
 	var numRunningQueries = placeIDs.length;
 	_.each(placeIDs, function(id) {
-		Photo.find({placeID: id}, function(err, placePhotos) {
+		Photo.find({placeID: id}).limit(photosPerPlace).exec(function(err, placePhotos) {
 			if (err) errored = err;
-			photos.concat(placePhotos);
+			_.each(placePhotos, function(p) {
+				photos.push(p);
+			});
 			--numRunningQueries;
 			if (numRunningQueries === 0) {
 		    // finally, AFTER all callbacks did return:
@@ -144,6 +147,7 @@ Photo.newPhotoByUser = function(pic, placeID, cb) {
 		if (err) return cb(err);
 		photo.userID = pic.userID;
 		photo.placeID = placeID;
+		photo.caption = pic.caption;
 		photo.createdDate = Date.now();
 		Photo.create(photo, function(err, ret) {
 			console.log('photo created: ', ret);

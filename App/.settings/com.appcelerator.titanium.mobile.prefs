@@ -1,0 +1,10 @@
+android/ATTR_MINIFY=true
+android/ATTR_PROJECT_NAME=PhotoPlace
+android/abi=armeabi
+android/distribute_path=
+android/keystore_alias=
+android/keystore_password=
+android/keystore_path=
+android/recent_output=
+android/sdk_version=Google APIs (Android 2.3.3)
+eclipse.preferences.version=1
