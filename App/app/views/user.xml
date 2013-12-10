@@ -1,6 +1,0 @@
-<Alloy>
-	<Window class="container">
-		<Label id="title">List of Users</Label>
-		<Label id="closeButton" onClick="closeWindow">Close Window</Label>
-	</Window>
-</Alloy>

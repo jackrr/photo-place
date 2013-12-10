@@ -1,9 +1,0 @@
-<Alloy>
-	<Window class="container">
-		<Label id="title"></Label>
-		<Label id="userPage" onClick="openUserList"/>
-		<Label id="addUser" onClick="openUserOptions"/>
-		<Label id="photoOpts" onClick="openPhotoOpts"/>
-		<!--<Label id="logLoc" onClick="logLocation">Log Location</Label>-->
-	</Window>
-</Alloy>

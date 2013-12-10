@@ -1,9 +1,0 @@
-<Alloy>
-	<Window class="container">
-		<Label id="title"/>
-		<TextField id="username"/>
-		<TextField id="password"/>
-		<Label id="submit" onClick="submitInfo"/>
-		<Label id="cancel" onClick="closeWindow"/>
-	</Window>
-</Alloy>
