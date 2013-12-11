@@ -48,6 +48,7 @@ function Controller() {
     $.__views.logIn = Ti.UI.createWindow({
         backgroundColor: "white",
         layout: "vertical",
+        backgroundImage: "/images/welcome-back-background.png",
         id: "logIn"
     });
     $.__views.logIn && $.addTopLevelView($.__views.logIn);

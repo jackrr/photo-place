@@ -67,11 +67,12 @@ function Controller() {
     $.__views.createAccount = Ti.UI.createWindow({
         backgroundColor: "white",
         layout: "vertical",
+        backgroundImage: "/images/welcome-background.png",
         id: "createAccount"
     });
     $.__views.createAccount && $.addTopLevelView($.__views.createAccount);
     $.__views.winlabel = Ti.UI.createLabel({
-        top: 50,
+        top: 150,
         width: Ti.UI.SIZE,
         text: "Create New Account",
         id: "winlabel"
