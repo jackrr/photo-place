@@ -3,5 +3,11 @@
 		Ti.UI.PORTRAIT,
 		Ti.UI.LANDSCAPE_LEFT,
 		Ti.UI.LANDSCAPE_RIGHT
-	] 
+	]
+},
+
+"#caption": {
+	color: 'white',
+	backgroundColor: 'black',
+	bottom: 20
 }

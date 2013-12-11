@@ -1,6 +1,7 @@
 exports.definition = {
     config : {
-    	"URL": "http://localhost:3000/users",
+    	"URL": "http://localhost:3000/users", // iOS devel
+    	// "URL": "http://10.0.2.2:3000/users", // Android devel
         // table schema and adapter information
         "adapter": {
             "type": "restapi",

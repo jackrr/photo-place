@@ -11,7 +11,7 @@
 },
 
 "#tableView": {
-	top : 30
+	top : 0
 },
 
 "#uploadBar": {
