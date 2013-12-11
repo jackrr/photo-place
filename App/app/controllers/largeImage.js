@@ -6,6 +6,8 @@ var parent = args.parent;
 var photo = args.photo;
 
 $.image.image = photo.get('largePath');
+$.caption.text = "\"" + photo.get('caption') + "\"";
+
 $.largeImage.open();
 
 function back() {

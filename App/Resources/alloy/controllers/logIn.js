@@ -8,7 +8,8 @@ function Controller() {
         if ("" == $.username.value || "" == $.password.value) Ti.UI.createAlertDialog({
             message: "Please fill in both fields"
         }).show(); else {
-            var url = "http://localhost:3000/users/auth";
+            var url = "";
+            url = "http://localhost:3000/users/auth";
             ServerUtil.checkPassword(url, {
                 username: $.username.value,
                 password: $.password.value

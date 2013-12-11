@@ -4,7 +4,8 @@
 },
 
 "#imageView": {
-	top: 30
+	top: 30,
+	height: 80
 },
 
 "#caption": {

@@ -240,7 +240,7 @@ function Controller() {
     });
     $.__views.myPhotosContainer.add($.__views.myPhotos);
     $.__views.tableView = Ti.UI.createTableView({
-        top: 30,
+        top: 0,
         id: "tableView"
     });
     $.__views.photoGallery.add($.__views.tableView);
