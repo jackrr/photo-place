@@ -12,13 +12,28 @@ function Controller() {
         });
         setTab(1);
     }
+    function myPlaceButt() {
+        changeGallery({
+            placeID: Ti.App.Properties.getObject("currentPlace").id
+        });
+        setTab(2);
+    }
+    function myPhotosButt() {
+        changeGallery({
+            userID: Ti.App.Properties.getObject("authInfo").id
+        });
+        setTab(3);
+    }
     function setTab(tabnum, text) {
         $.removeClass(selected, "selected");
         if (0 === tabnum) selected = $.globalContainer; else if (1 == tabnum) selected = $.nearbyContainer; else if (2 == tabnum) {
-            selected = $.hereContainer;
-            text && ($.here.text = text);
-        }
+            selected = $.myPlaceContainer;
+            text && $.myPlace.setText(text);
+        } else 1 == tabnum && (selected = $.myPhotosContainer);
         $.addClass(selected, "selected");
+        var here = Ti.App.Properties.getObject("currentPlace");
+        Ti.API.info(JSON.stringify(here.name));
+        here && here.name && $.myPlace.setText(here.name);
     }
     function closeWindow() {
         $.photoGallery.close();
@@ -32,7 +47,7 @@ function Controller() {
         var rows = [];
         var lastPlace;
         _.each(newPhotos.models, function(photo) {
-            if (placeLabels && photo.get("placeName") != lastPlace.name) {
+            if (placeLabels && photo.get("placeName") != lastPlace) {
                 lastPlace = photo.get("placeName");
                 var placeRow = Ti.UI.createTableViewRow({
                     title: lastPlace
@@ -52,7 +67,7 @@ function Controller() {
         var rows = [];
         var lastPlace;
         _.each(newPhotos.models, function(photo) {
-            if (placeLabels && photo.get("placeName") != lastPlace.name) {
+            if (placeLabels && photo.get("placeName") != lastPlace) {
                 lastPlace = photo.get("placeName");
                 var placeRow = Ti.UI.createTableViewRow({
                     title: lastPlace
@@ -73,9 +88,13 @@ function Controller() {
             mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
             success: function(event) {
                 if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-                    var photo = Alloy.createModel("photo");
+                    self.closeWindow();
                     var place = Ti.App.Properties.getObject("currentPlace");
-                    photo.setImage(event.media, place);
+                    Alloy.createController("photoUpload", {
+                        parent: self,
+                        image: event.media,
+                        place: place
+                    });
                 }
             },
             cancel: function() {},
@@ -94,6 +113,15 @@ function Controller() {
                 alert(JSON.stringify(e));
             }
         });
+    }
+    function scrollLoadListener(on) {
+        function loadMoreCheck(e) {
+            Ti.API.info(JSON.stringify(e.contentSize));
+            Ti.API.info(JSON.stringify(e.size));
+            Ti.API.info(JSON.stringify(e.contentOffset));
+            !self.updating && e.contentOffset.y + e.size.height + 50 > e.contentSize.height && nextPage();
+        }
+        on ? $.tableView.addEventListener("scrollEnd", loadMoreCheck) : $.tableView.removeEventListener("scrollEnd", loadMoreCheck);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "photoGallery";
@@ -141,7 +169,8 @@ function Controller() {
     });
     $.__views.photoGallery.add($.__views.navigation);
     $.__views.globalContainer = Ti.UI.createView({
-        width: "33.33%",
+        width: "25%",
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         backgroundColor: "#4433dd",
         color: "#ffffff",
         left: 0,
@@ -149,38 +178,69 @@ function Controller() {
     });
     $.__views.navigation.add($.__views.globalContainer);
     globeButt ? $.__views.globalContainer.addEventListener("click", globeButt) : __defers["$.__views.globalContainer!click!globeButt"] = true;
-    $.__views.global = Ti.UI.createButton({
-        backgroundImage: "/images/earth-icon.png",
+    $.__views.global = Ti.UI.createLabel({
         width: 50,
         height: 50,
+        top: 20,
+        color: "#000",
+        backgroundImage: "/images/earth-icon.png",
         id: "global"
     });
     $.__views.globalContainer.add($.__views.global);
     $.__views.nearbyContainer = Ti.UI.createView({
-        width: "33.33%",
-        left: "33.33%",
+        width: "25%",
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        left: "25%",
         id: "nearbyContainer"
     });
     $.__views.navigation.add($.__views.nearbyContainer);
     nearButt ? $.__views.nearbyContainer.addEventListener("click", nearButt) : __defers["$.__views.nearbyContainer!click!nearButt"] = true;
-    $.__views.nearby = Ti.UI.createButton({
-        title: "Nearby",
+    $.__views.nearby = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        top: 20,
+        color: "#000",
+        text: "Nearby",
         id: "nearby"
     });
     $.__views.nearbyContainer.add($.__views.nearby);
-    $.__views.hereContainer = Ti.UI.createView({
-        width: "33.33%",
-        left: "66.66%",
-        id: "hereContainer"
+    $.__views.myPlaceContainer = Ti.UI.createView({
+        width: "25%",
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        left: "50%",
+        id: "myPlaceContainer"
     });
-    $.__views.navigation.add($.__views.hereContainer);
-    $.__views.here = Ti.UI.createButton({
-        title: "Here",
-        id: "here"
+    $.__views.navigation.add($.__views.myPlaceContainer);
+    myPlaceButt ? $.__views.myPlaceContainer.addEventListener("click", myPlaceButt) : __defers["$.__views.myPlaceContainer!click!myPlaceButt"] = true;
+    $.__views.myPlace = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        top: 20,
+        color: "#000",
+        horizontalWrap: true,
+        id: "myPlace"
     });
-    $.__views.hereContainer.add($.__views.here);
+    $.__views.myPlaceContainer.add($.__views.myPlace);
+    $.__views.myPhotosContainer = Ti.UI.createView({
+        width: "25%",
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        left: "75%",
+        id: "myPhotosContainer"
+    });
+    $.__views.navigation.add($.__views.myPhotosContainer);
+    myPhotosButt ? $.__views.myPhotosContainer.addEventListener("click", myPhotosButt) : __defers["$.__views.myPhotosContainer!click!myPhotosButt"] = true;
+    $.__views.myPhotos = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        top: 20,
+        color: "#000",
+        horizontalWrap: true,
+        text: "My Photos",
+        id: "myPhotos"
+    });
+    $.__views.myPhotosContainer.add($.__views.myPhotos);
     $.__views.tableView = Ti.UI.createTableView({
-        top: 30,
+        top: 0,
         id: "tableView"
     });
     $.__views.photoGallery.add($.__views.tableView);
@@ -201,6 +261,7 @@ function Controller() {
         photos.byPlace(Ti.App.Properties.getObject("curLocID"), {
             success: function(newPhotos) {
                 changePhotos(newPhotos);
+                scrollLoadListener(true);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -212,6 +273,7 @@ function Controller() {
         photos.nearby({
             success: function(newPhotos) {
                 changePhotos(newPhotos, true);
+                scrollLoadListener(false);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -223,6 +285,7 @@ function Controller() {
         photos.global({
             success: function(newPhotos) {
                 changePhotos(newPhotos);
+                scrollLoadListener(true);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -234,6 +297,7 @@ function Controller() {
         photos.byPlaceID(placeID, {
             success: function(newPhotos) {
                 changePhotos(newPhotos);
+                scrollLoadListener(true);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -245,6 +309,7 @@ function Controller() {
         photos.byUserID(userID, {
             success: function(newPhotos) {
                 changePhotos(newPhotos);
+                scrollLoadListener(true);
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -254,16 +319,12 @@ function Controller() {
     var selected = $.globalContainer;
     globeButt();
     $.photoGallery.open();
-    $.tableView.addEventListener("scrollEnd", function(e) {
-        Ti.API.info(JSON.stringify(e.contentSize));
-        Ti.API.info(JSON.stringify(e.size));
-        Ti.API.info(JSON.stringify(e.contentOffset));
-        !self.updating && e.contentOffset.y + e.size.height + 50 > e.contentSize.height && nextPage();
-    });
     __defers["$.__views.back!click!eliminate"] && $.__views.back.addEventListener("click", eliminate);
     __defers["$.__views.uploadPhoto!click!choosePhoto"] && $.__views.uploadPhoto.addEventListener("click", choosePhoto);
     __defers["$.__views.globalContainer!click!globeButt"] && $.__views.globalContainer.addEventListener("click", globeButt);
     __defers["$.__views.nearbyContainer!click!nearButt"] && $.__views.nearbyContainer.addEventListener("click", nearButt);
+    __defers["$.__views.myPlaceContainer!click!myPlaceButt"] && $.__views.myPlaceContainer.addEventListener("click", myPlaceButt);
+    __defers["$.__views.myPhotosContainer!click!myPhotosButt"] && $.__views.myPhotosContainer.addEventListener("click", myPhotosButt);
     _.extend($, exports);
 }
 

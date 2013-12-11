@@ -6,9 +6,17 @@
 	top: 30
 },
 "View": {
-	layout : 'horizontal'
+	layout : 'horizontal',
+	top: 10
+},
+".captionArea": {
+	width: "100%",
+	textAlign: 'center'
 },
 ".userArea": {
+	height: 40
+},
+".captionArea": {
 	height: 40
 },
 ".placeArea": {

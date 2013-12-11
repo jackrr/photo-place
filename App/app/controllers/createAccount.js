@@ -1,9 +1,11 @@
 var user = Alloy.createModel("user");
 
 $.createAccount.open();
+var self = this;
 
 function closeWindow() {
-	$.createAccount.close();
+	self.destroy();
+	Alloy.createController('index');
 }
 
 function checkEmail(email){

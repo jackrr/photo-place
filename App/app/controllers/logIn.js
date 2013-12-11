@@ -16,7 +16,13 @@ function submitInfo(e) {
 			message : 'Please fill in both fields'
 		}).show();
 	} else {
-		var url = "http://localhost:3000/users/auth";
+		var url = "";
+		if (OS_IOS) {
+			url = "http://localhost:3000/users/auth";
+		} else {
+			url = "http://10.0.2.2:3000/users/auth";
+		}
+		
 		ServerUtil.checkPassword(url, {
 			username : $.username.value,
 			password : $.password.value

@@ -22,6 +22,13 @@ function Controller() {
         id: "image"
     });
     $.__views.largeImage.add($.__views.image);
+    $.__views.caption = Ti.UI.createLabel({
+        color: "white",
+        backgroundColor: "black",
+        bottom: 20,
+        id: "caption"
+    });
+    $.__views.largeImage.add($.__views.caption);
     exports.destroy = function() {};
     _.extend($, $.__views);
     require("dateUtil");
@@ -30,6 +37,7 @@ function Controller() {
     var parent = args.parent;
     var photo = args.photo;
     $.image.image = photo.get("largePath");
+    $.caption.text = '"' + photo.get("caption") + '"';
     $.largeImage.open();
     __defers["$.__views.largeImage!click!back"] && $.__views.largeImage.addEventListener("click", back);
     _.extend($, exports);

@@ -1,0 +1,19 @@
+".container" : {
+	layout: "vertical",
+	backgroundColor: "white"
+},
+
+"#imageView": {
+	top: 30,
+	height: 80
+},
+
+"#caption": {
+	top: 20,
+	hintText : "photo caption",
+	width : 250
+},
+
+"Label": {
+	top: 10
+}

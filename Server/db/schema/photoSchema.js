@@ -8,11 +8,8 @@ var photoSchema = new Schema({
 	smallPath: String,
 	mediumPath: String,
 	largePath: String,
-	dimensions: {
-		width: Number,
-		height: Number
-	},
 	createdDate: Date,
+	caption: String,
 
 	// non-persisted
 	placeName: String,

@@ -123,6 +123,14 @@ var checkForLocationUpdate = function() {
 
 exports.checkForLocationUpdate = checkForLocationUpdate;
 
+exports.nearbyPlaceIdsForURL = function() {
+	var places = [];
+	_.each(Ti.App.Properties.getObject('nearbyPlaces').list, function(place) {
+		places.push(place.id);
+	});
+	return places.toString();
+};
+
 // Ti.Geolocation.getCurrentPosition(function(e) {
 // Ti.API.info('e is ' + JSON.stringify(e));
 // slowTrain.latitude = e.coords.latitude;

@@ -1,5 +1,7 @@
 var ServerUtil = require('serverUtil');
-var serverURL = "http://localhost:3000/";
+var LocationUtil = require('locationUtil');
+var serverURL = "http://localhost:3000/"; // iOS devel
+// var serverURL = "http://10.0.2.2:3000/"; // Android devel
 // var serverURL = Alloy.CFG.serverURL; WHY DOESN'T THIS WORK?? 
 
 exports.definition = {
@@ -28,8 +30,8 @@ exports.definition = {
             	return this.url() || "http://localhost:3000/photos";
             }, 
             
-            setImage: function(image, place) {
-            	ServerUtil.sendPhoto(this.setPhotoURL(), image, place);
+            setImage: function(image, place, caption) {
+            	ServerUtil.sendPhoto(this.setPhotoURL(), image, place, caption);
             }
         });
 		
@@ -69,16 +71,7 @@ exports.definition = {
 
 			nextPage: function(options) {
             	options.url = this.nextURL(1);
-            	if (this.nearby) {
-            		var self = this;
-					ServerUtil.nearbyPlaceIdsForURL(this.page, function(err, placestring) {
-						if (err) return Ti.API.error(err);
-						options.url = options.url + placestring;
-						self.fetch(options);
-					});            		
-            	} else {
-            		this.fetch(options);	
-            	}
+            	this.fetch(options);	
           	},
            previousPage: function(options) {
            		options.url = this.nextURL(-1);
@@ -98,13 +91,8 @@ exports.definition = {
            nearby: function(options) {
 				this.resetValues();
 				this.nearbyBool = true;
-           		options.url = this.nextURL();
-           		var self = this;
-           		ServerUtil.nearbyPlaceIdsForURL(this.page, function(err, placestring) {
-           			if (err) return Ti.API.error(err);
-					options.url = options.url + placestring;
-					self.fetch(options);
-				}); 
+           		options.url = this.nextURL() + LocationUtil.nearbyPlaceIdsForURL();
+				this.fetch(options);
            },
            
            byPlaceID: function(id, options) {

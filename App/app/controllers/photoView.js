@@ -4,6 +4,7 @@ var self = this;
 
 self.setPhoto = function(photo) {
 	self.photo = photo;
+	$.caption.text = "\"" + photo.get('caption') + "\"";
 	$.userName.text = photo.get('userName');
 	$.placeName.text = photo.get('placeName');
 	$.uploadDate.text = dateUtil.prettyDate(photo.get('createdDate'));

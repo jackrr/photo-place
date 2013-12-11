@@ -33,6 +33,16 @@ function nearButt() {
 	setTab(1);
 }
 
+function myPlaceButt() {
+	changeGallery({placeID: Ti.App.Properties.getObject('currentPlace').id});
+	setTab(2);
+}
+
+function myPhotosButt() {
+	changeGallery({userID: Ti.App.Properties.getObject('authInfo').id});
+	setTab(3);
+}
+
 function setTab(tabnum, text) {
 	$.removeClass(selected, 'selected');
 	if (tabnum === 0) {
@@ -40,12 +50,19 @@ function setTab(tabnum, text) {
 	} else if (tabnum == 1) {
 		selected = $.nearbyContainer;
 	} else if (tabnum == 2) {
-		selected = $.hereContainer;
+		selected = $.myPlaceContainer;
 		if (text) {
-			$.here.text = text;			
+			$.myPlace.setText(text);			
 		}
+	} else if (tabnum == 1) {
+		selected = $.myPhotosContainer;
 	}
 	$.addClass(selected, 'selected');
+	var here = Ti.App.Properties.getObject('currentPlace');
+	Ti.API.info(JSON.stringify(here.name));
+	if (here && here.name) {
+		$.myPlace.setText(here.name);
+	}
 }
 
 function closeWindow() {
@@ -69,6 +86,7 @@ self.here = function() {
 	photos.byPlace(Ti.App.Properties.getObject('curLocID'), {
 		success: function(newPhotos) {
 			changePhotos(newPhotos);
+			scrollLoadListener(true);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -81,6 +99,7 @@ self.nearby = function() {
 	photos.nearby({
 		success: function(newPhotos) {
 			changePhotos(newPhotos, true);
+			scrollLoadListener(false);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -93,6 +112,7 @@ self.openGlobal = function() {
 	photos.global({
 		success: function(newPhotos) {
 			changePhotos(newPhotos);
+			scrollLoadListener(true);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -105,6 +125,7 @@ self.byPlace = function(placeID) {
 	photos.byPlaceID(placeID, {
 		success: function(newPhotos) {
 			changePhotos(newPhotos);
+			scrollLoadListener(true);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -117,6 +138,7 @@ self.byUser = function(userID) {
 	photos.byUserID(userID, {
 		success: function(newPhotos) {
 			changePhotos(newPhotos);
+			scrollLoadListener(true);
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));	
@@ -128,7 +150,7 @@ function addPhotos(newPhotos, placeLabels) {
 	var rows = [];
 	var lastPlace;
 	_.each(newPhotos.models, function(photo, index) {
-		if (placeLabels && photo.get('placeName') != lastPlace.name) {
+		if (placeLabels && photo.get('placeName') != lastPlace) {
 			lastPlace = photo.get('placeName');
 			var placeRow = Ti.UI.createTableViewRow({
 				title: lastPlace
@@ -150,7 +172,7 @@ function changePhotos(newPhotos, placeLabels) {
 	var rows = [];
 	var lastPlace;
 	_.each(newPhotos.models, function(photo, index) {
-		if (placeLabels && photo.get('placeName') != lastPlace.name) {
+		if (placeLabels && photo.get('placeName') != lastPlace) {
 			lastPlace = photo.get('placeName');
 			var placeRow = Ti.UI.createTableViewRow({
 				title: lastPlace
@@ -169,14 +191,31 @@ function changePhotos(newPhotos, placeLabels) {
 }
 
 function choosePhoto() {
+	// Ti.Media.showCamera({
+		// mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
+// 		
+		// success : function(event) {
+			// if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+				// self.closeWindow();
+				// var place = Ti.App.Properties.getObject('currentPlace');
+				// Alloy.createController('photoUpload', {parent: self, image: event.media, place: place});
+			// }
+		// },
+		// cancel : function() {
+// 
+		// },
+		// error : function(error) {
+			// alert(JSON.stringify(error));
+		// }
+	// });
 	Ti.Media.openPhotoGallery({
 		mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
 
 		success : function(event) {
 			if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-				var photo = Alloy.createModel('photo');
+				self.closeWindow();
 				var place = Ti.App.Properties.getObject('currentPlace');
-				photo.setImage(event.media, place);	
+				Alloy.createController('photoUpload', {parent: self, image: event.media, place: place});
 			}
 		},
 		cancel : function() {
@@ -224,16 +263,27 @@ function currentPage() {
 	});
 }
 
+function scrollLoadListener(on) {
+	function loadMoreCheck(e) {
+		Ti.API.info(JSON.stringify(e.contentSize));
+		Ti.API.info(JSON.stringify(e.size));
+		Ti.API.info(JSON.stringify(e.contentOffset));
+		if (!self.updating && (e.contentOffset.y + e.size.height + 50 > e.contentSize.height)) {
+			nextPage();
+		}
+	}
+
+	if (on) {
+		$.tableView.addEventListener('scrollEnd', loadMoreCheck);
+	} else {
+		$.tableView.removeEventListener('scrollEnd', loadMoreCheck);
+	}
+
+}
+
 var selected = $.globalContainer;
 globeButt();
 
 $.photoGallery.open();
 
-$.tableView.addEventListener('scrollEnd', function(e) {
-	Ti.API.info(JSON.stringify(e.contentSize));
-	Ti.API.info(JSON.stringify(e.size));
-	Ti.API.info(JSON.stringify(e.contentOffset));
-	if (!self.updating && (e.contentOffset.y + e.size.height + 50 > e.contentSize.height)) {
-		nextPage();
-	}
-});
+
