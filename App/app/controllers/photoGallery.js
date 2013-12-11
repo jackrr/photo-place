@@ -44,24 +44,29 @@ function myPhotosButt() {
 }
 
 function setTab(tabnum, text) {
-	$.removeClass(selected, 'selected');
+	Ti.API.info(tabnum, JSON.stringify(self.currentTab));
+	// $.removeClass(self.currentTab, 'selected');
+	
 	if (tabnum === 0) {
-		selected = $.globalContainer;
+		self.currentTab = $.globalContainer;
 	} else if (tabnum == 1) {
-		selected = $.nearbyContainer;
+		self.currentTab = $.nearbyContainer;
 	} else if (tabnum == 2) {
-		selected = $.myPlaceContainer;
+		self.currentTab = $.myPlaceContainer;
 		if (text) {
-			$.myPlace.setText(text);			
+			$.myPlace.setText(text);
 		}
-	} else if (tabnum == 1) {
-		selected = $.myPhotosContainer;
+	} else if (tabnum == 3) {
+		self.currentTab = $.myPhotosContainer;
+	} else {
 	}
-	$.addClass(selected, 'selected');
+
+	// $.addClass(self.currentTab, 'selected');
+
 	var here = Ti.App.Properties.getObject('currentPlace');
-	Ti.API.info(JSON.stringify(here.name));
 	if (here && here.name) {
-		$.myPlace.setText(here.name);
+		$.placeName.setText(here.name);
+		// $.myPlace.setText(here.name);
 	}
 }
 
@@ -89,7 +94,7 @@ self.here = function() {
 			scrollLoadListener(true);
 		},
 		error: function(e) {
-			alert(JSON.stringify(e));	
+			alert(JSON.stringify(e));
 		}
 	});
 };
@@ -102,7 +107,7 @@ self.nearby = function() {
 			scrollLoadListener(false);
 		},
 		error: function(e) {
-			alert(JSON.stringify(e));	
+			alert(JSON.stringify(e));
 		}
 	});
 };
@@ -115,7 +120,7 @@ self.openGlobal = function() {
 			scrollLoadListener(true);
 		},
 		error: function(e) {
-			alert(JSON.stringify(e));	
+			alert(JSON.stringify(e));
 		}
 	});
 };
@@ -128,7 +133,7 @@ self.byPlace = function(placeID) {
 			scrollLoadListener(true);
 		},
 		error: function(e) {
-			alert(JSON.stringify(e));	
+			alert(JSON.stringify(e));
 		}
 	});
 };
@@ -141,7 +146,7 @@ self.byUser = function(userID) {
 			scrollLoadListener(true);
 		},
 		error: function(e) {
-			alert(JSON.stringify(e));	
+			alert(JSON.stringify(e));
 		}
 	});
 };
@@ -193,7 +198,7 @@ function changePhotos(newPhotos, placeLabels) {
 function choosePhoto() {
 	// Ti.Media.showCamera({
 		// mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
-// 		
+//
 		// success : function(event) {
 			// if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 				// self.closeWindow();
@@ -202,7 +207,7 @@ function choosePhoto() {
 			// }
 		// },
 		// cancel : function() {
-// 
+//
 		// },
 		// error : function(error) {
 			// alert(JSON.stringify(error));
@@ -281,7 +286,7 @@ function scrollLoadListener(on) {
 
 }
 
-var selected = $.globalContainer;
+self.currentTab = $.globalContainer;
 globeButt();
 
 $.photoGallery.open();

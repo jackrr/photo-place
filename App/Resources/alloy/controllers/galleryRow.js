@@ -19,6 +19,7 @@ function Controller() {
     var __defers = {};
     $.__views.rowView = Ti.UI.createTableViewRow({
         height: 80,
+        backgroundColor: Alloy.CFG.defaultBackColor,
         id: "rowView"
     });
     $.__views.rowView && $.addTopLevelView($.__views.rowView);

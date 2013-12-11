@@ -25,15 +25,13 @@ function Controller() {
         setTab(3);
     }
     function setTab(tabnum, text) {
-        $.removeClass(selected, "selected");
-        if (0 === tabnum) selected = $.globalContainer; else if (1 == tabnum) selected = $.nearbyContainer; else if (2 == tabnum) {
-            selected = $.myPlaceContainer;
+        Ti.API.info(tabnum, JSON.stringify(self.currentTab));
+        if (0 === tabnum) self.currentTab = $.globalContainer; else if (1 == tabnum) self.currentTab = $.nearbyContainer; else if (2 == tabnum) {
+            self.currentTab = $.myPlaceContainer;
             text && $.myPlace.setText(text);
-        } else 1 == tabnum && (selected = $.myPhotosContainer);
-        $.addClass(selected, "selected");
+        } else 3 == tabnum && (self.currentTab = $.myPhotosContainer);
         var here = Ti.App.Properties.getObject("currentPlace");
-        Ti.API.info(JSON.stringify(here.name));
-        here && here.name && $.myPlace.setText(here.name);
+        here && here.name && $.placeName.setText(here.name);
     }
     function closeWindow() {
         $.photoGallery.close();
@@ -132,14 +130,15 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.photoGallery = Ti.UI.createWindow({
-        backgroundColor: "white",
+        top: 10,
+        backgroundColor: Alloy.CFG.defaultBackColor,
         layout: "vertical",
         id: "photoGallery"
     });
     $.__views.photoGallery && $.addTopLevelView($.__views.photoGallery);
     $.__views.uploadBar = Ti.UI.createView({
         height: 40,
-        backgroundColor: "#33dd99",
+        backgroundColor: Alloy.CFG.highlightColor,
         width: "100%",
         id: "uploadBar"
     });
@@ -155,6 +154,15 @@ function Controller() {
     });
     $.__views.uploadBar.add($.__views.back);
     eliminate ? $.__views.back.addEventListener("click", eliminate) : __defers["$.__views.back!click!eliminate"] = true;
+    $.__views.placeName = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        top: 20,
+        color: "#000",
+        right: 60,
+        id: "placeName"
+    });
+    $.__views.uploadBar.add($.__views.placeName);
     $.__views.uploadPhoto = Ti.UI.createButton({
         right: 5,
         backgroundImage: "/images/camera-icon.png",
@@ -171,7 +179,7 @@ function Controller() {
     $.__views.globalContainer = Ti.UI.createView({
         width: "25%",
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        backgroundColor: "#4433dd",
+        backgroundColor: Alloy.CFG.emphasisColor,
         color: "#ffffff",
         left: 0,
         id: "globalContainer"
@@ -179,68 +187,74 @@ function Controller() {
     $.__views.navigation.add($.__views.globalContainer);
     globeButt ? $.__views.globalContainer.addEventListener("click", globeButt) : __defers["$.__views.globalContainer!click!globeButt"] = true;
     $.__views.global = Ti.UI.createLabel({
-        width: 50,
-        height: 50,
-        top: 20,
+        width: 45,
+        height: 45,
+        top: 8,
         color: "#000",
-        backgroundImage: "/images/earth-icon.png",
+        backgroundImage: "/images/world-icon.png",
         id: "global"
     });
     $.__views.globalContainer.add($.__views.global);
     $.__views.nearbyContainer = Ti.UI.createView({
         width: "25%",
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        backgroundColor: Alloy.CFG.emphasisColor,
+        color: "#ffffff",
         left: "25%",
         id: "nearbyContainer"
     });
     $.__views.navigation.add($.__views.nearbyContainer);
     nearButt ? $.__views.nearbyContainer.addEventListener("click", nearButt) : __defers["$.__views.nearbyContainer!click!nearButt"] = true;
     $.__views.nearby = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        top: 20,
+        width: 45,
+        height: 45,
+        top: 8,
         color: "#000",
-        text: "Nearby",
+        backgroundImage: "/images/nearby.png",
         id: "nearby"
     });
     $.__views.nearbyContainer.add($.__views.nearby);
     $.__views.myPlaceContainer = Ti.UI.createView({
         width: "25%",
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        backgroundColor: Alloy.CFG.emphasisColor,
+        color: "#ffffff",
         left: "50%",
         id: "myPlaceContainer"
     });
     $.__views.navigation.add($.__views.myPlaceContainer);
     myPlaceButt ? $.__views.myPlaceContainer.addEventListener("click", myPlaceButt) : __defers["$.__views.myPlaceContainer!click!myPlaceButt"] = true;
     $.__views.myPlace = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        top: 20,
+        width: 45,
+        height: 45,
+        top: 8,
         color: "#000",
-        horizontalWrap: true,
+        backgroundImage: "/images/current-location.png",
         id: "myPlace"
     });
     $.__views.myPlaceContainer.add($.__views.myPlace);
     $.__views.myPhotosContainer = Ti.UI.createView({
         width: "25%",
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        backgroundColor: Alloy.CFG.emphasisColor,
+        color: "#ffffff",
         left: "75%",
         id: "myPhotosContainer"
     });
     $.__views.navigation.add($.__views.myPhotosContainer);
     myPhotosButt ? $.__views.myPhotosContainer.addEventListener("click", myPhotosButt) : __defers["$.__views.myPhotosContainer!click!myPhotosButt"] = true;
     $.__views.myPhotos = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        top: 20,
+        width: 45,
+        height: 45,
+        top: 8,
         color: "#000",
-        horizontalWrap: true,
-        text: "My Photos",
+        backgroundImage: "/images/my-photos.png",
         id: "myPhotos"
     });
     $.__views.myPhotosContainer.add($.__views.myPhotos);
     $.__views.tableView = Ti.UI.createTableView({
         top: 0,
+        backgroundColor: Alloy.CFG.defaultBackColor,
         id: "tableView"
     });
     $.__views.photoGallery.add($.__views.tableView);
@@ -316,7 +330,7 @@ function Controller() {
             }
         });
     };
-    var selected = $.globalContainer;
+    self.currentTab = $.globalContainer;
     globeButt();
     $.photoGallery.open();
     __defers["$.__views.back!click!eliminate"] && $.__views.back.addEventListener("click", eliminate);
