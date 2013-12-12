@@ -3,7 +3,9 @@ function Controller() {
         Alloy.createController("auth");
     }
     function openUserList() {
-        Alloy.createController("user");
+        Alloy.createController("user", {
+            parent: self
+        });
         self.closeWindow();
     }
     function openPhotoOpts() {

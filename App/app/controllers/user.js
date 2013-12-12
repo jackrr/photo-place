@@ -1,4 +1,8 @@
 var users = Alloy.createCollection("user");
+var self = this;
+
+var args = arguments[0] || {};
+var parent = args.parent;
 
 $.user.open();
 
@@ -31,7 +35,8 @@ users.fetch({
 });
 
 function closeWindow() {
-	$.user.close();
+	self.destroy();
+	parent.openWindow();
 }
 
 // var http = Ti.Network.createHTTPClient({

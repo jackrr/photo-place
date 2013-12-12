@@ -17,7 +17,7 @@ self.openWindow = function() {
 };
 
 function openUserList(e) {
-	Alloy.createController('user');
+	Alloy.createController('user', {parent: self});
 	self.closeWindow();
 }
 
