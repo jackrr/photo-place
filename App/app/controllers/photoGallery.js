@@ -104,7 +104,7 @@ self.nearby = function() {
 	photos.nearby({
 		success: function(newPhotos) {
 			changePhotos(newPhotos, true);
-			scrollLoadListener(false);
+			scrollLoadListener();
 		},
 		error: function(e) {
 			alert(JSON.stringify(e));
@@ -269,6 +269,7 @@ function currentPage() {
 }
 
 function scrollLoadListener(on) {
+	Ti.API.info(JSON.stringify(on));
 	function loadMoreCheck(e) {
 		Ti.API.info(JSON.stringify(e.contentSize));
 		Ti.API.info(JSON.stringify(e.size));
@@ -278,9 +279,13 @@ function scrollLoadListener(on) {
 		}
 	}
 
-	if (on) {
+	if (on && !self.infiniScroll) {
+		self.infiniScroll = true;
+		Ti.API.info(JSON.stringify('Add listener'));
 		$.tableView.addEventListener('scrollEnd', loadMoreCheck);
-	} else {
+	} else if (!on && self.infiniScroll) {
+		self.infiniScroll = undefined;
+		Ti.API.info(JSON.stringify('Remove listener'));
 		$.tableView.removeEventListener('scrollEnd', loadMoreCheck);
 	}
 

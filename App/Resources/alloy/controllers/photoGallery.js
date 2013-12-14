@@ -119,7 +119,16 @@ function Controller() {
             Ti.API.info(JSON.stringify(e.contentOffset));
             !self.updating && e.contentOffset.y + e.size.height + 50 > e.contentSize.height && nextPage();
         }
-        on ? $.tableView.addEventListener("scrollEnd", loadMoreCheck) : $.tableView.removeEventListener("scrollEnd", loadMoreCheck);
+        Ti.API.info(JSON.stringify(on));
+        if (on && !self.infiniScroll) {
+            self.infiniScroll = true;
+            Ti.API.info(JSON.stringify("Add listener"));
+            $.tableView.addEventListener("scrollEnd", loadMoreCheck);
+        } else if (!on && self.infiniScroll) {
+            self.infiniScroll = void 0;
+            Ti.API.info(JSON.stringify("Remove listener"));
+            $.tableView.removeEventListener("scrollEnd", loadMoreCheck);
+        }
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "photoGallery";
@@ -287,7 +296,7 @@ function Controller() {
         photos.nearby({
             success: function(newPhotos) {
                 changePhotos(newPhotos, true);
-                scrollLoadListener(false);
+                scrollLoadListener();
             },
             error: function(e) {
                 alert(JSON.stringify(e));
