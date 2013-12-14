@@ -19,6 +19,13 @@ function Controller() {
         parent.byPlace(self.photo.get("placeID"));
         back();
     }
+    function newThread() {
+        Alloy.createController("imageSelector", {
+            photo: self.photo,
+            parent: self
+        });
+        self.closeWindow();
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "photoView";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -103,12 +110,24 @@ function Controller() {
         id: "uploadDate"
     });
     $.__views.__alloyId7.add($.__views.uploadDate);
-    $.__views.__alloyId9 = Ti.UI.createLabel({
-        text: "Back",
+    $.__views.__alloyId9 = Ti.UI.createView({
+        layout: "horizontal",
+        top: 10,
         id: "__alloyId9"
     });
     $.__views.photoView.add($.__views.__alloyId9);
-    back ? $.__views.__alloyId9.addEventListener("click", back) : __defers["$.__views.__alloyId9!click!back"] = true;
+    $.__views.newThread = Ti.UI.createLabel({
+        text: "Make new thread",
+        id: "newThread"
+    });
+    $.__views.__alloyId9.add($.__views.newThread);
+    newThread ? $.__views.newThread.addEventListener("click", newThread) : __defers["$.__views.newThread!click!newThread"] = true;
+    $.__views.__alloyId10 = Ti.UI.createLabel({
+        text: "Back",
+        id: "__alloyId10"
+    });
+    $.__views.photoView.add($.__views.__alloyId10);
+    back ? $.__views.__alloyId10.addEventListener("click", back) : __defers["$.__views.__alloyId10!click!back"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var dateUtil = require("dateUtil");
@@ -124,7 +143,8 @@ function Controller() {
     self.closeWindow = function() {
         $.photoView.close();
     };
-    self.openWindow = function() {
+    self.openWindow = function(options) {
+        options && options.update;
         $.photoView.open();
     };
     var args = arguments[0] || {};
@@ -134,7 +154,8 @@ function Controller() {
     __defers["$.__views.image!click!fullPhoto"] && $.__views.image.addEventListener("click", fullPhoto);
     __defers["$.__views.userName!click!openUser"] && $.__views.userName.addEventListener("click", openUser);
     __defers["$.__views.placeName!click!openPlace"] && $.__views.placeName.addEventListener("click", openPlace);
-    __defers["$.__views.__alloyId9!click!back"] && $.__views.__alloyId9.addEventListener("click", back);
+    __defers["$.__views.newThread!click!newThread"] && $.__views.newThread.addEventListener("click", newThread);
+    __defers["$.__views.__alloyId10!click!back"] && $.__views.__alloyId10.addEventListener("click", back);
     _.extend($, exports);
 }
 

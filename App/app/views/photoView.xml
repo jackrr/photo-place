@@ -16,6 +16,9 @@
 			<Label class="label">Uploaded:</Label>
 			<Label id="uploadDate" class="value"></Label>
 		</View>
+		<View class="threadArea">
+			<Label id="newThread" onClick="newThread">Make new thread</Label>
+		</View>
 		<Label onClick="back">Back</Label>
 	</Window>
 </Alloy>

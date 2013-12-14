@@ -15,7 +15,10 @@ self.closeWindow = function() {
 	$.photoView.close();
 };
 
-self.openWindow = function() {
+self.openWindow = function(options) {
+	if (options && options.update) {
+		// loadThreads();
+	}
 	$.photoView.open();
 };
 
@@ -41,6 +44,14 @@ function openUser() {
 function openPlace() {
 	parent.byPlace(self.photo.get('placeID'));
 	back();
+}
+
+function newThread() {
+	var thread = Alloy.createController('imageSelector', {
+		photo: self.photo,
+		parent:self
+	});
+	self.closeWindow();
 }
 
 

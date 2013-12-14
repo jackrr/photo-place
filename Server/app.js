@@ -48,9 +48,9 @@ app.get('/photos/user/:userID/page/:page', log, photos.byUser);
 app.get('/photos/nearby/:placeIDs', log, photos.nearby);
 
 app.get('/photo/:photoID/threads', log, threads.getThreadPreviews);
-app.get('/photos/thread/:threadID', log, threads.getThread);
-app.post('/photos/threads', log, threads.newThread);
-app.put('/photos/thread/:threadID/comment', log, threads.newComment);
+app.get('/thread/:threadID', log, threads.getThread);
+app.post('/threads', log, threads.newThread);
+app.put('/thread/:threadID/comment', log, threads.newComment);
 
 
 // app.post('/photos/user/:userID', log, photos.newFromUser);

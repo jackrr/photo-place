@@ -6,11 +6,11 @@ var threadSchema = new Schema({
 	photoID: {type: String, required: true},
 	userID: {type: String, required: true},
 	name: {type: String, required: true},
-	tcorner: {
+	topCorner: {
 		x: {type: Number, required: true},
 		y: {type: Number, required: true}
 	},
-	bcorner: {
+	bottomCorner: {
 		x: {type: Number, required: true},
 		y: {type: Number, required: true}
 	},
