@@ -50,8 +50,6 @@ Ti.App.addEventListener('signIn', function(e) {
 	LocationUtil.checkForLocationUpdate();
 });
 
-Ti.App.Properties.removeProperty('authInfo');
-
 if (!Ti.App.Properties.getObject('authInfo', false)) {
 	Ti.API.info('No authInfo property found');
 	openUserOptions();
@@ -59,5 +57,5 @@ if (!Ti.App.Properties.getObject('authInfo', false)) {
 } else {
 	Ti.API.info('authInfo property found, opening home page');
 
-	$.title.text = titleHeader(Ti.App.Properties.getObject('authInfo').username);
+	openPhotoOpts();
 }

@@ -15,8 +15,9 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.photoUpload = Ti.UI.createWindow({
-        layout: "vertical",
         backgroundColor: "white",
+        fullscreen: true,
+        layout: "vertical",
         id: "photoUpload"
     });
     $.__views.photoUpload && $.addTopLevelView($.__views.photoUpload);
@@ -34,17 +35,23 @@ function Controller() {
     });
     $.__views.photoUpload.add($.__views.caption);
     $.__views.__alloyId1 = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 10,
         text: "Taken at:",
         id: "__alloyId1"
     });
     $.__views.photoUpload.add($.__views.__alloyId1);
     $.__views.placeName = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 10,
         id: "placeName"
     });
     $.__views.photoUpload.add($.__views.placeName);
     $.__views.submit = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 10,
         text: "Upload Photo!",
         id: "submit"
@@ -52,6 +59,8 @@ function Controller() {
     $.__views.photoUpload.add($.__views.submit);
     done ? $.__views.submit.addEventListener("click", done) : __defers["$.__views.submit!click!done"] = true;
     $.__views.cancel = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 10,
         text: "Cancel",
         id: "cancel"

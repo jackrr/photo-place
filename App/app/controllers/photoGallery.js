@@ -43,16 +43,28 @@ function myPhotosButt() {
 	setTab(3);
 }
 
+function resetColors(){
+	var bgc = Alloy.CFG.lightYellow; 
+	$.globalContainer.backgroundColor = bgc;
+	$.nearbyContainer.backgroundColor = bgc;
+	$.myPlaceContainer.backgroundColor = bgc;
+	$.myPhotosContainer.backgroundColor = bgc;
+}
+
 function setTab(tabnum, text) {
 	Ti.API.info(tabnum, JSON.stringify(self.currentTab));
 	// $.removeClass(self.currentTab, 'selected');
 	
+	resetColors();
 	if (tabnum === 0) {
 		self.currentTab = $.globalContainer;
+		//$.globalContainer.backgroundColor = Alloy.CFG.darkYellow;
 	} else if (tabnum == 1) {
 		self.currentTab = $.nearbyContainer;
+		//$.nearbyContainer.backgroundColor = Alloy.CFG.darkYellow;
 	} else if (tabnum == 2) {
 		self.currentTab = $.myPlaceContainer;
+		//$.myPlaceContainer.backgroundColor = Alloy.CFG.darkYellow;
 		if (text) {
 			$.myPlace.setText(text);
 		}
@@ -60,6 +72,8 @@ function setTab(tabnum, text) {
 		self.currentTab = $.myPhotosContainer;
 	} else {
 	}
+	
+	self.currentTab.backgroundColor = Alloy.CFG.darkYellow;
 
 	// $.addClass(self.currentTab, 'selected');
 

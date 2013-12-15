@@ -1,6 +1,5 @@
 <Alloy>
 	<Window class="container">
-		<Label id="title" text="Welcome to\nPhoto Place"/>
 		<Label id="createAccount" onClick="openCreateAccount">Create Account</Label>
 		<Label id="logIn" onClick="openLogIn">Log In</Label>
 	</Window>

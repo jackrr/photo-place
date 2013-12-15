@@ -1,1 +1,1 @@
-module.exports = [{"isClass":true,"priority":10000.0075,"key":"container","style":{}}];
+module.exports = [{"isApi":true,"priority":1000.0002,"key":"Label","style":{verticalAlign:Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,textAlign:Ti.UI.TEXT_ALIGNMENT_CENTER,}},{"isClass":true,"priority":10000.0001,"key":"container","style":{backgroundColor:Alloy.CFG.cream,fullscreen:true,}},{"isClass":true,"priority":10000.0077,"key":"container","style":{}}];

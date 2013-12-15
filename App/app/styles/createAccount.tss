@@ -1,6 +1,5 @@
 
 ".container": {
-	backgroundColor : "white",
 	layout : "vertical",
 	backgroundImage: '/images/welcome-background.png'
 },
@@ -24,7 +23,10 @@
 },
 
 "#winlabel": {
-	top : 150
+	top : 150,
+	font : {
+		fontSize : 20
+	}
 },
 
 "#username": {

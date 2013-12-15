@@ -28,11 +28,14 @@ function Controller() {
     var __defers = {};
     $.__views.user = Ti.UI.createWindow({
         backgroundColor: "white",
+        fullscreen: true,
         layout: "vertical",
         id: "user"
     });
     $.__views.user && $.addTopLevelView($.__views.user);
     $.__views.title = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 10,
         width: Ti.UI.SIZE,
         text: "List of Users",
@@ -40,6 +43,8 @@ function Controller() {
     });
     $.__views.user.add($.__views.title);
     $.__views.closeButton = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 10,
         width: Ti.UI.SIZE,
         text: "Close Window",
