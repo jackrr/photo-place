@@ -1,7 +1,7 @@
 ".container": {
 	top: 10,
-	backgroundColor: Alloy.CFG.defaultBackColor,
-	layout: "vertical"
+	layout: "vertical",
+	backgroundImage : '/images/homepage-background.png',
 },
 
 "Label": {
@@ -13,12 +13,12 @@
 
 "#tableView": {
 	top : 0,
-	backgroundColor: Alloy.CFG.defaultBackColor
+	backgroundColor: 'transparent' //'rgba(0,0,0,0.3)'
 },
 
 "#uploadBar": {
 	height: 40,
-	backgroundColor: Alloy.CFG.highlightColor,
+	backgroundColor: Alloy.CFG.darkRed,
 	width: "100%"
 },
 
@@ -43,12 +43,12 @@
 ".buttonContainer": {
 	width: "25%",
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-	backgroundColor: Alloy.CFG.emphasisColor,
+	backgroundColor: Alloy.CFG.lightYellow,
 	color: "#ffffff"
 },
 
 ".selected": {
-	backgroundColor: Alloy.CFG.highlightColor,
+	backgroundColor: Alloy.CFG.darkYellow,
 	color: "#000000"
 },
 
@@ -59,11 +59,12 @@
 }
 
 "#globalContainer": {
-	left: 0
+	left: 0,
+	backgrondColor : Alloy.CFG.darkYellow
 },
 
 "#global": {
-	backgroundImage: '/images/world-icon.png'
+	backgroundImage: '/images/world-icon.png',
 },
 
 "#nearbyContainer": {

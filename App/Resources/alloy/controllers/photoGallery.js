@@ -24,12 +24,21 @@ function Controller() {
         });
         setTab(3);
     }
+    function resetColors() {
+        var bgc = Alloy.CFG.lightYellow;
+        $.globalContainer.backgroundColor = bgc;
+        $.nearbyContainer.backgroundColor = bgc;
+        $.myPlaceContainer.backgroundColor = bgc;
+        $.myPhotosContainer.backgroundColor = bgc;
+    }
     function setTab(tabnum, text) {
         Ti.API.info(tabnum, JSON.stringify(self.currentTab));
+        resetColors();
         if (0 === tabnum) self.currentTab = $.globalContainer; else if (1 == tabnum) self.currentTab = $.nearbyContainer; else if (2 == tabnum) {
             self.currentTab = $.myPlaceContainer;
             text && $.myPlace.setText(text);
         } else 3 == tabnum && (self.currentTab = $.myPhotosContainer);
+        self.currentTab.backgroundColor = Alloy.CFG.darkYellow;
         var here = Ti.App.Properties.getObject("currentPlace");
         here && here.name && $.placeName.setText(here.name);
     }
@@ -140,14 +149,14 @@ function Controller() {
     var __defers = {};
     $.__views.photoGallery = Ti.UI.createWindow({
         top: 10,
-        backgroundColor: Alloy.CFG.defaultBackColor,
         layout: "vertical",
+        backgroundImage: "/images/homepage-background.png",
         id: "photoGallery"
     });
     $.__views.photoGallery && $.addTopLevelView($.__views.photoGallery);
     $.__views.uploadBar = Ti.UI.createView({
         height: 40,
-        backgroundColor: Alloy.CFG.highlightColor,
+        backgroundColor: Alloy.CFG.darkRed,
         width: "100%",
         id: "uploadBar"
     });
@@ -188,9 +197,10 @@ function Controller() {
     $.__views.globalContainer = Ti.UI.createView({
         width: "25%",
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        backgroundColor: Alloy.CFG.emphasisColor,
+        backgroundColor: Alloy.CFG.lightYellow,
         color: "#ffffff",
         left: 0,
+        backgrondColor: Alloy.CFG.darkYellow,
         id: "globalContainer"
     });
     $.__views.navigation.add($.__views.globalContainer);
@@ -207,7 +217,7 @@ function Controller() {
     $.__views.nearbyContainer = Ti.UI.createView({
         width: "25%",
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        backgroundColor: Alloy.CFG.emphasisColor,
+        backgroundColor: Alloy.CFG.lightYellow,
         color: "#ffffff",
         left: "25%",
         id: "nearbyContainer"
@@ -226,7 +236,7 @@ function Controller() {
     $.__views.myPlaceContainer = Ti.UI.createView({
         width: "25%",
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        backgroundColor: Alloy.CFG.emphasisColor,
+        backgroundColor: Alloy.CFG.lightYellow,
         color: "#ffffff",
         left: "50%",
         id: "myPlaceContainer"
@@ -245,7 +255,7 @@ function Controller() {
     $.__views.myPhotosContainer = Ti.UI.createView({
         width: "25%",
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        backgroundColor: Alloy.CFG.emphasisColor,
+        backgroundColor: Alloy.CFG.lightYellow,
         color: "#ffffff",
         left: "75%",
         id: "myPhotosContainer"
@@ -263,7 +273,7 @@ function Controller() {
     $.__views.myPhotosContainer.add($.__views.myPhotos);
     $.__views.tableView = Ti.UI.createTableView({
         top: 0,
-        backgroundColor: Alloy.CFG.defaultBackColor,
+        backgroundColor: "transparent",
         id: "tableView"
     });
     $.__views.photoGallery.add($.__views.tableView);
