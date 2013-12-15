@@ -21,20 +21,16 @@ function Controller() {
     var __defers = {};
     $.__views.auth = Ti.UI.createWindow({
         backgroundColor: "white",
+        fullscreen: true,
         layout: "vertical",
         backgroundImage: "/images/welcome-to-background.png",
         id: "auth"
     });
     $.__views.auth && $.addTopLevelView($.__views.auth);
-    $.__views.title = Ti.UI.createLabel({
-        top: 30,
-        width: Ti.UI.SIZE,
-        id: "title",
-        text: "Welcome to\nPhoto Place"
-    });
-    $.__views.auth.add($.__views.title);
     $.__views.createAccount = Ti.UI.createLabel({
-        top: 100,
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        top: 275,
         width: Ti.UI.SIZE,
         text: "Create Account",
         id: "createAccount"
@@ -42,6 +38,8 @@ function Controller() {
     $.__views.auth.add($.__views.createAccount);
     openCreateAccount ? $.__views.createAccount.addEventListener("click", openCreateAccount) : __defers["$.__views.createAccount!click!openCreateAccount"] = true;
     $.__views.logIn = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 10,
         width: Ti.UI.SIZE,
         text: "Log In",

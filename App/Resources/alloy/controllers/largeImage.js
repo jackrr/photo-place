@@ -13,6 +13,8 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.largeImage = Ti.UI.createWindow({
+        backgroundColor: Alloy.CFG.cream,
+        fullscreen: true,
         orientationModes: [ Ti.UI.PORTRAIT, Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT ],
         id: "largeImage"
     });
@@ -23,6 +25,8 @@ function Controller() {
     });
     $.__views.largeImage.add($.__views.image);
     $.__views.caption = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "white",
         backgroundColor: "black",
         bottom: 20,

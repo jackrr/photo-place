@@ -31,18 +31,24 @@ function Controller() {
     });
     $.__views.rowView.add($.__views.imageView);
     $.__views.userName = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         right: 20,
         top: 20,
         id: "userName"
     });
     $.__views.rowView.add($.__views.userName);
     $.__views.placeName = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         right: 20,
         top: 50,
         id: "placeName"
     });
     $.__views.rowView.add($.__views.placeName);
     $.__views.uploadDate = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         left: 5,
         bottom: 2,
         font: {

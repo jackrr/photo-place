@@ -18,11 +18,7 @@
 	width : Ti.UI.SIZE
 },
 
-"#title": {
-	top : 30,
-},
-
 "#createAccount": {
-	top : 100
+	top : 275
 }
 

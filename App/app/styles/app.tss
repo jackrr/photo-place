@@ -1,0 +1,10 @@
+".container": {
+	backgroundColor : Alloy.CFG.cream,
+	fullscreen : true
+},
+
+"Label": {
+	verticalAlign : Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER
+	//backgroundColor : Alloy.CFG.whiteYellow
+}

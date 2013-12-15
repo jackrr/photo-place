@@ -148,7 +148,8 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.photoGallery = Ti.UI.createWindow({
-        top: 10,
+        backgroundColor: Alloy.CFG.cream,
+        fullscreen: true,
         layout: "vertical",
         backgroundImage: "/images/homepage-background.png",
         id: "photoGallery"
@@ -162,9 +163,11 @@ function Controller() {
     });
     $.__views.photoGallery.add($.__views.uploadBar);
     $.__views.back = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        top: 20,
+        top: 10,
         color: "#000",
         left: 5,
         text: "Back",
@@ -173,16 +176,19 @@ function Controller() {
     $.__views.uploadBar.add($.__views.back);
     eliminate ? $.__views.back.addEventListener("click", eliminate) : __defers["$.__views.back!click!eliminate"] = true;
     $.__views.placeName = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        top: 20,
+        top: 10,
         color: "#000",
-        right: 60,
         id: "placeName"
     });
     $.__views.uploadBar.add($.__views.placeName);
     $.__views.uploadPhoto = Ti.UI.createButton({
         right: 5,
+        top: 5,
+        height: 30,
         backgroundImage: "/images/camera-icon.png",
         id: "uploadPhoto"
     });
@@ -206,6 +212,8 @@ function Controller() {
     $.__views.navigation.add($.__views.globalContainer);
     globeButt ? $.__views.globalContainer.addEventListener("click", globeButt) : __defers["$.__views.globalContainer!click!globeButt"] = true;
     $.__views.global = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         width: 45,
         height: 45,
         top: 8,
@@ -225,6 +233,8 @@ function Controller() {
     $.__views.navigation.add($.__views.nearbyContainer);
     nearButt ? $.__views.nearbyContainer.addEventListener("click", nearButt) : __defers["$.__views.nearbyContainer!click!nearButt"] = true;
     $.__views.nearby = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         width: 45,
         height: 45,
         top: 8,
@@ -244,6 +254,8 @@ function Controller() {
     $.__views.navigation.add($.__views.myPlaceContainer);
     myPlaceButt ? $.__views.myPlaceContainer.addEventListener("click", myPlaceButt) : __defers["$.__views.myPlaceContainer!click!myPlaceButt"] = true;
     $.__views.myPlace = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         width: 45,
         height: 45,
         top: 8,
@@ -263,6 +275,8 @@ function Controller() {
     $.__views.navigation.add($.__views.myPhotosContainer);
     myPhotosButt ? $.__views.myPhotosContainer.addEventListener("click", myPhotosButt) : __defers["$.__views.myPhotosContainer!click!myPhotosButt"] = true;
     $.__views.myPhotos = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         width: 45,
         height: 45,
         top: 8,

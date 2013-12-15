@@ -1,5 +1,4 @@
 ".container": {
-	top: 10,
 	layout: "vertical",
 	backgroundImage : '/images/homepage-background.png',
 },
@@ -23,15 +22,19 @@
 },
 
 "#back": {
-	left: 5
+	left: 5,
+	top : 10
 },
 
 "#placeName": {
-	right: 60
+	width : Ti.UI.SIZE,
+	top : 10
 }
 
 "#uploadPhoto": {
-	right: 5,
+	right : 5,
+	top : 5,
+	height : 30,
 	backgroundImage: '/images/camera-icon.png'
 },
 
