@@ -15,6 +15,10 @@ self.closeWindow = function() {
 	$.photoView.close();
 };
 
+$.photoView.addEventListener('android:back', function() {
+	back();
+});
+
 self.openWindow = function(options) {
 	if (options && options.update) {
 		// loadThreads();

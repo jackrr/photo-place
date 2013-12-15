@@ -1,5 +1,6 @@
 function Controller() {
     function closeWindow() {
+        $.createAccount.close();
         self.destroy();
         Alloy.createController("index");
     }
@@ -143,6 +144,9 @@ function Controller() {
     var user = Alloy.createModel("user");
     $.createAccount.open();
     var self = this;
+    $.createAccount.addEventListener("android:back", function() {
+        closeWindow();
+    });
     __defers["$.__views.submit!click!submitInfo"] && $.__views.submit.addEventListener("click", submitInfo);
     __defers["$.__views.cancel!click!closeWindow"] && $.__views.cancel.addEventListener("click", closeWindow);
     _.extend($, exports);

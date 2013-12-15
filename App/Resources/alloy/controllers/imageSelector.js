@@ -1,5 +1,6 @@
 function Controller() {
     function cancel() {
+        $.imageSelector.close();
         self.destroy();
         parent.openWindow();
     }
@@ -19,6 +20,7 @@ function Controller() {
             name: $.name.value
         }, {
             success: function() {
+                $.imageSelector.close();
                 self.destroy();
                 parent.openWindow({
                     update: true
@@ -150,6 +152,9 @@ function Controller() {
         $.overlayRegion.left = left;
         $.overlayRegion.height = height;
         $.overlayRegion.width = width;
+    });
+    $.imageSelector.addEventListener("android:back", function() {
+        cancel();
     });
     __defers["$.__views.cancel!click!cancel"] && $.__views.cancel.addEventListener("click", cancel);
     __defers["$.__views.done!click!done"] && $.__views.done.addEventListener("click", done);

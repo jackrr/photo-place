@@ -15,3 +15,7 @@ function back() {
 	self.destroy();
 	parent.openWindow();
 }
+
+$.largeImage.addEventListener('android:back', function() {
+	back();
+});

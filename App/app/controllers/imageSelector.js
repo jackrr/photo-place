@@ -63,9 +63,15 @@ $.image.addEventListener('touchmove', function(e) {
 });
 
 function cancel() {
+	$.imageSelector.close();
 	self.destroy();
 	parent.openWindow();
 }
+
+$.imageSelector.addEventListener('android:back', function() {
+	cancel();
+});
+
 
 function done() {
 	var topCorner = {
@@ -85,6 +91,7 @@ function done() {
 		name: $.name.value
 	}, {
 		success: function(newThread) {
+			$.imageSelector.close();
 			self.destroy();
 			parent.openWindow({update: true});
 		},

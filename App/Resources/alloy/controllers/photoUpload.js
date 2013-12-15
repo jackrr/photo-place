@@ -70,6 +70,7 @@ function Controller() {
     $.placeName.text = place.name;
     $.photoUpload.open();
     self.exit = function() {
+        $.photoUpload.close();
         self.destroy();
         parent.openWindow();
     };

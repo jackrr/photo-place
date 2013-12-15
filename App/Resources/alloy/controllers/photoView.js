@@ -143,6 +143,9 @@ function Controller() {
     self.closeWindow = function() {
         $.photoView.close();
     };
+    $.photoView.addEventListener("android:back", function() {
+        back();
+    });
     self.openWindow = function(options) {
         options && options.update;
         $.photoView.open();

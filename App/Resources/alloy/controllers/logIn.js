@@ -9,7 +9,7 @@ function Controller() {
             message: "Please fill in both fields"
         }).show(); else {
             var url = "";
-            url = "http://localhost:3000/users/auth";
+            url = "http://10.0.2.2:3000/users/auth";
             ServerUtil.checkPassword(url, {
                 username: $.username.value,
                 password: $.password.value
@@ -101,6 +101,9 @@ function Controller() {
     Alloy.createCollection("user");
     $.logIn.open();
     $.username.focus();
+    $.logIn.addEventListener("android:back", function() {
+        closeWindow();
+    });
     __defers["$.__views.submit!click!submitInfo"] && $.__views.submit.addEventListener("click", submitInfo);
     __defers["$.__views.cancel!click!closeWindow"] && $.__views.cancel.addEventListener("click", closeWindow);
     _.extend($, exports);

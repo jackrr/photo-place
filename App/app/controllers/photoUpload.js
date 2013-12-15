@@ -11,6 +11,7 @@ $.photoUpload.open();
 
 self.exit = function() {
 	self.destroy();
+	$.photoUpload.close();
 	parent.openWindow();
 };
 

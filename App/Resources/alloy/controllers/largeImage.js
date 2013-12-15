@@ -39,6 +39,9 @@ function Controller() {
     $.image.image = photo.get("largePath");
     $.caption.text = '"' + photo.get("caption") + '"';
     $.largeImage.open();
+    $.largeImage.addEventListener("android:back", function() {
+        back();
+    });
     __defers["$.__views.largeImage!click!back"] && $.__views.largeImage.addEventListener("click", back);
     _.extend($, exports);
 }

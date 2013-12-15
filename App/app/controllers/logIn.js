@@ -10,6 +10,10 @@ function closeWindow(e) {
 	Alloy.createController('index');
 }
 
+$.logIn.addEventListener('android:back', function() {
+	closeWindow();
+});
+
 function submitInfo(e) {
 	if ($.username.value == '' || $.password.value == '') {
 		Ti.UI.createAlertDialog({

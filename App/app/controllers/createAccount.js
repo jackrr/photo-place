@@ -4,9 +4,14 @@ $.createAccount.open();
 var self = this;
 
 function closeWindow() {
+	$.createAccount.close();
 	self.destroy();
 	Alloy.createController('index');
 }
+
+$.createAccount.addEventListener('android:back', function() {
+	closeWindow();
+});
 
 function checkEmail(email){
 	if (!(new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$").test(email))){
