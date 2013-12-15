@@ -70,8 +70,8 @@ function Controller() {
     $.placeName.text = place.name;
     $.photoUpload.open();
     self.exit = function() {
-        $.photoUpload.close();
         self.destroy();
+        $.photoUpload.close();
         parent.openWindow();
     };
     __defers["$.__views.submit!click!done"] && $.__views.submit.addEventListener("click", done);

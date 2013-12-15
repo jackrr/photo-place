@@ -1,14 +1,59 @@
 var dateUtil = require('dateUtil');
+var graphicUtil = require('graphicUtil');
 var self = this;
 
+
+/*
+ * Arguments
+ */
 var args = arguments[0] || {};
 var parent = args.parent;
 var photo = args.photo;
+var threadsCollection = args.threads;
 
-$.image.image = photo.get('largePath');
-$.caption.text = "\"" + photo.get('caption') + "\"";
+/*
+ * functions
+ */
+function nameClick() {
+	Ti.API.info('clicked ' + self.currentThreadID);
+		// Alloy.createController('threadView', {
+			// threadID: overlay.value,
+			// photo: self.photo,
+			// parent: self 
+		// });
+		// self.closeWindow();	
+}
 
-$.largeImage.open();
+function changeThreadName(threadPreview) {
+	Ti.API.info('in change name: ' + threadPreview.get('name'));
+	if (!self.currentThreadID) {
+		$.threadName.addEventListener('click', nameClick);	
+	}
+	$.threadName.text = threadPreview.get('name');
+	self.currentThreadID = threadPreview.id;
+}
+
+function threadOverlay(threadPreview) {
+	var overlay = graphicUtil.coloredRectView(threadPreview.get('topCorner'), threadPreview.get('bottomCorner'), 1);
+	var preview = threadPreview;
+	overlay.addEventListener('click', function() {
+		Ti.API.info('clicked: ' + threadPreview.get('name'));
+		changeThreadName(preview);
+	});
+	return overlay;
+}
+
+function addPreview(threadPreview) {
+	// create overlay on image
+	$.imageMapContainer.add(threadOverlay(threadPreview));
+};
+
+function loadThreads() {
+	_.each(threadsCollection.models, function(threadPreview) {
+		addPreview(threadPreview);
+	});
+};
+
 
 function back() {
 	$.largeImage.close();
@@ -19,3 +64,11 @@ function back() {
 $.largeImage.addEventListener('android:back', function() {
 	back();
 });
+
+/*
+ * initialize
+ */
+$.image.image = photo.get('largePath');
+$.caption.text = "\"" + photo.get('caption') + "\"";
+loadThreads();
+$.largeImage.open();

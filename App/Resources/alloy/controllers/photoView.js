@@ -1,4 +1,27 @@
 function Controller() {
+    function threadOverlay(tc, bc) {
+        var overlay = graphicUtil.coloredRectView(tc, bc, .5);
+        overlay.addEventListener("click", function() {
+            fullPhoto();
+        });
+        return overlay;
+    }
+    function addPreview(threadPreview) {
+        $.imageMapContainer.add(threadOverlay(threadPreview.get("topCorner"), threadPreview.get("bottomCorner"), threadPreview.get("id")));
+    }
+    function loadThreads() {
+        self.threadsCollection.forPhoto(self.photo.id, {
+            success: function(newThreads) {
+                Ti.API.info(JSON.stringify(newThreads));
+                _.each(newThreads.models, function(threadPreview) {
+                    addPreview(threadPreview);
+                });
+            },
+            error: function() {
+                alert("Failed to get threads for photo");
+            }
+        });
+    }
     function back() {
         self.closeWindow();
         self.destroy();
@@ -7,6 +30,7 @@ function Controller() {
     function fullPhoto() {
         Alloy.createController("largeImage", {
             photo: self.photo,
+            threads: self.threadsCollection,
             parent: self
         });
         self.closeWindow();
@@ -40,11 +64,18 @@ function Controller() {
         id: "photoView"
     });
     $.__views.photoView && $.addTopLevelView($.__views.photoView);
-    $.__views.image = Ti.UI.createImageView({
+    $.__views.imageMapContainer = Ti.UI.createView({
+        layout: "composite",
         top: 30,
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        id: "imageMapContainer"
+    });
+    $.__views.photoView.add($.__views.imageMapContainer);
+    $.__views.image = Ti.UI.createImageView({
         id: "image"
     });
-    $.__views.photoView.add($.__views.image);
+    $.__views.imageMapContainer.add($.__views.image);
     fullPhoto ? $.__views.image.addEventListener("click", fullPhoto) : __defers["$.__views.image!click!fullPhoto"] = true;
     $.__views.__alloyId2 = Ti.UI.createView({
         layout: "horizontal",
@@ -111,8 +142,9 @@ function Controller() {
     });
     $.__views.__alloyId7.add($.__views.uploadDate);
     $.__views.__alloyId9 = Ti.UI.createView({
-        layout: "horizontal",
+        layout: "vertical",
         top: 10,
+        color: "black",
         id: "__alloyId9"
     });
     $.__views.photoView.add($.__views.__alloyId9);
@@ -122,6 +154,10 @@ function Controller() {
     });
     $.__views.__alloyId9.add($.__views.newThread);
     newThread ? $.__views.newThread.addEventListener("click", newThread) : __defers["$.__views.newThread!click!newThread"] = true;
+    $.__views.threads = Ti.UI.createTableView({
+        id: "threads"
+    });
+    $.__views.__alloyId9.add($.__views.threads);
     $.__views.__alloyId10 = Ti.UI.createLabel({
         text: "Back",
         id: "__alloyId10"
@@ -131,6 +167,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var dateUtil = require("dateUtil");
+    var graphicUtil = require("graphicUtil");
     var self = this;
     self.setPhoto = function(photo) {
         self.photo = photo;
@@ -147,12 +184,14 @@ function Controller() {
         back();
     });
     self.openWindow = function(options) {
-        options && options.update;
+        options && options.update && loadThreads();
         $.photoView.open();
     };
     var args = arguments[0] || {};
     var parent = args.parent;
     self.setPhoto(args.photo);
+    self.threadsCollection = Alloy.createCollection("threadPreview");
+    loadThreads();
     $.photoView.open();
     __defers["$.__views.image!click!fullPhoto"] && $.__views.image.addEventListener("click", fullPhoto);
     __defers["$.__views.userName!click!openUser"] && $.__views.userName.addEventListener("click", openUser);

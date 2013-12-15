@@ -1,5 +1,5 @@
 var dateUtil = require('dateUtil');
-
+var graphicUtil = require('graphicUtil');
 var self = this;
 
 self.setPhoto = function(photo) {
@@ -21,9 +21,36 @@ $.photoView.addEventListener('android:back', function() {
 
 self.openWindow = function(options) {
 	if (options && options.update) {
-		// loadThreads();
+		loadThreads();
 	}
 	$.photoView.open();
+};
+
+function threadOverlay(tc, bc, id) {
+	var overlay = graphicUtil.coloredRectView(tc, bc, .5);
+	overlay.addEventListener('click', function() {
+		fullPhoto();
+	});
+	return overlay;
+}
+
+function addPreview(threadPreview) {
+	// create overlay on image
+	$.imageMapContainer.add(threadOverlay(threadPreview.get('topCorner'), threadPreview.get('bottomCorner'), threadPreview.get('id')));
+};
+
+function loadThreads() {
+	self.threadsCollection.forPhoto(self.photo.id, {
+		success: function(newThreads) {
+			Ti.API.info(JSON.stringify(newThreads));
+			_.each(newThreads.models, function(threadPreview) {
+				addPreview(threadPreview);
+			});
+		},
+		error: function() {
+			alert('Failed to get threads for photo');
+		}
+	});
 };
 
 function back() {
@@ -35,6 +62,7 @@ function back() {
 function fullPhoto() {
 	var full = Alloy.createController('largeImage', {
 		photo: self.photo,
+		threads: self.threadsCollection,
 		parent: self
 	});
 	self.closeWindow();
@@ -63,4 +91,6 @@ var args = arguments[0] || {};
 var parent = args.parent;
 
 self.setPhoto(args.photo);
+self.threadsCollection = Alloy.createCollection('threadPreview');
+loadThreads();
 $.photoView.open();

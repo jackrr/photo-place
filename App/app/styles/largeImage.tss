@@ -3,11 +3,24 @@
 		Ti.UI.PORTRAIT,
 		Ti.UI.LANDSCAPE_LEFT,
 		Ti.UI.LANDSCAPE_RIGHT
-	]
+	],
+	layout: 'vertical'
+},
+
+"#imageMapContainer": {
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE,
+	top: 30,
+	layout: 'composite'
 },
 
 "#caption": {
 	color: 'white',
 	backgroundColor: 'black',
-	bottom: 20
+	top: 20
+},
+
+"Label": {
+	color: 'white',
+	top: 10
 }

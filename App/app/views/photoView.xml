@@ -1,6 +1,8 @@
 <Alloy>
 	<Window class="container">
-		<ImageView id="image" onClick="fullPhoto"></ImageView>
+		<View id="imageMapContainer">
+			<ImageView id="image" onClick="fullPhoto"></ImageView>	
+		</View>
 		<View class="captionArea">
 			<Label id="caption" class="value"></Label>
 		</View>
@@ -18,6 +20,7 @@
 		</View>
 		<View class="threadArea">
 			<Label id="newThread" onClick="newThread">Make new thread</Label>
+			<TableView id="threads"></TableView>			
 		</View>
 		<Label onClick="back">Back</Label>
 	</Window>

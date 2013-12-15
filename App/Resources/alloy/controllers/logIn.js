@@ -9,7 +9,7 @@ function Controller() {
             message: "Please fill in both fields"
         }).show(); else {
             var url = "";
-            url = "http://10.0.2.2:3000/users/auth";
+            url = "http://localhost:3000/users/auth";
             ServerUtil.checkPassword(url, {
                 username: $.username.value,
                 password: $.password.value

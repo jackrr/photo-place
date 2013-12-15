@@ -9,6 +9,7 @@ function makePreviews(threads) {
 	_.each(threads, function(thread) {
 		thread.comments = undefined;
 	});
+	return threads;
 }
 
 module.exports = function(db) {

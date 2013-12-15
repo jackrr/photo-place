@@ -29,6 +29,10 @@ var checkForLocationUpdate = function() {
         }).show();
         return;
     }
+    if (true && !Ti.Geolocation.AUTHORIZATION_AUTHORIZED) {
+        locationServicesAlert.show();
+        return;
+    }
     var locationCallback = function(e) {
         Ti.API.info("location callback");
         if (!e.success || e.error) {

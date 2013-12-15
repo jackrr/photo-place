@@ -79,6 +79,10 @@ function Controller() {
     self.openWindow = function() {
         $.index.open();
     };
+    Ti.App.addEventListener("resumed", function() {
+        Ti.API.info("Activity resumed");
+        LocationUtil.checkForLocationUpdate();
+    });
     Ti.App.addEventListener("signIn", function(e) {
         Ti.API.info("signIn event");
         var user = Ti.App.Properties.getObject("authInfo");

@@ -2,13 +2,20 @@
 	backgroundColor : "white",
 	layout : 'vertical'
 },
+
+"#imageMapContainer": {
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE,
+	top: 30,
+	layout: 'composite'
+},
 "ImageView": {
-	top: 30
 },
 "View": {
 	layout : 'horizontal',
 	top: 10
 },
+
 ".captionArea": {
 	width: "100%",
 	textAlign: 'center'
@@ -29,4 +36,14 @@
 	left: 10
 },
 ".value": {
+},
+
+".threadArea": {
+	layout: 'vertical',
+	color: 'black'
+},
+
+"#threads": {
+	
 }
+
