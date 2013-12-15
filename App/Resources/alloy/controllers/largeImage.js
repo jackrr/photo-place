@@ -49,7 +49,7 @@ function Controller() {
     $.__views.threadName = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        color: "white",
+        color: "black",
         top: 10,
         id: "threadName"
     });
@@ -69,16 +69,15 @@ function Controller() {
     $.__views.caption = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        color: "white",
+        color: "black",
         top: 20,
-        backgroundColor: "black",
         id: "caption"
     });
     $.__views.largeImage.add($.__views.caption);
     $.__views.back = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        color: "white",
+        color: "black",
         top: 10,
         text: "Back",
         id: "back"

@@ -79,6 +79,7 @@ function Controller() {
     $.__views.nameLabel = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         text: "Thread Name:",
         id: "nameLabel"
     });
@@ -99,6 +100,7 @@ function Controller() {
     $.__views.cancel = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         text: "Cancel",
         id: "cancel"
     });
@@ -107,6 +109,7 @@ function Controller() {
     $.__views.done = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         text: "Done",
         id: "done"
     });

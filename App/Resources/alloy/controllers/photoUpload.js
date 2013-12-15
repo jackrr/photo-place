@@ -37,6 +37,7 @@ function Controller() {
     $.__views.__alloyId1 = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         text: "Taken at:",
         id: "__alloyId1"
@@ -45,6 +46,7 @@ function Controller() {
     $.__views.placeName = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         id: "placeName"
     });
@@ -52,6 +54,7 @@ function Controller() {
     $.__views.submit = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         text: "Upload Photo!",
         id: "submit"
@@ -61,6 +64,7 @@ function Controller() {
     $.__views.cancel = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         text: "Cancel",
         id: "cancel"

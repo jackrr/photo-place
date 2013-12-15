@@ -77,6 +77,7 @@ function Controller() {
     $.__views.submit = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         width: Ti.UI.SIZE,
         top: 15,
         text: "Submit",
@@ -87,6 +88,7 @@ function Controller() {
     $.__views.cancel = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         width: Ti.UI.SIZE,
         top: 10,
         text: "Cancel",

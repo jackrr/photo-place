@@ -36,6 +36,7 @@ function Controller() {
     $.__views.title = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         width: Ti.UI.SIZE,
         text: "List of Users",
@@ -45,6 +46,7 @@ function Controller() {
     $.__views.closeButton = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         width: Ti.UI.SIZE,
         text: "Close Window",

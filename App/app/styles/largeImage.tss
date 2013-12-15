@@ -15,12 +15,9 @@
 },
 
 "#caption": {
-	color: 'white',
-	backgroundColor: 'black',
 	top: 20
 },
 
 "Label": {
-	color: 'white',
 	top: 10
 }

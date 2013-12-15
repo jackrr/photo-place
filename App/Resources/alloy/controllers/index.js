@@ -35,9 +35,9 @@ function Controller() {
     $.__views.title = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#000",
         top: 30,
         id: "title"
     });
@@ -45,9 +45,9 @@ function Controller() {
     $.__views.userPage = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#000",
         top: 30,
         text: "List of Users",
         id: "userPage"
@@ -57,9 +57,9 @@ function Controller() {
     $.__views.addUser = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#000",
         top: 30,
         text: "Create Account / Log In",
         id: "addUser"
@@ -69,9 +69,9 @@ function Controller() {
     $.__views.photoOpts = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#000",
         top: 30,
         text: "Photo Menu",
         id: "photoOpts"

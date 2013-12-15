@@ -1,27 +1,28 @@
 <Alloy>
-	<Window class="container">
-		<View id="imageMapContainer">
-			<ImageView id="image" onClick="fullPhoto"></ImageView>	
+	<Window>
+		<View class="dialogOverlay" onClick="back"></View>
+		<View class="dialog">
+			<View id="imageMapContainer">
+				<ImageView id="image" onClick="fullPhoto"></ImageView>	
+			</View>
+			<View class="captionArea">
+				<Label id="caption" class="value"></Label>
+			</View>
+			<View class="userArea">
+				<Label class="label">By User:</Label>
+				<Label id="userName" class="value" onClick="openUser"></Label>
+			</View>
+			<View class="placeArea">
+				<Label class="label">Taken at:</Label>
+				<Label id="placeName" class="value" onClick="openPlace"></Label>
+			</View>
+			<View class="dateArea">
+				<Label class="label">Uploaded:</Label>
+				<Label id="uploadDate" class="value"></Label>
+			</View>
+			<View class="threadArea">
+				<Label id="newThread" onClick="newThread">Make new thread</Label>
+			</View>
 		</View>
-		<View class="captionArea">
-			<Label id="caption" class="value"></Label>
-		</View>
-		<View class="userArea">
-			<Label class="label">By User:</Label>
-			<Label id="userName" class="value" onClick="openUser"></Label>
-		</View>
-		<View class="placeArea">
-			<Label class="label">Taken at:</Label>
-			<Label id="placeName" class="value" onClick="openPlace"></Label>
-		</View>
-		<View class="dateArea">
-			<Label class="label">Uploaded:</Label>
-			<Label id="uploadDate" class="value"></Label>
-		</View>
-		<View class="threadArea">
-			<Label id="newThread" onClick="newThread">Make new thread</Label>
-			<TableView id="threads"></TableView>			
-		</View>
-		<Label onClick="back">Back</Label>
 	</Window>
 </Alloy>
