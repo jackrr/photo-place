@@ -95,7 +95,6 @@ function Controller() {
             mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
             success: function(event) {
                 if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-                    self.closeWindow();
                     var place = Ti.App.Properties.getObject("currentPlace");
                     Alloy.createController("photoUpload", {
                         parent: self,

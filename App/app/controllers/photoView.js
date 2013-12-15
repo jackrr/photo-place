@@ -56,7 +56,7 @@ function loadThreads() {
 function back() {
 	self.closeWindow();
 	self.destroy();
-	parent.openWindow();
+	// parent.openWindow();
 }
 
 function fullPhoto() {
