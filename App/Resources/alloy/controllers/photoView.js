@@ -28,7 +28,7 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.photoView = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundColor: Alloy.CFG.cream,
         fullscreen: true,
         layout: "vertical",
         id: "photoView"
