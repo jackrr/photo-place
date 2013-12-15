@@ -42,7 +42,7 @@ function addPreview(threadPreview) {
 function loadThreads() {
 	self.threadsCollection.forPhoto(self.photo.id, {
 		success: function(newThreads) {
-			Ti.API.info(JSON.stringify(newThreads));
+			$.threadCount.text = '' + newThreads.models.length + ' threads';
 			_.each(newThreads.models, function(threadPreview) {
 				addPreview(threadPreview);
 			});
@@ -76,14 +76,6 @@ function openUser() {
 function openPlace() {
 	parent.byPlace(self.photo.get('placeID'));
 	back();
-}
-
-function newThread() {
-	var thread = Alloy.createController('imageSelector', {
-		photo: self.photo,
-		parent:self
-	});
-	self.closeWindow();
 }
 
 

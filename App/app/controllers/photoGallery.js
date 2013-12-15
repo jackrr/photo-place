@@ -309,5 +309,3 @@ self.currentTab = $.globalContainer;
 globeButt();
 
 $.photoGallery.open();
-
-

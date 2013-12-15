@@ -54,6 +54,35 @@ function loadThreads() {
 	});
 };
 
+function refreshThreads() {
+	threadsCollection.forPhoto(photo.id, {
+		success: function(newThreads) {
+			loadThreads();
+		},
+		error: function() {
+			alert('Failed to get threads for photo');
+		}
+	});
+}
+
+function newThread() {
+	var thread = Alloy.createController('imageSelector', {
+		photo: photo,
+		parent:self
+	});
+	self.closeWindow();
+}
+
+self.closeWindow = function() {
+	$.largeImage.close();
+};
+
+self.openWindow = function(options) {
+	if (options.update) {
+		refreshThreads();
+	}
+	$.largeImage.open();
+};
 
 function back() {
 	$.largeImage.close();

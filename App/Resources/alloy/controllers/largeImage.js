@@ -25,6 +25,23 @@ function Controller() {
             addPreview(threadPreview);
         });
     }
+    function refreshThreads() {
+        threadsCollection.forPhoto(photo.id, {
+            success: function() {
+                loadThreads();
+            },
+            error: function() {
+                alert("Failed to get threads for photo");
+            }
+        });
+    }
+    function newThread() {
+        Alloy.createController("imageSelector", {
+            photo: photo,
+            parent: self
+        });
+        self.closeWindow();
+    }
     function back() {
         $.largeImage.close();
         self.destroy();
@@ -74,6 +91,16 @@ function Controller() {
         id: "caption"
     });
     $.__views.largeImage.add($.__views.caption);
+    $.__views.newThread = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
+        top: 10,
+        text: "Make new thread",
+        id: "newThread"
+    });
+    $.__views.largeImage.add($.__views.newThread);
+    newThread ? $.__views.newThread.addEventListener("click", newThread) : __defers["$.__views.newThread!click!newThread"] = true;
     $.__views.back = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
@@ -93,6 +120,13 @@ function Controller() {
     var parent = args.parent;
     var photo = args.photo;
     var threadsCollection = args.threads;
+    self.closeWindow = function() {
+        $.largeImage.close();
+    };
+    self.openWindow = function(options) {
+        options.update && refreshThreads();
+        $.largeImage.open();
+    };
     $.largeImage.addEventListener("android:back", function() {
         back();
     });
@@ -100,6 +134,7 @@ function Controller() {
     $.caption.text = '"' + photo.get("caption") + '"';
     loadThreads();
     $.largeImage.open();
+    __defers["$.__views.newThread!click!newThread"] && $.__views.newThread.addEventListener("click", newThread);
     __defers["$.__views.back!click!back"] && $.__views.back.addEventListener("click", back);
     _.extend($, exports);
 }

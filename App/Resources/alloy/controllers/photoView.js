@@ -12,7 +12,7 @@ function Controller() {
     function loadThreads() {
         self.threadsCollection.forPhoto(self.photo.id, {
             success: function(newThreads) {
-                Ti.API.info(JSON.stringify(newThreads));
+                $.threadCount.text = "" + newThreads.models.length + " threads";
                 _.each(newThreads.models, function(threadPreview) {
                     addPreview(threadPreview);
                 });
@@ -41,13 +41,6 @@ function Controller() {
     function openPlace() {
         parent.byPlace(self.photo.get("placeID"));
         back();
-    }
-    function newThread() {
-        Alloy.createController("imageSelector", {
-            photo: self.photo,
-            parent: self
-        });
-        self.closeWindow();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "photoView";
@@ -189,15 +182,14 @@ function Controller() {
         id: "__alloyId13"
     });
     $.__views.__alloyId5.add($.__views.__alloyId13);
-    $.__views.newThread = Ti.UI.createLabel({
+    $.__views.threadCount = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
-        text: "Make new thread",
-        id: "newThread"
+        id: "threadCount"
     });
-    $.__views.__alloyId13.add($.__views.newThread);
-    newThread ? $.__views.newThread.addEventListener("click", newThread) : __defers["$.__views.newThread!click!newThread"] = true;
+    $.__views.__alloyId13.add($.__views.threadCount);
+    fullPhoto ? $.__views.threadCount.addEventListener("click", fullPhoto) : __defers["$.__views.threadCount!click!fullPhoto"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var dateUtil = require("dateUtil");
@@ -231,7 +223,7 @@ function Controller() {
     __defers["$.__views.image!click!fullPhoto"] && $.__views.image.addEventListener("click", fullPhoto);
     __defers["$.__views.userName!click!openUser"] && $.__views.userName.addEventListener("click", openUser);
     __defers["$.__views.placeName!click!openPlace"] && $.__views.placeName.addEventListener("click", openPlace);
-    __defers["$.__views.newThread!click!newThread"] && $.__views.newThread.addEventListener("click", newThread);
+    __defers["$.__views.threadCount!click!fullPhoto"] && $.__views.threadCount.addEventListener("click", fullPhoto);
     _.extend($, exports);
 }
 

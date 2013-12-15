@@ -5,6 +5,7 @@
 			<ImageView id="image"></ImageView>	
 		</View>
 		<Label id="caption"></Label>
+		<Label id="newThread" onClick="newThread">Make new thread</Label>
 		<Label id="back" onClick="back">Back</Label>
 	</Window>
 </Alloy>

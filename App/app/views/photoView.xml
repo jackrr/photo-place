@@ -21,7 +21,7 @@
 				<Label id="uploadDate" class="value"></Label>
 			</View>
 			<View class="threadArea">
-				<Label id="newThread" onClick="newThread">Make new thread</Label>
+				<Label id="threadCount" onClick="fullPhoto"></Label>
 			</View>
 		</View>
 	</Window>
