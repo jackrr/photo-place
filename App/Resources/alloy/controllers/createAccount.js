@@ -1,6 +1,7 @@
 function Controller() {
     function closeWindow() {
-        $.createAccount.close();
+        self.destroy();
+        Alloy.createController("index");
     }
     function checkEmail(email) {
         if (new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$").test(email)) return true;
@@ -67,11 +68,12 @@ function Controller() {
     $.__views.createAccount = Ti.UI.createWindow({
         backgroundColor: "white",
         layout: "vertical",
+        backgroundImage: "/images/welcome-background.png",
         id: "createAccount"
     });
     $.__views.createAccount && $.addTopLevelView($.__views.createAccount);
     $.__views.winlabel = Ti.UI.createLabel({
-        top: 50,
+        top: 150,
         width: Ti.UI.SIZE,
         text: "Create New Account",
         id: "winlabel"
@@ -140,6 +142,7 @@ function Controller() {
     _.extend($, $.__views);
     var user = Alloy.createModel("user");
     $.createAccount.open();
+    var self = this;
     __defers["$.__views.submit!click!submitInfo"] && $.__views.submit.addEventListener("click", submitInfo);
     __defers["$.__views.cancel!click!closeWindow"] && $.__views.cancel.addEventListener("click", closeWindow);
     _.extend($, exports);

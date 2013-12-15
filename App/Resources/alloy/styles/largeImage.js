@@ -1,1 +1,1 @@
-module.exports = [{"isId":true,"priority":100000.0029,"key":"largeImage","style":{orientationModes:[Ti.UI.PORTRAIT,Ti.UI.LANDSCAPE_LEFT,Ti.UI.LANDSCAPE_RIGHT,],}}];
+module.exports = [{"isId":true,"priority":100000.0029,"key":"largeImage","style":{orientationModes:[Ti.UI.PORTRAIT,Ti.UI.LANDSCAPE_LEFT,Ti.UI.LANDSCAPE_RIGHT,],}},{"isId":true,"priority":100000.003,"key":"caption","style":{color:"white",backgroundColor:"black",bottom:20,}}];

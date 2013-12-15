@@ -5,7 +5,7 @@
 
 "#imageView": {
 	top: 30,
-	height : 80
+	height: 80
 },
 
 "#caption": {

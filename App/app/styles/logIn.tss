@@ -1,29 +1,27 @@
 
 ".container": {
 	backgroundColor : "white",
-	layout : "vertical"
+	layout : "vertical",
+	backgroundImage: '/images/welcome-back-background.png'
 },
 
 "Label": {
-	top : 20,
-	width : Ti.UI.SIZE
+	width : 150,
+	left: 20,
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER
 },
 
 "TextField": {
-	top : 10,
 	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
 	autocorrect : false,
-	width : 250,
-	autocapitalization : Ti.UI.TEXT_AUTOCAPITALIZATION_NONE
-},
-
-"#title": {
-	text : 'Log In',
+	width : 150,
+	autocapitalization : Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
+	left: 20
 },
 
 "#username": {
 	hintText : 'Username',
-	top : 50
+	top : 270
 },
 
 "#password": {
@@ -32,6 +30,12 @@
 },
 
 "#submit": {
+	top: 15,
 	text : 'Submit'
+},
+
+"#cancel": {
+	top: 10,
+	text: 'Cancel'
 }
 

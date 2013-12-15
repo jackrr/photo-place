@@ -15,7 +15,8 @@ function Controller() {
         $.user.add(usersTable);
     }
     function closeWindow() {
-        $.user.close();
+        self.destroy();
+        parent.openWindow();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "user";
@@ -49,6 +50,9 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var users = Alloy.createCollection("user");
+    var self = this;
+    var args = arguments[0] || {};
+    var parent = args.parent;
     $.user.open();
     users.fetch({
         success: function() {

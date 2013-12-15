@@ -8,7 +8,8 @@ function Controller() {
         if ("" == $.username.value || "" == $.password.value) Ti.UI.createAlertDialog({
             message: "Please fill in both fields"
         }).show(); else {
-            var url = "http://localhost:3000/users/auth";
+            var url = "";
+            url = "http://localhost:3000/users/auth";
             ServerUtil.checkPassword(url, {
                 username: $.username.value,
                 password: $.password.value
@@ -48,48 +49,48 @@ function Controller() {
     $.__views.logIn = Ti.UI.createWindow({
         backgroundColor: "white",
         layout: "vertical",
+        backgroundImage: "/images/welcome-back-background.png",
         id: "logIn"
     });
     $.__views.logIn && $.addTopLevelView($.__views.logIn);
-    $.__views.title = Ti.UI.createLabel({
-        top: 20,
-        width: Ti.UI.SIZE,
-        text: "Log In",
-        id: "title"
-    });
-    $.__views.logIn.add($.__views.title);
     $.__views.username = Ti.UI.createTextField({
-        top: 50,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         autocorrect: false,
-        width: 250,
+        width: 150,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
+        left: 20,
         hintText: "Username",
+        top: 270,
         id: "username"
     });
     $.__views.logIn.add($.__views.username);
     $.__views.password = Ti.UI.createTextField({
-        top: 10,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         autocorrect: false,
-        width: 250,
+        width: 150,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
+        left: 20,
         hintText: "Password",
         passwordMask: true,
         id: "password"
     });
     $.__views.logIn.add($.__views.password);
     $.__views.submit = Ti.UI.createLabel({
-        top: 20,
-        width: Ti.UI.SIZE,
+        width: 150,
+        left: 20,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        top: 15,
         text: "Submit",
         id: "submit"
     });
     $.__views.logIn.add($.__views.submit);
     submitInfo ? $.__views.submit.addEventListener("click", submitInfo) : __defers["$.__views.submit!click!submitInfo"] = true;
     $.__views.cancel = Ti.UI.createLabel({
-        top: 20,
-        width: Ti.UI.SIZE,
+        width: 150,
+        left: 20,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        top: 10,
+        text: "Cancel",
         id: "cancel"
     });
     $.__views.logIn.add($.__views.cancel);

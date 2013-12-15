@@ -1,5 +1,6 @@
 ".container": {
-	backgroundColor:"white",
+	top: 10,
+	backgroundColor: Alloy.CFG.defaultBackColor,
 	layout: "vertical"
 },
 
@@ -11,18 +12,23 @@
 },
 
 "#tableView": {
-	top : 30
+	top : 0,
+	backgroundColor: Alloy.CFG.defaultBackColor
 },
 
 "#uploadBar": {
 	height: 40,
-	backgroundColor: "#33dd99",
+	backgroundColor: Alloy.CFG.highlightColor,
 	width: "100%"
 },
 
 "#back": {
 	left: 5
 },
+
+"#placeName": {
+	right: 60
+}
 
 "#uploadPhoto": {
 	right: 5,
@@ -37,14 +43,19 @@
 ".buttonContainer": {
 	width: "25%",
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-},
-
-".selected": {
-	backgroundColor: "#4433dd",
+	backgroundColor: Alloy.CFG.emphasisColor,
 	color: "#ffffff"
 },
 
+".selected": {
+	backgroundColor: Alloy.CFG.highlightColor,
+	color: "#000000"
+},
+
 ".navButt": {
+	width: 45,
+	height: 45,
+	top: 8
 }
 
 "#globalContainer": {
@@ -52,24 +63,25 @@
 },
 
 "#global": {
-	backgroundImage: '/images/earth-icon.png',
-	width: 50,
-	height: 50
-}
+	backgroundImage: '/images/world-icon.png'
+},
 
 "#nearbyContainer": {
 	left: "25%"
+},
+"#nearby": {
+	backgroundImage: '/images/nearby.png'
 },
 "#myPlaceContainer": {
 	left: "50%"
 },
 "#myPlace": {
-	horizontalWrap: true
+	backgroundImage: '/images/current-location.png'
 },
 "#myPhotosContainer": {
 	left: "75%"
 },
 "#myPhotos": {
-	horizontalWrap: true
+	backgroundImage: '/images/my-photos.png'
 }
 
