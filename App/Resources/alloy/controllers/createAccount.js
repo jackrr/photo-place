@@ -1,5 +1,6 @@
 function Controller() {
     function closeWindow() {
+        $.createAccount.close();
         self.destroy();
         Alloy.createController("index");
     }
@@ -76,6 +77,7 @@ function Controller() {
     $.__views.winlabel = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 150,
         width: Ti.UI.SIZE,
         font: {
@@ -131,6 +133,7 @@ function Controller() {
     $.__views.submit = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         width: Ti.UI.SIZE,
         text: "Submit",
@@ -141,6 +144,7 @@ function Controller() {
     $.__views.cancel = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         width: Ti.UI.SIZE,
         text: "Cancel",
@@ -153,6 +157,9 @@ function Controller() {
     var user = Alloy.createModel("user");
     $.createAccount.open();
     var self = this;
+    $.createAccount.addEventListener("android:back", function() {
+        closeWindow();
+    });
     __defers["$.__views.submit!click!submitInfo"] && $.__views.submit.addEventListener("click", submitInfo);
     __defers["$.__views.cancel!click!closeWindow"] && $.__views.cancel.addEventListener("click", closeWindow);
     _.extend($, exports);

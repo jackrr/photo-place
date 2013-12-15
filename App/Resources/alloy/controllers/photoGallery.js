@@ -95,7 +95,6 @@ function Controller() {
             mediaTypes: [ Ti.Media.MEDIA_TYPE_PHOTO ],
             success: function(event) {
                 if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-                    self.closeWindow();
                     var place = Ti.App.Properties.getObject("currentPlace");
                     Alloy.createController("photoUpload", {
                         parent: self,
@@ -165,10 +164,10 @@ function Controller() {
     $.__views.back = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         top: 10,
-        color: "#000",
         left: 5,
         text: "Back",
         id: "back"
@@ -178,10 +177,10 @@ function Controller() {
     $.__views.placeName = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         top: 10,
-        color: "#000",
         id: "placeName"
     });
     $.__views.uploadBar.add($.__views.placeName);
@@ -214,10 +213,10 @@ function Controller() {
     $.__views.global = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: 45,
         height: 45,
         top: 8,
-        color: "#000",
         backgroundImage: "/images/world-icon.png",
         id: "global"
     });
@@ -235,10 +234,10 @@ function Controller() {
     $.__views.nearby = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: 45,
         height: 45,
         top: 8,
-        color: "#000",
         backgroundImage: "/images/nearby.png",
         id: "nearby"
     });
@@ -256,10 +255,10 @@ function Controller() {
     $.__views.myPlace = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: 45,
         height: 45,
         top: 8,
-        color: "#000",
         backgroundImage: "/images/current-location.png",
         id: "myPlace"
     });
@@ -277,10 +276,10 @@ function Controller() {
     $.__views.myPhotos = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: 45,
         height: 45,
         top: 8,
-        color: "#000",
         backgroundImage: "/images/my-photos.png",
         id: "myPhotos"
     });

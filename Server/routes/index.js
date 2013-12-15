@@ -11,10 +11,12 @@ module.exports = function(db) {
 
 	var user = require('./user')(db);
 	var photos = require('./photos')(db);
+	var threads = require('./threads')(db);
 
 	return {
 		index: index,
 		user: user,
-		photos: photos
+		photos: photos,
+		threads: threads
 	};
 };

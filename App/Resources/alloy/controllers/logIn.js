@@ -77,6 +77,7 @@ function Controller() {
     $.__views.submit = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         width: Ti.UI.SIZE,
         top: 15,
         text: "Submit",
@@ -87,6 +88,7 @@ function Controller() {
     $.__views.cancel = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         width: Ti.UI.SIZE,
         top: 10,
         text: "Cancel",
@@ -99,6 +101,9 @@ function Controller() {
     var ServerUtil = require("serverUtil");
     Alloy.createCollection("user");
     $.logIn.open();
+    $.logIn.addEventListener("android:back", function() {
+        closeWindow();
+    });
     __defers["$.__views.submit!click!submitInfo"] && $.__views.submit.addEventListener("click", submitInfo);
     __defers["$.__views.cancel!click!closeWindow"] && $.__views.cancel.addEventListener("click", closeWindow);
     _.extend($, exports);

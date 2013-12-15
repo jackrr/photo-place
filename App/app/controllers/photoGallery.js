@@ -232,7 +232,7 @@ function choosePhoto() {
 
 		success : function(event) {
 			if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-				self.closeWindow();
+				// self.closeWindow();
 				var place = Ti.App.Properties.getObject('currentPlace');
 				Alloy.createController('photoUpload', {parent: self, image: event.media, place: place});
 			}
@@ -309,5 +309,3 @@ self.currentTab = $.globalContainer;
 globeButt();
 
 $.photoGallery.open();
-
-

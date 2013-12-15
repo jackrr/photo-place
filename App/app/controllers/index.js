@@ -50,12 +50,13 @@ Ti.App.addEventListener('signIn', function(e) {
 	LocationUtil.checkForLocationUpdate();
 });
 
+
 if (!Ti.App.Properties.getObject('authInfo', false)) {
 	Ti.API.info('No authInfo property found');
 	openUserOptions();
 
 } else {
 	Ti.API.info('authInfo property found, opening home page');
-
+	// LocationUtil.checkForLocationUpdate();
 	openPhotoOpts();
 }

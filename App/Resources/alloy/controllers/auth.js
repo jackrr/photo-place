@@ -30,6 +30,7 @@ function Controller() {
     $.__views.createAccount = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 275,
         width: Ti.UI.SIZE,
         text: "Create Account",
@@ -40,6 +41,7 @@ function Controller() {
     $.__views.logIn = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         width: Ti.UI.SIZE,
         text: "Log In",

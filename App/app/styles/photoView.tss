@@ -1,14 +1,28 @@
-".container" : {
-	backgroundColor : "white",
+"Window": {
+	height: '100%',
+	width: '100%'
+}
+
+".dialog" : {
+	top: '15%',
+	height: '70%',
+	width: '80%',
 	layout : 'vertical'
 },
+
+"#imageMapContainer": {
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE,
+	top: 30,
+	layout: 'composite'
+},
 "ImageView": {
-	top: 30
 },
 "View": {
 	layout : 'horizontal',
 	top: 10
 },
+
 ".captionArea": {
 	width: "100%",
 	textAlign: 'center'
@@ -29,4 +43,7 @@
 	left: 10
 },
 ".value": {
+},
+
+".threadArea": {
 }
