@@ -146,10 +146,6 @@ function Controller() {
             top = p1.y;
             height = p2.y - p1.y;
         }
-        Ti.API.info("top: " + top);
-        Ti.API.info("left: " + left);
-        Ti.API.info("height: " + height);
-        Ti.API.info("width: " + width);
         $.overlayRegion.top = top;
         $.overlayRegion.left = left;
         $.overlayRegion.height = height;
