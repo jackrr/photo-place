@@ -22,6 +22,7 @@ function Controller() {
     $.__views.photoUpload && $.addTopLevelView($.__views.photoUpload);
     $.__views.imageView = Ti.UI.createImageView({
         top: 30,
+        height: 80,
         id: "imageView"
     });
     $.__views.photoUpload.add($.__views.imageView);
