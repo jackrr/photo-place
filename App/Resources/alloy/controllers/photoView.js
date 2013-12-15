@@ -60,6 +60,7 @@ function Controller() {
     var __defers = {};
     $.__views.photoView = Ti.UI.createWindow({
         backgroundColor: "white",
+        fullscreen: true,
         layout: "vertical",
         id: "photoView"
     });
@@ -85,6 +86,8 @@ function Controller() {
     });
     $.__views.photoView.add($.__views.__alloyId2);
     $.__views.caption = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         id: "caption"
     });
     $.__views.__alloyId2.add($.__views.caption);
@@ -96,12 +99,16 @@ function Controller() {
     });
     $.__views.photoView.add($.__views.__alloyId3);
     $.__views.__alloyId4 = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         left: 10,
         text: "By User:",
         id: "__alloyId4"
     });
     $.__views.__alloyId3.add($.__views.__alloyId4);
     $.__views.userName = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         id: "userName"
     });
     $.__views.__alloyId3.add($.__views.userName);
@@ -114,12 +121,16 @@ function Controller() {
     });
     $.__views.photoView.add($.__views.__alloyId5);
     $.__views.__alloyId6 = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         left: 10,
         text: "Taken at:",
         id: "__alloyId6"
     });
     $.__views.__alloyId5.add($.__views.__alloyId6);
     $.__views.placeName = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         id: "placeName"
     });
     $.__views.__alloyId5.add($.__views.placeName);
@@ -132,12 +143,16 @@ function Controller() {
     });
     $.__views.photoView.add($.__views.__alloyId7);
     $.__views.__alloyId8 = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         left: 10,
         text: "Uploaded:",
         id: "__alloyId8"
     });
     $.__views.__alloyId7.add($.__views.__alloyId8);
     $.__views.uploadDate = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         id: "uploadDate"
     });
     $.__views.__alloyId7.add($.__views.uploadDate);
@@ -149,6 +164,8 @@ function Controller() {
     });
     $.__views.photoView.add($.__views.__alloyId9);
     $.__views.newThread = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         text: "Make new thread",
         id: "newThread"
     });
@@ -159,6 +176,8 @@ function Controller() {
     });
     $.__views.__alloyId9.add($.__views.threads);
     $.__views.__alloyId10 = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         text: "Back",
         id: "__alloyId10"
     });

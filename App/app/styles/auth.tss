@@ -1,7 +1,8 @@
 
 ".container": {
 	backgroundColor : "white",
-	layout : "vertical"	
+	layout : "vertical",
+	backgroundImage : '/images/welcome-to-background.png'
 },
 
 "TextField": {
@@ -17,11 +18,7 @@
 	width : Ti.UI.SIZE
 },
 
-"#title": {
-	top : 30,
-},
-
 "#createAccount": {
-	top : 100
+	top : 275
 }
 

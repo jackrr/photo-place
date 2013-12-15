@@ -26,6 +26,8 @@ function Controller() {
     });
     $.__views.win.add($.__views.thePicker);
     $.__views.done = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         text: "Done",
         id: "done"
     });

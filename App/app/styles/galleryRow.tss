@@ -1,6 +1,6 @@
 "#rowView": {
 	height: 80,
-	backgroundColor: Alloy.CFG.defaultBackColor
+	backgroundColor: 'transparent'
 },
 "#userName": {
 	right: 20,

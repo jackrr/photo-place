@@ -47,7 +47,8 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.logIn = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundColor: Alloy.CFG.cream,
+        fullscreen: true,
         layout: "vertical",
         backgroundImage: "/images/welcome-back-background.png",
         id: "logIn"
@@ -58,9 +59,8 @@ function Controller() {
         autocorrect: false,
         width: 150,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        left: 20,
         hintText: "Username",
-        top: 270,
+        top: 210,
         id: "username"
     });
     $.__views.logIn.add($.__views.username);
@@ -69,16 +69,15 @@ function Controller() {
         autocorrect: false,
         width: 150,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        left: 20,
         hintText: "Password",
         passwordMask: true,
         id: "password"
     });
     $.__views.logIn.add($.__views.password);
     $.__views.submit = Ti.UI.createLabel({
-        width: 150,
-        left: 20,
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        width: Ti.UI.SIZE,
         top: 15,
         text: "Submit",
         id: "submit"
@@ -86,9 +85,9 @@ function Controller() {
     $.__views.logIn.add($.__views.submit);
     submitInfo ? $.__views.submit.addEventListener("click", submitInfo) : __defers["$.__views.submit!click!submitInfo"] = true;
     $.__views.cancel = Ti.UI.createLabel({
-        width: 150,
-        left: 20,
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        width: Ti.UI.SIZE,
         top: 10,
         text: "Cancel",
         id: "cancel"
@@ -100,7 +99,6 @@ function Controller() {
     var ServerUtil = require("serverUtil");
     Alloy.createCollection("user");
     $.logIn.open();
-    $.username.focus();
     $.logIn.addEventListener("android:back", function() {
         closeWindow();
     });

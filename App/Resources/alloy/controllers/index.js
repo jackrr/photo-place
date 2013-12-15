@@ -26,12 +26,15 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.index = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundColor: Alloy.CFG.cream,
+        fullscreen: true,
         layout: "vertical",
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
     $.__views.title = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
@@ -40,6 +43,8 @@ function Controller() {
     });
     $.__views.index.add($.__views.title);
     $.__views.userPage = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
@@ -50,6 +55,8 @@ function Controller() {
     $.__views.index.add($.__views.userPage);
     openUserList ? $.__views.userPage.addEventListener("click", openUserList) : __defers["$.__views.userPage!click!openUserList"] = true;
     $.__views.addUser = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
@@ -60,6 +67,8 @@ function Controller() {
     $.__views.index.add($.__views.addUser);
     openUserOptions ? $.__views.addUser.addEventListener("click", openUserOptions) : __defers["$.__views.addUser!click!openUserOptions"] = true;
     $.__views.photoOpts = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         color: "#000",
@@ -93,9 +102,7 @@ function Controller() {
     });
     if (Ti.App.Properties.getObject("authInfo", false)) {
         Ti.API.info("authInfo property found, opening home page");
-        $.title.text = titleHeader(Ti.App.Properties.getObject("authInfo").username);
-        self.openWindow();
-        LocationUtil.checkForLocationUpdate();
+        openPhotoOpts();
     } else {
         Ti.API.info("No authInfo property found");
         openUserOptions();

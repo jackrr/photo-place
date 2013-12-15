@@ -40,6 +40,8 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.imageSelector = Ti.UI.createWindow({
+        backgroundColor: Alloy.CFG.cream,
+        fullscreen: true,
         orientationModes: [ Ti.UI.PORTRAIT ],
         id: "imageSelector"
     });
@@ -75,6 +77,8 @@ function Controller() {
     });
     $.__views.textInteracts.add($.__views.nameArea);
     $.__views.nameLabel = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         text: "Thread Name:",
         id: "nameLabel"
     });
@@ -93,12 +97,16 @@ function Controller() {
     });
     $.__views.textInteracts.add($.__views.doneArea);
     $.__views.cancel = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         text: "Cancel",
         id: "cancel"
     });
     $.__views.doneArea.add($.__views.cancel);
     cancel ? $.__views.cancel.addEventListener("click", cancel) : __defers["$.__views.cancel!click!cancel"] = true;
     $.__views.done = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         text: "Done",
         id: "done"
     });

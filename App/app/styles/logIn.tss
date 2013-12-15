@@ -1,14 +1,13 @@
 
 ".container": {
-	backgroundColor : "white",
 	layout : "vertical",
 	backgroundImage: '/images/welcome-back-background.png'
 },
 
 "Label": {
-	width : 150,
-	left: 20,
-	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER
+	width : Ti.UI.SIZE,
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+	top : 10
 },
 
 "TextField": {
@@ -16,12 +15,11 @@
 	autocorrect : false,
 	width : 150,
 	autocapitalization : Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-	left: 20
 },
 
 "#username": {
 	hintText : 'Username',
-	top : 270
+	top : 210
 },
 
 "#password": {

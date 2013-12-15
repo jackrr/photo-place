@@ -67,15 +67,21 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.createAccount = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundColor: Alloy.CFG.cream,
+        fullscreen: true,
         layout: "vertical",
         backgroundImage: "/images/welcome-background.png",
         id: "createAccount"
     });
     $.__views.createAccount && $.addTopLevelView($.__views.createAccount);
     $.__views.winlabel = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 150,
         width: Ti.UI.SIZE,
+        font: {
+            fontSize: 20
+        },
         text: "Create New Account",
         id: "winlabel"
     });
@@ -124,6 +130,8 @@ function Controller() {
     });
     $.__views.createAccount.add($.__views.password2);
     $.__views.submit = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 10,
         width: Ti.UI.SIZE,
         text: "Submit",
@@ -132,6 +140,8 @@ function Controller() {
     $.__views.createAccount.add($.__views.submit);
     submitInfo ? $.__views.submit.addEventListener("click", submitInfo) : __defers["$.__views.submit!click!submitInfo"] = true;
     $.__views.cancel = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         top: 10,
         width: Ti.UI.SIZE,
         text: "Cancel",

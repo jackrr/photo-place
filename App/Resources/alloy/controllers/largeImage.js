@@ -39,12 +39,16 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.largeImage = Ti.UI.createWindow({
+        backgroundColor: Alloy.CFG.cream,
+        fullscreen: true,
         orientationModes: [ Ti.UI.PORTRAIT, Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT ],
         layout: "vertical",
         id: "largeImage"
     });
     $.__views.largeImage && $.addTopLevelView($.__views.largeImage);
     $.__views.threadName = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "white",
         top: 10,
         id: "threadName"
@@ -63,6 +67,8 @@ function Controller() {
     });
     $.__views.imageMapContainer.add($.__views.image);
     $.__views.caption = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "white",
         top: 20,
         backgroundColor: "black",
@@ -70,6 +76,8 @@ function Controller() {
     });
     $.__views.largeImage.add($.__views.caption);
     $.__views.back = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "white",
         top: 10,
         text: "Back",
