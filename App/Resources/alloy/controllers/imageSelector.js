@@ -2,7 +2,7 @@ function Controller() {
     function cancel() {
         $.imageSelector.close();
         self.destroy();
-        parent.openWindow();
+        parent.openWindow(false);
     }
     function done() {
         var topCorner = {
@@ -43,9 +43,18 @@ function Controller() {
         backgroundColor: Alloy.CFG.cream,
         fullscreen: true,
         orientationModes: [ Ti.UI.PORTRAIT ],
+        layout: "vertical",
         id: "imageSelector"
     });
     $.__views.imageSelector && $.addTopLevelView($.__views.imageSelector);
+    $.__views.imageArea = Ti.UI.createView({
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        top: 30,
+        layout: "composite",
+        id: "imageArea"
+    });
+    $.__views.imageSelector.add($.__views.imageArea);
     $.__views.overlayRegion = Ti.UI.createView({
         backgroundColor: "#aaaaaa",
         opacity: "0.4",
@@ -54,14 +63,12 @@ function Controller() {
         width: 0,
         id: "overlayRegion"
     });
-    $.__views.imageSelector.add($.__views.overlayRegion);
+    $.__views.imageArea.add($.__views.overlayRegion);
     $.__views.image = Ti.UI.createImageView({
-        top: 0,
         id: "image"
     });
-    $.__views.imageSelector.add($.__views.image);
+    $.__views.imageArea.add($.__views.image);
     $.__views.textInteracts = Ti.UI.createView({
-        top: 250,
         backgroundColor: "white",
         layout: "vertical",
         id: "textInteracts"
