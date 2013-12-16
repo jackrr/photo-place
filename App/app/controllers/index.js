@@ -1,6 +1,6 @@
 var LocationUtil = require('locationUtil');
 
-//Ti.App.Properties.removeProperty('authInfo');
+Ti.App.Properties.removeProperty('authInfo');
 
 function openUserOptions(e) {
 	Alloy.createController('auth');

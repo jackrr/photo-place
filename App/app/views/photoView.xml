@@ -4,7 +4,7 @@
 		<View class="dialog">
 			<View id="titleBar">
 				<Label id="title"/>
-				<Label id="threadCount"/>
+				<Label id="threadCount" onClick="fullPhoto"/>
 			</View>
 			<View id="imageMapContainer">
 				<ImageView id="image" onClick="fullPhoto"></ImageView>	

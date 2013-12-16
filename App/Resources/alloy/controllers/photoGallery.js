@@ -163,6 +163,9 @@ function Controller() {
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         top: 10,
+        font: {
+            fontSize: 20
+        },
         id: "placeName"
     });
     $.__views.uploadBar.add($.__views.placeName);

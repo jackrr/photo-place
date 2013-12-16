@@ -4,9 +4,9 @@
 		<View class="dialog">
 			<ImageView id="imageView"></ImageView>
 			<TextField id="caption"></TextField>
-			<Label class="info">Taken at:</Label>
+			<Label id="info"/>
 			<Label id="placeName"></Label>
-			<Label id="submit" onClick="done">Upload Photo!</Label>
+			<Label id="submit" onClick="done"/>
 		</View>
 	</Window>
 </Alloy>

@@ -1,4 +1,4 @@
-"#imageSelector" : {
+"#imageSelector": {
 	orientationModes: [
 		Ti.UI.PORTRAIT
 	],
@@ -13,22 +13,44 @@
 },
 
 "#textInteracts": {
-	backgroundColor: 'white',
 	layout: "vertical"
 },
 
 ".interactRow": {
 	top: 5,
 	height: 40,
-	backgroundColor: 'white',
-	layout: 'horizontal',
-	color: 'black'
-}
+	color: 'black',
+	witdth : "100%"
+},
 
 "#overlayRegion": {
-	backgroundColor: '#aaaaaa',
+	//backgroundColor: '#aaaaaa',
 	opacity: '0.4',
 	zIndex: 1,
 	height: 0,
 	width: 0
+},
+
+"#doneArea": {
+	top : 15
+},
+
+"#name": {
+	hintText : 'comment on region'
+},
+
+"#cancel": {
+	text : 'Cancel',
+	font : {
+		fontSize : 12
+	},
+	left : "25%"
+},
+
+"#done": {
+	text : 'Done',
+	font : {
+		fontSize : 12
+	},
+	right : "25%"
 }

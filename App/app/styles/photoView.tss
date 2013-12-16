@@ -9,7 +9,7 @@
 
 ".dialog": {
 	top: '15%',
-	height: '70%',
+	height: Ti.UI.SIZE,
 	width: '80%',
 	layout : 'vertical',
 },
@@ -33,8 +33,9 @@
 },
 
 "#caption": {
-	center : "50%",
-	width : "90%",
+	//center : "50%",
+	width : "900%",
+	height : 40,
 	font : {
 		fontSize : 12
 	}

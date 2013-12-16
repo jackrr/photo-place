@@ -3,6 +3,10 @@
 	width: '100%',
 },
 
+"Label": {
+	top: 5
+},
+
 ".dialog": {
 	top: '25%',
 	height: '50%',
@@ -11,17 +15,28 @@
 },
 
 "#imageView": {
-	top: 30,
-	height: 80
+	top: 20,
+	height: 100
 },
 
 "#caption": {
 	top: 20,
-	hintText : "photo caption",
+	hintText : "add caption",
 	width : 250,
-	maxLength : 50
+	maxLength : 50,
+	textAlign : 'center'
 },
 
-"Label": {
-	top: 10
+"#submit": {
+	text : "Upload",
+	top : 10
+},
+
+"#info": {
+	top : 20,
+	text : "Location:",
+	font : {
+		fontSize : 12
+	}
 }
+

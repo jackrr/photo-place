@@ -48,35 +48,35 @@ function Controller() {
         id: "photoView"
     });
     $.__views.photoView && $.addTopLevelView($.__views.photoView);
-    $.__views.__alloyId4 = Ti.UI.createView({
+    $.__views.__alloyId3 = Ti.UI.createView({
         layout: "horizontal",
         height: "100%",
         width: "100%",
         backgroundColor: Alloy.CFG.whiteYellow,
         opacity: "0.7",
         zIndex: 1,
-        id: "__alloyId4"
+        id: "__alloyId3"
     });
-    $.__views.photoView.add($.__views.__alloyId4);
-    back ? $.__views.__alloyId4.addEventListener("click", back) : __defers["$.__views.__alloyId4!click!back"] = true;
-    $.__views.__alloyId5 = Ti.UI.createView({
+    $.__views.photoView.add($.__views.__alloyId3);
+    back ? $.__views.__alloyId3.addEventListener("click", back) : __defers["$.__views.__alloyId3!click!back"] = true;
+    $.__views.__alloyId4 = Ti.UI.createView({
         layout: "vertical",
         backgroundColor: "white",
         zIndex: 2,
         borderWidth: 5,
         borderColor: "black",
         top: "15%",
-        height: "70%",
+        height: Ti.UI.SIZE,
         width: "80%",
-        id: "__alloyId5"
+        id: "__alloyId4"
     });
-    $.__views.photoView.add($.__views.__alloyId5);
+    $.__views.photoView.add($.__views.__alloyId4);
     $.__views.titleBar = Ti.UI.createView({
         layout: "composite",
         height: 50,
         id: "titleBar"
     });
-    $.__views.__alloyId5.add($.__views.titleBar);
+    $.__views.__alloyId4.add($.__views.titleBar);
     $.__views.title = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: "left",
@@ -103,6 +103,7 @@ function Controller() {
         id: "threadCount"
     });
     $.__views.titleBar.add($.__views.threadCount);
+    fullPhoto ? $.__views.threadCount.addEventListener("click", fullPhoto) : __defers["$.__views.threadCount!click!fullPhoto"] = true;
     $.__views.imageMapContainer = Ti.UI.createView({
         layout: "composite",
         height: Ti.UI.SIZE,
@@ -110,32 +111,32 @@ function Controller() {
         top: 10,
         id: "imageMapContainer"
     });
-    $.__views.__alloyId5.add($.__views.imageMapContainer);
+    $.__views.__alloyId4.add($.__views.imageMapContainer);
     $.__views.image = Ti.UI.createImageView({
         id: "image"
     });
     $.__views.imageMapContainer.add($.__views.image);
     fullPhoto ? $.__views.image.addEventListener("click", fullPhoto) : __defers["$.__views.image!click!fullPhoto"] = true;
-    $.__views.__alloyId6 = Ti.UI.createView({
+    $.__views.__alloyId5 = Ti.UI.createView({
         layout: "horizontal",
         width: "100%",
         textAlign: "center",
         height: 40,
-        id: "__alloyId6"
+        id: "__alloyId5"
     });
-    $.__views.__alloyId5.add($.__views.__alloyId6);
+    $.__views.__alloyId4.add($.__views.__alloyId5);
     $.__views.caption = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
-        center: "50%",
-        width: "90%",
+        width: "900%",
+        height: 40,
         font: {
             fontSize: 12
         },
         id: "caption"
     });
-    $.__views.__alloyId6.add($.__views.caption);
+    $.__views.__alloyId5.add($.__views.caption);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var dateUtil = require("dateUtil");
@@ -164,7 +165,8 @@ function Controller() {
     self.threadsCollection = Alloy.createCollection("threadPreview");
     loadThreads();
     $.photoView.open();
-    __defers["$.__views.__alloyId4!click!back"] && $.__views.__alloyId4.addEventListener("click", back);
+    __defers["$.__views.__alloyId3!click!back"] && $.__views.__alloyId3.addEventListener("click", back);
+    __defers["$.__views.threadCount!click!fullPhoto"] && $.__views.threadCount.addEventListener("click", fullPhoto);
     __defers["$.__views.image!click!fullPhoto"] && $.__views.image.addEventListener("click", fullPhoto);
     _.extend($, exports);
 }

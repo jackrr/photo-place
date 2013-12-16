@@ -43,33 +43,37 @@ function Controller() {
     });
     $.__views.photoUpload.add($.__views.__alloyId2);
     $.__views.imageView = Ti.UI.createImageView({
-        top: 30,
-        height: 80,
+        top: 20,
+        height: 100,
         id: "imageView"
     });
     $.__views.__alloyId2.add($.__views.imageView);
     $.__views.caption = Ti.UI.createTextField({
         top: 20,
-        hintText: "photo caption",
+        hintText: "add caption",
         width: 250,
         maxLength: 50,
+        textAlign: "center",
         id: "caption"
     });
     $.__views.__alloyId2.add($.__views.caption);
-    $.__views.__alloyId3 = Ti.UI.createLabel({
+    $.__views.info = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
-        top: 10,
-        text: "Taken at:",
-        id: "__alloyId3"
+        top: 20,
+        text: "Location:",
+        font: {
+            fontSize: 12
+        },
+        id: "info"
     });
-    $.__views.__alloyId2.add($.__views.__alloyId3);
+    $.__views.__alloyId2.add($.__views.info);
     $.__views.placeName = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
-        top: 10,
+        top: 5,
         id: "placeName"
     });
     $.__views.__alloyId2.add($.__views.placeName);
@@ -78,7 +82,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
         top: 10,
-        text: "Upload Photo!",
+        text: "Upload",
         id: "submit"
     });
     $.__views.__alloyId2.add($.__views.submit);

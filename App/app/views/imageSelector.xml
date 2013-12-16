@@ -6,12 +6,12 @@
 		</View>
 		<View id="textInteracts">
 			<View id="nameArea" class='interactRow'>
-				<Label id="nameLabel">Thread Name: </Label>
+				<!--<Label id="nameLabel"></Label>-->
 				<TextField id="name"></TextField>
 			</View>
 			<View id="doneArea" class='interactRow'>
-				<Label id="cancel" onClick="cancel">Cancel</Label>
-				<Label id="done" onClick="done">Done</Label>
+				<Label id="cancel" onClick="cancel"></Label>
+				<Label id="done" onClick="done"></Label>
 			</View>
 		</View>
 	</Window>
