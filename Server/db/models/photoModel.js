@@ -65,18 +65,21 @@ function newPhoto(base64EncodeData, cb) {
 		im.resize({
 			srcPath: localPath(photoFields.originalPath),
 			dstPath: localPath(photoFields.smallPath),
-			height: 50
+			width: 60,
+			height: 80
 		}, function(err) {
 			if (err) return cb(err);
 			im.resize({
 				srcPath: localPath(photoFields.originalPath),
 				dstPath: localPath(photoFields.mediumPath),
-				height: 100
+				width: 150,
+				height: 200
 			}, function(err) {
 				if (err) return cb(err);
 				im.resize({
 					srcPath: localPath(photoFields.originalPath),
 					dstPath: localPath(photoFields.largePath),
+					width: 300,
 					height: 400
 				}, function(err) {
 					if (err) return cb(err);

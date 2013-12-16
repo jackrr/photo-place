@@ -83,6 +83,7 @@ function Controller() {
         top: 30,
         height: Ti.UI.SIZE,
         width: Ti.UI.SIZE,
+        backgroundColor: "#333333",
         id: "imageMapContainer"
     });
     $.__views.__alloyId5.add($.__views.imageMapContainer);
@@ -210,7 +211,6 @@ function Controller() {
         back();
     });
     self.openWindow = function(options) {
-        Ti.API.info(JSON.stringify(options));
         options && options.update && loadThreads();
         $.photoView.open();
     };
