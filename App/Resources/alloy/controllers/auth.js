@@ -30,8 +30,12 @@ function Controller() {
     $.__views.createAccount = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 275,
         width: Ti.UI.SIZE,
+        font: {
+            fontSize: 20
+        },
         text: "Create Account",
         id: "createAccount"
     });
@@ -40,8 +44,12 @@ function Controller() {
     $.__views.logIn = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         width: Ti.UI.SIZE,
+        font: {
+            fontSize: 20
+        },
         text: "Log In",
         id: "logIn"
     });

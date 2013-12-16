@@ -1,10 +1,10 @@
 function Controller() {
     function done() {
         photo.setImage(image, place, $.caption.value);
-        self.exit();
+        self.back();
     }
-    function cancel() {
-        self.exit();
+    function back() {
+        self.back();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "photoUpload";
@@ -15,62 +15,78 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.photoUpload = Ti.UI.createWindow({
-        backgroundColor: "white",
-        fullscreen: true,
-        layout: "vertical",
+        height: "100%",
+        width: "100%",
         id: "photoUpload"
     });
     $.__views.photoUpload && $.addTopLevelView($.__views.photoUpload);
+    $.__views.__alloyId1 = Ti.UI.createView({
+        height: "100%",
+        width: "100%",
+        backgroundColor: Alloy.CFG.whiteYellow,
+        opacity: "0.7",
+        zIndex: 1,
+        id: "__alloyId1"
+    });
+    $.__views.photoUpload.add($.__views.__alloyId1);
+    back ? $.__views.__alloyId1.addEventListener("click", back) : __defers["$.__views.__alloyId1!click!back"] = true;
+    $.__views.__alloyId2 = Ti.UI.createView({
+        backgroundColor: "white",
+        zIndex: 2,
+        borderWidth: 5,
+        borderColor: "black",
+        top: "25%",
+        height: "50%",
+        width: "80%",
+        layout: "vertical",
+        id: "__alloyId2"
+    });
+    $.__views.photoUpload.add($.__views.__alloyId2);
     $.__views.imageView = Ti.UI.createImageView({
         top: 30,
         height: 80,
         id: "imageView"
     });
-    $.__views.photoUpload.add($.__views.imageView);
+    $.__views.__alloyId2.add($.__views.imageView);
     $.__views.caption = Ti.UI.createTextField({
         top: 20,
         hintText: "photo caption",
         width: 250,
+        maxLength: 50,
         id: "caption"
     });
-    $.__views.photoUpload.add($.__views.caption);
-    $.__views.__alloyId1 = Ti.UI.createLabel({
+    $.__views.__alloyId2.add($.__views.caption);
+    $.__views.__alloyId3 = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         text: "Taken at:",
-        id: "__alloyId1"
+        id: "__alloyId3"
     });
-    $.__views.photoUpload.add($.__views.__alloyId1);
+    $.__views.__alloyId2.add($.__views.__alloyId3);
     $.__views.placeName = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         id: "placeName"
     });
-    $.__views.photoUpload.add($.__views.placeName);
+    $.__views.__alloyId2.add($.__views.placeName);
     $.__views.submit = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         top: 10,
         text: "Upload Photo!",
         id: "submit"
     });
-    $.__views.photoUpload.add($.__views.submit);
+    $.__views.__alloyId2.add($.__views.submit);
     done ? $.__views.submit.addEventListener("click", done) : __defers["$.__views.submit!click!done"] = true;
-    $.__views.cancel = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        top: 10,
-        text: "Cancel",
-        id: "cancel"
-    });
-    $.__views.photoUpload.add($.__views.cancel);
-    cancel ? $.__views.cancel.addEventListener("click", cancel) : __defers["$.__views.cancel!click!cancel"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
-    var parent = args.parent;
+    args.parent;
     var image = args.image;
     var place = args.place;
     var self = this;
@@ -78,12 +94,12 @@ function Controller() {
     $.imageView.image = image;
     $.placeName.text = place.name;
     $.photoUpload.open();
-    self.exit = function() {
+    self.back = function() {
         self.destroy();
-        parent.openWindow();
+        $.photoUpload.close();
     };
+    __defers["$.__views.__alloyId1!click!back"] && $.__views.__alloyId1.addEventListener("click", back);
     __defers["$.__views.submit!click!done"] && $.__views.submit.addEventListener("click", done);
-    __defers["$.__views.cancel!click!cancel"] && $.__views.cancel.addEventListener("click", cancel);
     _.extend($, exports);
 }
 

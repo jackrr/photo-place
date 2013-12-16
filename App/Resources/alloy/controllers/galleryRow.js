@@ -4,10 +4,6 @@ function Controller() {
             photo: photo,
             parent: parent
         });
-        closeWindow();
-    }
-    function closeWindow() {
-        parent.closeWindow();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "galleryRow";
@@ -33,6 +29,7 @@ function Controller() {
     $.__views.userName = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         right: 20,
         top: 20,
         id: "userName"
@@ -41,6 +38,7 @@ function Controller() {
     $.__views.placeName = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         right: 20,
         top: 50,
         id: "placeName"
@@ -49,6 +47,7 @@ function Controller() {
     $.__views.uploadDate = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         left: 5,
         bottom: 2,
         font: {

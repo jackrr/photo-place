@@ -1,31 +1,63 @@
-".container": {
-	layout : 'vertical'
+"Window": {
+	height: '100%',
+	width: '100%',
 },
-"ImageView": {
-	top: 30
-},
+
 "View": {
 	layout : 'horizontal',
-	top: 10
 },
+
+".dialog": {
+	top: '15%',
+	height: '70%',
+	width: '80%',
+	layout : 'vertical',
+},
+
 ".captionArea": {
 	width: "100%",
-	textAlign: 'center'
+	textAlign: 'center',
+	height: 40,
 },
-".userArea": {
-	height: 40
+
+"#titleBar": {
+	layout : 'composite',
+	height : 50
 },
-".captionArea": {
-	height: 40
+
+"#imageMapContainer": {
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE,
+	top: 10,
+	layout: 'composite'
 },
-".placeArea": {
-	height: 40
+
+"#caption": {
+	center : "50%",
+	width : "90%",
+	font : {
+		fontSize : 12
+	}
 },
-".dateArea": {
-	height: 40
+
+"#title": {
+	left : 15,
+	font : {
+		fontSize : 12
+	},
+	textAlign : 'left'
 },
-".label": {
-	left: 10
-},
-".value": {
+
+"#threadCount": {
+	top : 5,
+	right : 10,
+	font : {
+		fontSize : 18
+	},
+	color : Alloy.CFG.darkRed,
+	backgroundImage : '/images/thread-bubble.png',
+	width : 40,
+	height : 40
 }
+
+

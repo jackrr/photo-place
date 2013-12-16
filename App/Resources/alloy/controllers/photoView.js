@@ -1,23 +1,38 @@
 function Controller() {
+    function threadOverlay(tc, bc) {
+        var overlay = graphicUtil.coloredRectView(tc, bc, .5);
+        overlay.addEventListener("click", function() {
+            fullPhoto();
+        });
+        return overlay;
+    }
+    function addPreview(threadPreview) {
+        $.imageMapContainer.add(threadOverlay(threadPreview.get("topCorner"), threadPreview.get("bottomCorner"), threadPreview.get("id")));
+    }
+    function loadThreads() {
+        self.threadsCollection.forPhoto(self.photo.id, {
+            success: function(newThreads) {
+                $.threadCount.text = "" + newThreads.models.length;
+                _.each(newThreads.models, function(threadPreview) {
+                    addPreview(threadPreview);
+                });
+            },
+            error: function() {
+                alert("Failed to get threads for photo");
+            }
+        });
+    }
     function back() {
         self.closeWindow();
         self.destroy();
-        parent.openWindow();
     }
     function fullPhoto() {
         Alloy.createController("largeImage", {
             photo: self.photo,
+            threads: self.threadsCollection,
             parent: self
         });
         self.closeWindow();
-    }
-    function openUser() {
-        parent.byUser(self.photo.get("userID"));
-        back();
-    }
-    function openPlace() {
-        parent.byPlace(self.photo.get("placeID"));
-        back();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "photoView";
@@ -28,130 +43,128 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.photoView = Ti.UI.createWindow({
-        backgroundColor: Alloy.CFG.cream,
-        fullscreen: true,
-        layout: "vertical",
+        height: "100%",
+        width: "100%",
         id: "photoView"
     });
     $.__views.photoView && $.addTopLevelView($.__views.photoView);
-    $.__views.image = Ti.UI.createImageView({
-        top: 30,
-        id: "image"
-    });
-    $.__views.photoView.add($.__views.image);
-    fullPhoto ? $.__views.image.addEventListener("click", fullPhoto) : __defers["$.__views.image!click!fullPhoto"] = true;
-    $.__views.__alloyId2 = Ti.UI.createView({
+    $.__views.__alloyId4 = Ti.UI.createView({
         layout: "horizontal",
-        top: 10,
-        height: 40,
-        id: "__alloyId2"
-    });
-    $.__views.photoView.add($.__views.__alloyId2);
-    $.__views.caption = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        id: "caption"
-    });
-    $.__views.__alloyId2.add($.__views.caption);
-    $.__views.__alloyId3 = Ti.UI.createView({
-        layout: "horizontal",
-        top: 10,
-        height: 40,
-        id: "__alloyId3"
-    });
-    $.__views.photoView.add($.__views.__alloyId3);
-    $.__views.__alloyId4 = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        left: 10,
-        text: "By User:",
+        height: "100%",
+        width: "100%",
+        backgroundColor: Alloy.CFG.whiteYellow,
+        opacity: "0.7",
+        zIndex: 1,
         id: "__alloyId4"
     });
-    $.__views.__alloyId3.add($.__views.__alloyId4);
-    $.__views.userName = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        id: "userName"
-    });
-    $.__views.__alloyId3.add($.__views.userName);
-    openUser ? $.__views.userName.addEventListener("click", openUser) : __defers["$.__views.userName!click!openUser"] = true;
+    $.__views.photoView.add($.__views.__alloyId4);
+    back ? $.__views.__alloyId4.addEventListener("click", back) : __defers["$.__views.__alloyId4!click!back"] = true;
     $.__views.__alloyId5 = Ti.UI.createView({
-        layout: "horizontal",
-        top: 10,
-        height: 40,
+        layout: "vertical",
+        backgroundColor: "white",
+        zIndex: 2,
+        borderWidth: 5,
+        borderColor: "black",
+        top: "15%",
+        height: "70%",
+        width: "80%",
         id: "__alloyId5"
     });
     $.__views.photoView.add($.__views.__alloyId5);
-    $.__views.__alloyId6 = Ti.UI.createLabel({
+    $.__views.titleBar = Ti.UI.createView({
+        layout: "composite",
+        height: 50,
+        id: "titleBar"
+    });
+    $.__views.__alloyId5.add($.__views.titleBar);
+    $.__views.title = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: "left",
+        color: "black",
+        left: 15,
+        font: {
+            fontSize: 12
+        },
+        id: "title"
+    });
+    $.__views.titleBar.add($.__views.title);
+    $.__views.threadCount = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        left: 10,
-        text: "Taken at:",
+        color: Alloy.CFG.darkRed,
+        top: 5,
+        right: 10,
+        font: {
+            fontSize: 18
+        },
+        backgroundImage: "/images/thread-bubble.png",
+        width: 40,
+        height: 40,
+        id: "threadCount"
+    });
+    $.__views.titleBar.add($.__views.threadCount);
+    $.__views.imageMapContainer = Ti.UI.createView({
+        layout: "composite",
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        top: 10,
+        id: "imageMapContainer"
+    });
+    $.__views.__alloyId5.add($.__views.imageMapContainer);
+    $.__views.image = Ti.UI.createImageView({
+        id: "image"
+    });
+    $.__views.imageMapContainer.add($.__views.image);
+    fullPhoto ? $.__views.image.addEventListener("click", fullPhoto) : __defers["$.__views.image!click!fullPhoto"] = true;
+    $.__views.__alloyId6 = Ti.UI.createView({
+        layout: "horizontal",
+        width: "100%",
+        textAlign: "center",
+        height: 40,
         id: "__alloyId6"
     });
     $.__views.__alloyId5.add($.__views.__alloyId6);
-    $.__views.placeName = Ti.UI.createLabel({
+    $.__views.caption = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        id: "placeName"
+        color: "black",
+        center: "50%",
+        width: "90%",
+        font: {
+            fontSize: 12
+        },
+        id: "caption"
     });
-    $.__views.__alloyId5.add($.__views.placeName);
-    openPlace ? $.__views.placeName.addEventListener("click", openPlace) : __defers["$.__views.placeName!click!openPlace"] = true;
-    $.__views.__alloyId7 = Ti.UI.createView({
-        layout: "horizontal",
-        top: 10,
-        height: 40,
-        id: "__alloyId7"
-    });
-    $.__views.photoView.add($.__views.__alloyId7);
-    $.__views.__alloyId8 = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        left: 10,
-        text: "Uploaded:",
-        id: "__alloyId8"
-    });
-    $.__views.__alloyId7.add($.__views.__alloyId8);
-    $.__views.uploadDate = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        id: "uploadDate"
-    });
-    $.__views.__alloyId7.add($.__views.uploadDate);
-    $.__views.__alloyId9 = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        text: "Back",
-        id: "__alloyId9"
-    });
-    $.__views.photoView.add($.__views.__alloyId9);
-    back ? $.__views.__alloyId9.addEventListener("click", back) : __defers["$.__views.__alloyId9!click!back"] = true;
+    $.__views.__alloyId6.add($.__views.caption);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var dateUtil = require("dateUtil");
+    var graphicUtil = require("graphicUtil");
     var self = this;
     self.setPhoto = function(photo) {
         self.photo = photo;
         $.caption.text = '"' + photo.get("caption") + '"';
-        $.userName.text = photo.get("userName");
-        $.placeName.text = photo.get("placeName");
-        $.uploadDate.text = dateUtil.prettyDate(photo.get("createdDate"));
+        $.title.text = photo.get("userName") + " at " + photo.get("placeName") + "\n" + dateUtil.prettyDate(photo.get("createdDate"));
         $.image.image = photo.get("mediumPath");
     };
     self.closeWindow = function() {
         $.photoView.close();
     };
-    self.openWindow = function() {
+    $.photoView.addEventListener("android:back", function() {
+        back();
+    });
+    self.openWindow = function(options) {
+        options && options.update && loadThreads();
         $.photoView.open();
     };
     var args = arguments[0] || {};
-    var parent = args.parent;
+    args.parent;
     self.setPhoto(args.photo);
+    self.threadsCollection = Alloy.createCollection("threadPreview");
+    loadThreads();
     $.photoView.open();
+    __defers["$.__views.__alloyId4!click!back"] && $.__views.__alloyId4.addEventListener("click", back);
     __defers["$.__views.image!click!fullPhoto"] && $.__views.image.addEventListener("click", fullPhoto);
-    __defers["$.__views.userName!click!openUser"] && $.__views.userName.addEventListener("click", openUser);
-    __defers["$.__views.placeName!click!openPlace"] && $.__views.placeName.addEventListener("click", openPlace);
-    __defers["$.__views.__alloyId9!click!back"] && $.__views.__alloyId9.addEventListener("click", back);
     _.extend($, exports);
 }
 

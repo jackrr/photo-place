@@ -1,6 +1,11 @@
 <Alloy>
-	<Window id="largeImage" class="container" onClick="back">
-		<ImageView id="image"></ImageView>
+	<Window id="largeImage" class="container">
+		<Label id="threadName"></Label>
+		<View id="imageMapContainer">
+			<ImageView id="image"></ImageView>	
+		</View>
 		<Label id="caption"></Label>
+		<Label id="newThread" onClick="newThread">Make new thread</Label>
+		<Label id="back" onClick="back">Back</Label>
 	</Window>
 </Alloy>

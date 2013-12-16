@@ -14,9 +14,6 @@ function Controller() {
         });
         self.closeWindow();
     }
-    function titleHeader(username) {
-        return "Hello, " + username;
-    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -35,9 +32,9 @@ function Controller() {
     $.__views.title = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#000",
         top: 30,
         id: "title"
     });
@@ -45,9 +42,9 @@ function Controller() {
     $.__views.userPage = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#000",
         top: 30,
         text: "List of Users",
         id: "userPage"
@@ -57,9 +54,9 @@ function Controller() {
     $.__views.addUser = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#000",
         top: 30,
         text: "Create Account / Log In",
         id: "addUser"
@@ -69,9 +66,9 @@ function Controller() {
     $.__views.photoOpts = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "#000",
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#000",
         top: 30,
         text: "Photo Menu",
         id: "photoOpts"
@@ -92,12 +89,8 @@ function Controller() {
         Ti.API.info("Activity resumed");
         LocationUtil.checkForLocationUpdate();
     });
-    Ti.App.addEventListener("signIn", function(e) {
+    Ti.App.addEventListener("signIn", function() {
         Ti.API.info("signIn event");
-        var user = Ti.App.Properties.getObject("authInfo");
-        Ti.API.info(JSON.stringify(e.user));
-        $.index.open();
-        $.title.text = titleHeader(user.username);
         LocationUtil.checkForLocationUpdate();
     });
     if (Ti.App.Properties.getObject("authInfo", false)) {

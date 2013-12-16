@@ -1,6 +1,13 @@
-".container" : {
-	layout: "vertical",
-	backgroundColor: "white"
+"Window": {
+	height: '100%',
+	width: '100%',
+},
+
+".dialog": {
+	top: '25%',
+	height: '50%',
+	width: '80%',
+	layout : 'vertical',
 },
 
 "#imageView": {
@@ -11,7 +18,8 @@
 "#caption": {
 	top: 20,
 	hintText : "photo caption",
-	width : 250
+	width : 250,
+	maxLength : 50
 },
 
 "Label": {

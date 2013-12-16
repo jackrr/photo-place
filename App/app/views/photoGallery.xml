@@ -1,7 +1,7 @@
 <Alloy>
 	<Window class="container">
 		<View id="uploadBar">
-			<Label id="back" onClick="eliminate">Back</Label>
+			<!--<Label id="back" onClick="eliminate">Back</Label>-->
 			<Label id="placeName"></Label>
 			<Button id="uploadPhoto" onClick="choosePhoto"></Button>
 		</View>

@@ -1,8 +1,8 @@
 function Controller() {
-    function closeWindow() {
+    function closeWindow(nextController) {
+        Alloy.createController(nextController);
         $.destroy();
         $.logIn.close();
-        Alloy.createController("index");
     }
     function submitInfo() {
         if ("" == $.username.value || "" == $.password.value) Ti.UI.createAlertDialog({
@@ -29,11 +29,8 @@ function Controller() {
                         email: user.email,
                         id: user._id
                     });
-                    Ti.App.fireEvent("signIn", {
-                        user: user
-                    });
-                    $.destroy();
-                    $.logIn.close();
+                    Ti.App.fireEvent("signIn");
+                    closeWindow("photoGallery");
                 }
             });
         }
@@ -58,9 +55,9 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         autocorrect: false,
         width: 150,
+        top: 180,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
         hintText: "Username",
-        top: 210,
         id: "username"
     });
     $.__views.logIn.add($.__views.username);
@@ -68,6 +65,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         autocorrect: false,
         width: 150,
+        top: 10,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
         hintText: "Password",
         passwordMask: true,
@@ -77,8 +75,9 @@ function Controller() {
     $.__views.submit = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         width: Ti.UI.SIZE,
-        top: 15,
+        top: 20,
         text: "Submit",
         id: "submit"
     });
@@ -87,9 +86,10 @@ function Controller() {
     $.__views.cancel = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
         width: Ti.UI.SIZE,
         top: 10,
-        text: "Cancel",
+        text: "Back",
         id: "cancel"
     });
     $.__views.logIn.add($.__views.cancel);
@@ -99,6 +99,9 @@ function Controller() {
     var ServerUtil = require("serverUtil");
     Alloy.createCollection("user");
     $.logIn.open();
+    $.logIn.addEventListener("android:back", function() {
+        closeWindow("auth");
+    });
     __defers["$.__views.submit!click!submitInfo"] && $.__views.submit.addEventListener("click", submitInfo);
     __defers["$.__views.cancel!click!closeWindow"] && $.__views.cancel.addEventListener("click", closeWindow);
     _.extend($, exports);

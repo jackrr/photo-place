@@ -5,6 +5,23 @@
 
 "Label": {
 	verticalAlign : Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER
+	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+	color: 'black'
 	//backgroundColor : Alloy.CFG.whiteYellow
+},
+
+".dialog": {
+	backgroundColor : 'white',
+	zIndex: 2,
+	//borderRadius : 5,
+	borderWidth : 5,
+	borderColor : 'black'
+},
+
+".dialogOverlay": {
+	height: "100%",
+	width: "100%",
+	backgroundColor: Alloy.CFG.whiteYellow,
+	opacity: '0.7',
+	zIndex: 1
 }

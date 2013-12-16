@@ -3,10 +3,15 @@ var user = Alloy.createModel("user");
 $.createAccount.open();
 var self = this;
 
-function closeWindow() {
-	self.destroy();
-	Alloy.createController('index');
+function closeWindow(nextController) {
+	Alloy.createController(nextController);
+	$.createAccount.close();
+	$.destroy();
 }
+
+$.createAccount.addEventListener('android:back', function() {
+	closeWindow('auth');
+});
 
 function checkEmail(email){
 	if (!(new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$").test(email))){
@@ -82,7 +87,9 @@ function submitInfo() {
 					email : user.get('email'),
 					id : user.get('_id')
 				});
-				closeWindow();
+				
+				Ti.App.fireEvent('signIn');
+				closeWindow('photoGallery');
 			},
 			error : function(user,err) {
 				Ti.API.info('err '+JSON.stringify(err.err));

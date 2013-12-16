@@ -6,19 +6,20 @@ var self = this;
 var photo = Alloy.createModel('photo');
 
 $.imageView.image = image;
-$.placeName.text = place.name; 
+$.placeName.text = place.name;
 $.photoUpload.open();
 
-self.exit = function() {
+self.back = function() {
 	self.destroy();
-	parent.openWindow();
+	$.photoUpload.close();
+	// parent.openWindow();
 };
 
 function done() {
 	photo.setImage(image, place, $.caption.value);
-	self.exit();
+	self.back();
 }
 
-function cancel() {
-	self.exit();
+function back() {
+	self.back();
 }

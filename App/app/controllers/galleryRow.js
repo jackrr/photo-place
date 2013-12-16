@@ -14,7 +14,7 @@ function openPhotoView() {
 		photo: photo,
 		parent: parent
 	});
-	closeWindow();
+	// closeWindow();
 }
 
 function closeWindow() {
