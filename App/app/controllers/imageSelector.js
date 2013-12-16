@@ -65,7 +65,7 @@ $.image.addEventListener('touchmove', function(e) {
 function cancel() {
 	$.imageSelector.close();
 	self.destroy();
-	parent.openWindow();
+	parent.openWindow(false);
 }
 
 $.imageSelector.addEventListener('android:back', function() {

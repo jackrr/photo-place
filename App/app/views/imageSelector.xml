@@ -1,7 +1,9 @@
 <Alloy>
 	<Window id="imageSelector" class="container">
-		<View id="overlayRegion"></View>
-		<ImageView id="image"></ImageView>
+		<View id="imageArea">
+			<View id="overlayRegion"></View>
+			<ImageView id="image"></ImageView>
+		</View>
 		<View id="textInteracts">
 			<View id="nameArea" class='interactRow'>
 				<Label id="nameLabel">Thread Name: </Label>

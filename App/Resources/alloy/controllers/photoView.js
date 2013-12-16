@@ -210,6 +210,7 @@ function Controller() {
         back();
     });
     self.openWindow = function(options) {
+        Ti.API.info(JSON.stringify(options));
         options && options.update && loadThreads();
         $.photoView.open();
     };
