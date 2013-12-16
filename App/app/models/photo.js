@@ -1,8 +1,7 @@
 var ServerUtil = require('serverUtil');
 var LocationUtil = require('locationUtil');
-var serverURL = "http://localhost:3000/"; // iOS devel
-// var serverURL = "http://10.0.2.2:3000/"; // Android devel
-// var serverURL = Alloy.CFG.serverURL; WHY DOESN'T THIS WORK?? 
+var serverURL = ServerUtil.serverURL;
+Ti.API.info('server url: ' + serverURL);
 
 exports.definition = {
 	config : {

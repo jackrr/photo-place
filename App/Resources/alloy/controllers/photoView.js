@@ -83,7 +83,6 @@ function Controller() {
         top: 30,
         height: Ti.UI.SIZE,
         width: Ti.UI.SIZE,
-        backgroundColor: "#333333",
         id: "imageMapContainer"
     });
     $.__views.__alloyId5.add($.__views.imageMapContainer);

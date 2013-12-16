@@ -1,6 +1,6 @@
 var ServerUtil = require("serverUtil");
 
-var serverURL = "http://localhost:3000/";
+var serverURL = ServerUtil.serverURL;
 
 exports.definition = {
     config: {

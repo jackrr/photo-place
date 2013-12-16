@@ -1,6 +1,10 @@
+var ServerUtil = require("serverUtil");
+
+var serverURL = ServerUtil.serverURL;
+
 exports.definition = {
     config: {
-        URL: "http://localhost:3000/users",
+        URL: serverURL + "users",
         adapter: {
             type: "restapi",
             collection_name: "Users",
