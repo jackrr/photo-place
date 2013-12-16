@@ -41,4 +41,8 @@
 "#password2": {
 	hintText : "Re-enter Password",
 	passwordMask : true
+},
+
+"#submit": {
+	top : 20
 }

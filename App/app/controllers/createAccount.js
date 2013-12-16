@@ -3,14 +3,14 @@ var user = Alloy.createModel("user");
 $.createAccount.open();
 var self = this;
 
-function closeWindow() {
+function closeWindow(nextController) {
+	Alloy.createController(nextController);
 	$.createAccount.close();
-	self.destroy();
-	Alloy.createController('index');
+	$.destroy();
 }
 
 $.createAccount.addEventListener('android:back', function() {
-	closeWindow();
+	closeWindow('auth');
 });
 
 function checkEmail(email){
@@ -87,7 +87,9 @@ function submitInfo() {
 					email : user.get('email'),
 					id : user.get('_id')
 				});
-				closeWindow();
+				
+				Ti.App.fireEvent('signIn');
+				closeWindow('photoGallery');
 			},
 			error : function(user,err) {
 				Ti.API.info('err '+JSON.stringify(err.err));

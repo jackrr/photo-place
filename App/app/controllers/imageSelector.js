@@ -1,5 +1,5 @@
 var self = this;
-
+var GraphicUtil = require('graphicUtil');
 
 var args = arguments[0] || {};
 var parent = args.parent;
@@ -28,6 +28,7 @@ $.image.image = photo.get('largePath');
 self.imageSelector.open();
 
 $.image.addEventListener('touchstart', function(e) {
+	$.overlayRegion.backgroundColor = GraphicUtil.randomColor();
 	// e.x and e.y are coords
 	left = e.x;
 	top = e.y;

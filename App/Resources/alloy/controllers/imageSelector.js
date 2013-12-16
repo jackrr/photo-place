@@ -56,7 +56,6 @@ function Controller() {
     });
     $.__views.imageSelector.add($.__views.imageArea);
     $.__views.overlayRegion = Ti.UI.createView({
-        backgroundColor: "#aaaaaa",
         opacity: "0.4",
         zIndex: 1,
         height: 0,
@@ -69,7 +68,6 @@ function Controller() {
     });
     $.__views.imageArea.add($.__views.image);
     $.__views.textInteracts = Ti.UI.createView({
-        backgroundColor: "white",
         layout: "vertical",
         id: "textInteracts"
     });
@@ -77,30 +75,21 @@ function Controller() {
     $.__views.nameArea = Ti.UI.createView({
         top: 5,
         height: 40,
-        backgroundColor: "white",
-        layout: "horizontal",
         color: "black",
+        witdth: "100%",
         id: "nameArea"
     });
     $.__views.textInteracts.add($.__views.nameArea);
-    $.__views.nameLabel = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        color: "black",
-        text: "Thread Name:",
-        id: "nameLabel"
-    });
-    $.__views.nameArea.add($.__views.nameLabel);
     $.__views.name = Ti.UI.createTextField({
+        hintText: "comment on region",
         id: "name"
     });
     $.__views.nameArea.add($.__views.name);
     $.__views.doneArea = Ti.UI.createView({
-        top: 5,
+        top: 15,
         height: 40,
-        backgroundColor: "white",
-        layout: "horizontal",
         color: "black",
+        witdth: "100%",
         id: "doneArea"
     });
     $.__views.textInteracts.add($.__views.doneArea);
@@ -109,6 +98,10 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
         text: "Cancel",
+        font: {
+            fontSize: 12
+        },
+        left: "25%",
         id: "cancel"
     });
     $.__views.doneArea.add($.__views.cancel);
@@ -118,6 +111,10 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
         text: "Done",
+        font: {
+            fontSize: 12
+        },
+        right: "25%",
         id: "done"
     });
     $.__views.doneArea.add($.__views.done);
@@ -125,6 +122,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var self = this;
+    var GraphicUtil = require("graphicUtil");
     var args = arguments[0] || {};
     var parent = args.parent;
     var photo = args.photo;
@@ -144,6 +142,7 @@ function Controller() {
     $.image.image = photo.get("largePath");
     self.imageSelector.open();
     $.image.addEventListener("touchstart", function(e) {
+        $.overlayRegion.backgroundColor = GraphicUtil.randomColor();
         left = e.x;
         top = e.y;
         p1.x = e.x;

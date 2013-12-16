@@ -11,14 +11,17 @@
 },
 
 ".dialog": {
-	backgroundColor : '#ffffff',
-	zIndex: 2
+	backgroundColor : 'white',
+	zIndex: 2,
+	//borderRadius : 5,
+	borderWidth : 5,
+	borderColor : 'black'
 },
 
 ".dialogOverlay": {
 	height: "100%",
 	width: "100%",
-	backgroundColor: '#ffffff',
+	backgroundColor: Alloy.CFG.whiteYellow,
 	opacity: '0.7',
 	zIndex: 1
 }

@@ -18,7 +18,7 @@
 "#uploadBar": {
 	height: 40,
 	backgroundColor: Alloy.CFG.darkRed,
-	width: "100%"
+	width: "100%",
 },
 
 "#back": {
@@ -28,7 +28,10 @@
 
 "#placeName": {
 	width : Ti.UI.SIZE,
-	top : 10
+	top : 10,
+	font : {
+		fontSize : 20
+	}
 }
 
 "#uploadPhoto": {

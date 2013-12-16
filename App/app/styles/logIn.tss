@@ -14,12 +14,13 @@
 	textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
 	autocorrect : false,
 	width : 150,
+	top : 10,
 	autocapitalization : Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
 },
 
 "#username": {
 	hintText : 'Username',
-	top : 210
+	top : 180
 },
 
 "#password": {
@@ -28,12 +29,12 @@
 },
 
 "#submit": {
-	top: 15,
+	top: 20,
 	text : 'Submit'
 },
 
 "#cancel": {
 	top: 10,
-	text: 'Cancel'
+	text: 'Back'
 }
 

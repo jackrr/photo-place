@@ -1,8 +1,8 @@
 function Controller() {
-    function closeWindow() {
+    function closeWindow(nextController) {
+        Alloy.createController(nextController);
         $.createAccount.close();
-        self.destroy();
-        Alloy.createController("index");
+        $.destroy();
     }
     function checkEmail(email) {
         if (new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$").test(email)) return true;
@@ -44,7 +44,8 @@ function Controller() {
                         email: user.get("email"),
                         id: user.get("_id")
                     });
-                    closeWindow();
+                    Ti.App.fireEvent("signIn");
+                    closeWindow("photoGallery");
                 },
                 error: function(user, err) {
                     Ti.API.info("err " + JSON.stringify(err.err));
@@ -134,7 +135,7 @@ function Controller() {
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
-        top: 10,
+        top: 20,
         width: Ti.UI.SIZE,
         text: "Submit",
         id: "submit"
@@ -147,7 +148,7 @@ function Controller() {
         color: "black",
         top: 10,
         width: Ti.UI.SIZE,
-        text: "Cancel",
+        text: "Back",
         id: "cancel"
     });
     $.__views.createAccount.add($.__views.cancel);
@@ -156,9 +157,8 @@ function Controller() {
     _.extend($, $.__views);
     var user = Alloy.createModel("user");
     $.createAccount.open();
-    var self = this;
     $.createAccount.addEventListener("android:back", function() {
-        closeWindow();
+        closeWindow("auth");
     });
     __defers["$.__views.submit!click!submitInfo"] && $.__views.submit.addEventListener("click", submitInfo);
     __defers["$.__views.cancel!click!closeWindow"] && $.__views.cancel.addEventListener("click", closeWindow);

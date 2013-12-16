@@ -45,11 +45,6 @@ function Controller() {
     function closeWindow() {
         $.photoGallery.close();
     }
-    function eliminate() {
-        closeWindow();
-        self.destroy();
-        parent.openWindow();
-    }
     function addPhotos(newPhotos, placeLabels) {
         var rows = [];
         var lastPlace;
@@ -161,19 +156,6 @@ function Controller() {
         id: "uploadBar"
     });
     $.__views.photoGallery.add($.__views.uploadBar);
-    $.__views.back = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        color: "#000",
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        top: 10,
-        left: 5,
-        text: "Back",
-        id: "back"
-    });
-    $.__views.uploadBar.add($.__views.back);
-    eliminate ? $.__views.back.addEventListener("click", eliminate) : __defers["$.__views.back!click!eliminate"] = true;
     $.__views.placeName = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
@@ -181,6 +163,9 @@ function Controller() {
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         top: 10,
+        font: {
+            fontSize: 20
+        },
         id: "placeName"
     });
     $.__views.uploadBar.add($.__views.placeName);
@@ -295,8 +280,7 @@ function Controller() {
     require("serverUtil");
     require("locationUtil");
     var self = this;
-    var args = arguments[0] || {};
-    var parent = args.parent;
+    arguments[0] || {};
     var photos = Alloy.createCollection("photo");
     self.closeWindow = closeWindow;
     self.openWindow = function() {
@@ -365,7 +349,6 @@ function Controller() {
     self.currentTab = $.globalContainer;
     globeButt();
     $.photoGallery.open();
-    __defers["$.__views.back!click!eliminate"] && $.__views.back.addEventListener("click", eliminate);
     __defers["$.__views.uploadPhoto!click!choosePhoto"] && $.__views.uploadPhoto.addEventListener("click", choosePhoto);
     __defers["$.__views.globalContainer!click!globeButt"] && $.__views.globalContainer.addEventListener("click", globeButt);
     __defers["$.__views.nearbyContainer!click!nearButt"] && $.__views.nearbyContainer.addEventListener("click", nearButt);

@@ -2,13 +2,17 @@
 	<Window>
 		<View class="dialogOverlay" onClick="back"></View>
 		<View class="dialog">
+			<View id="titleBar">
+				<Label id="title"/>
+				<Label id="threadCount" onClick="fullPhoto"/>
+			</View>
 			<View id="imageMapContainer">
 				<ImageView id="image" onClick="fullPhoto"></ImageView>	
 			</View>
 			<View class="captionArea">
 				<Label id="caption" class="value"></Label>
 			</View>
-			<View class="userArea">
+			<!-- <View class="userArea">
 				<Label class="label">By User:</Label>
 				<Label id="userName" class="value" onClick="openUser"></Label>
 			</View>
@@ -22,7 +26,7 @@
 			</View>
 			<View class="threadArea">
 				<Label id="threadCount" onClick="fullPhoto"></Label>
-			</View>
+			</View> -->
 		</View>
 	</Window>
 </Alloy>

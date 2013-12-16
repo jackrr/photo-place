@@ -5,10 +5,15 @@ var self = this;
 self.setPhoto = function(photo) {
 	self.photo = photo;
 	$.caption.text = "\"" + photo.get('caption') + "\"";
-	$.userName.text = photo.get('userName');
-	$.placeName.text = photo.get('placeName');
-	$.uploadDate.text = dateUtil.prettyDate(photo.get('createdDate'));
+	$.title.text = photo.get('userName') + ' at ' + photo.get('placeName') + '\n' + dateUtil.prettyDate(photo.get('createdDate'));
+	// $.userName.text = photo.get('userName');
+	// $.placeName.text = photo.get('placeName');
+	// $.uploadDate.text = dateUtil.prettyDate(photo.get('createdDate'));
 	$.image.image = photo.get('mediumPath');
+	
+	if (OS_IOS){
+		$.threadCount.setBackgroundPaddingBottom(3);	
+	}
 };
 
 self.closeWindow = function() {
@@ -42,7 +47,7 @@ function addPreview(threadPreview) {
 function loadThreads() {
 	self.threadsCollection.forPhoto(self.photo.id, {
 		success: function(newThreads) {
-			$.threadCount.text = '' + newThreads.models.length + ' threads';
+			$.threadCount.text = '' + newThreads.models.length;
 			_.each(newThreads.models, function(threadPreview) {
 				addPreview(threadPreview);
 			});

@@ -1,26 +1,42 @@
 "Window": {
 	height: '100%',
-	width: '100%' 
+	width: '100%',
 },
 
-".dialog" : {
+"Label": {
+	top: 5
+},
+
+".dialog": {
 	top: '25%',
 	height: '50%',
 	width: '80%',
-	layout : 'vertical'
+	layout : 'vertical',
 },
 
 "#imageView": {
-	top: 30,
-	height: 80
+	top: 20,
+	height: 100
 },
 
 "#caption": {
 	top: 20,
-	hintText : "photo caption",
-	width : 250
+	hintText : "add caption",
+	width : 250,
+	maxLength : 50,
+	textAlign : 'center'
 },
 
-"Label": {
-	top: 10
+"#submit": {
+	text : "Upload",
+	top : 10
+},
+
+"#info": {
+	top : 20,
+	text : "Location:",
+	font : {
+		fontSize : 12
+	}
 }
+

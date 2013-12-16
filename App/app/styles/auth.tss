@@ -15,7 +15,10 @@
 
 "Label": {
 	top : 10,
-	width : Ti.UI.SIZE
+	width : Ti.UI.SIZE,
+	font : {
+		fontSize : 20
+	}
 },
 
 "#createAccount": {

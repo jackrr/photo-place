@@ -14,9 +14,6 @@ function Controller() {
         });
         self.closeWindow();
     }
-    function titleHeader(username) {
-        return "Hello, " + username;
-    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -81,6 +78,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var LocationUtil = require("locationUtil");
+    Ti.App.Properties.removeProperty("authInfo");
     var self = this;
     self.closeWindow = function() {
         $.index.close();
@@ -92,12 +90,8 @@ function Controller() {
         Ti.API.info("Activity resumed");
         LocationUtil.checkForLocationUpdate();
     });
-    Ti.App.addEventListener("signIn", function(e) {
+    Ti.App.addEventListener("signIn", function() {
         Ti.API.info("signIn event");
-        var user = Ti.App.Properties.getObject("authInfo");
-        Ti.API.info(JSON.stringify(e.user));
-        $.index.open();
-        $.title.text = titleHeader(user.username);
         LocationUtil.checkForLocationUpdate();
     });
     if (Ti.App.Properties.getObject("authInfo", false)) {

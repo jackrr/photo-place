@@ -33,6 +33,9 @@ function Controller() {
         color: "black",
         top: 275,
         width: Ti.UI.SIZE,
+        font: {
+            fontSize: 20
+        },
         text: "Create Account",
         id: "createAccount"
     });
@@ -44,6 +47,9 @@ function Controller() {
         color: "black",
         top: 10,
         width: Ti.UI.SIZE,
+        font: {
+            fontSize: 20
+        },
         text: "Log In",
         id: "logIn"
     });

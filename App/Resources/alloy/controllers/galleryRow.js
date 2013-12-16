@@ -14,7 +14,7 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.rowView = Ti.UI.createTableViewRow({
-        height: 80,
+        height: 100,
         backgroundColor: "transparent",
         id: "rowView"
     });

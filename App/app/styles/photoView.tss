@@ -1,49 +1,65 @@
 "Window": {
 	height: '100%',
-	width: '100%'
-}
+	width: '100%',
+},
 
-".dialog" : {
+"View": {
+	layout : 'horizontal',
+},
+
+".dialog": {
 	top: '15%',
-	height: '70%',
+	height: Ti.UI.SIZE,
 	width: '80%',
-	layout : 'vertical'
+	layout : 'vertical',
+},
+
+".captionArea": {
+	width: "100%",
+	textAlign: 'center',
+	height: 40,
+},
+
+"#titleBar": {
+	layout : 'composite',
+	height : 50
 },
 
 "#imageMapContainer": {
 	height: Ti.UI.SIZE,
 	width: Ti.UI.SIZE,
-	top: 30,
+	top: 10,
 	layout: 'composite'
 },
-"ImageView": {
-},
-"View": {
-	layout : 'horizontal',
-	top: 10
+
+"#caption": {
+	//center : "50%",
+	width : "900%",
+	height : 40,
+	font : {
+		fontSize : 12
+	}
 },
 
-".captionArea": {
-	width: "100%",
-	textAlign: 'center'
-},
-".userArea": {
-	height: 40
-},
-".captionArea": {
-	height: 40
-},
-".placeArea": {
-	height: 40
-},
-".dateArea": {
-	height: 40
-},
-".label": {
-	left: 10
-},
-".value": {
+"#title": {
+	left : 15,
+	font : {
+		fontSize : 12
+	},
+	textAlign : 'left'
 },
 
-".threadArea": {
+"#threadCount": {
+	top : 5,
+	right : 10,
+	font : {
+		fontSize : 18
+	},
+	verticalAlign : Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+	color : Alloy.CFG.darkRed,
+	backgroundImage : '/images/thread-bubble.png',
+	width : 40,
+	height : 40
 }
+
+

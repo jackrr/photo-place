@@ -3,7 +3,7 @@ var LocationUtil = require('locationUtil');
 
 var self = this;
 var args = arguments[0] || {};
-var parent = args.parent;
+//var parent = args.parent;
 var photos = Alloy.createCollection('photo');
 
 
@@ -87,12 +87,6 @@ function setTab(tabnum, text) {
 function closeWindow() {
 	$.photoGallery.close();
 }
-
-function eliminate() {
-	closeWindow();
-	self.destroy();
-	parent.openWindow();
-};
 
 self.closeWindow = closeWindow;
 

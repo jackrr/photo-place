@@ -5,14 +5,15 @@ var users = Alloy.createCollection("user");
 $.logIn.open();
 //$.username.focus();
 
-function closeWindow(e) {
+function closeWindow(nextController) {
+	Alloy.createController(nextController);
 	$.destroy();
 	$.logIn.close();
-	Alloy.createController('index');
+	
 }
 
 $.logIn.addEventListener('android:back', function() {
-	closeWindow();
+	closeWindow('auth');
 });
 
 function submitInfo(e) {
@@ -44,12 +45,8 @@ function submitInfo(e) {
 					id : user._id
 				});
 
-				//alert('User ' + user.username + ' logged in');
-				Ti.App.fireEvent('signIn', {
-					user : user
-				});
-				$.destroy();
-				$.logIn.close();
+				Ti.App.fireEvent('signIn');
+				closeWindow('photoGallery');
 			}
 		});
 	}

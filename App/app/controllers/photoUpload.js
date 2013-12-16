@@ -6,7 +6,7 @@ var self = this;
 var photo = Alloy.createModel('photo');
 
 $.imageView.image = image;
-$.placeName.text = place.name; 
+$.placeName.text = place.name;
 $.photoUpload.open();
 
 self.back = function() {
