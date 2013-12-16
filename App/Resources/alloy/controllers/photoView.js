@@ -146,6 +146,7 @@ function Controller() {
         $.caption.text = '"' + photo.get("caption") + '"';
         $.title.text = photo.get("userName") + " at " + photo.get("placeName") + "\n" + dateUtil.prettyDate(photo.get("createdDate"));
         $.image.image = photo.get("mediumPath");
+        $.threadCount.setBackgroundPaddingBottom(3);
     };
     self.closeWindow = function() {
         $.photoView.close();

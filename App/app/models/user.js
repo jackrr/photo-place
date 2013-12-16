@@ -1,6 +1,9 @@
+var ServerUtil = require('serverUtil');
+var serverURL = ServerUtil.serverURL;
+
 exports.definition = {
     config : {
-    	"URL": "http://localhost:3000/users", // iOS devel
+    	"URL": serverURL + "users", // iOS devel
     	// "URL": "http://10.0.2.2:3000/users", // Android devel
         // table schema and adapter information
         "adapter": {

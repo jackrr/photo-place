@@ -1,15 +1,18 @@
 "#imageSelector" : {
 	orientationModes: [
 		Ti.UI.PORTRAIT
-	]
+	],
+	layout: 'vertical'
 },
 
-"#image": {
-	top: 0
+"#imageArea": {
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE,
+	top: 30,
+	layout: 'composite'
 },
 
 "#textInteracts": {
-	top: 250,
 	backgroundColor: 'white',
 	layout: "vertical"
 },

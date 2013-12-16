@@ -2,7 +2,9 @@ var ServerUtil = require("serverUtil");
 
 var LocationUtil = require("locationUtil");
 
-var serverURL = "http://localhost:3000/";
+var serverURL = ServerUtil.serverURL;
+
+Ti.API.info("server url: " + serverURL);
 
 exports.definition = {
     config: {

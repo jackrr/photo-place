@@ -8,8 +8,7 @@ function Controller() {
         if ("" == $.username.value || "" == $.password.value) Ti.UI.createAlertDialog({
             message: "Please fill in both fields"
         }).show(); else {
-            var url = "";
-            url = "http://localhost:3000/users/auth";
+            var url = serverURL + "users/auth";
             ServerUtil.checkPassword(url, {
                 username: $.username.value,
                 password: $.password.value
@@ -97,6 +96,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var ServerUtil = require("serverUtil");
+    var serverURL = ServerUtil.serverURL;
     Alloy.createCollection("user");
     $.logIn.open();
     $.logIn.addEventListener("android:back", function() {

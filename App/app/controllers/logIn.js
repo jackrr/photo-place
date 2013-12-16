@@ -1,4 +1,5 @@
 var ServerUtil = require('serverUtil');
+var serverURL = ServerUtil.serverURL;
 var users = Alloy.createCollection("user");
 
 $.logIn.open();
@@ -21,12 +22,7 @@ function submitInfo(e) {
 			message : 'Please fill in both fields'
 		}).show();
 	} else {
-		var url = "";
-		if (OS_IOS) {
-			url = "http://localhost:3000/users/auth";
-		} else {
-			url = "http://10.0.2.2:3000/users/auth";
-		}
+		var url = serverURL + "users/auth";
 		
 		ServerUtil.checkPassword(url, {
 			username : $.username.value,

@@ -1,3 +1,7 @@
+exports.serverURL = Alloy.CFG.serverURL; // iOS devel
+// exports.serverURL = "http://10.0.2.2:3000/"; // Android devel
+// exports.serverURL = "http://photoplace.cs.oberlin.edu/"; // production server
+
 exports.sendPhoto = function(url, blob, place, caption) {
 	var userID = Ti.App.Properties.getObject('authInfo').id;
 

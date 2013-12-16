@@ -54,6 +54,7 @@
 	font : {
 		fontSize : 18
 	},
+	verticalAlign : Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
 	color : Alloy.CFG.darkRed,
 	backgroundImage : '/images/thread-bubble.png',
 	width : 40,

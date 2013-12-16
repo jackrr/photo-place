@@ -10,6 +10,10 @@ self.setPhoto = function(photo) {
 	// $.placeName.text = photo.get('placeName');
 	// $.uploadDate.text = dateUtil.prettyDate(photo.get('createdDate'));
 	$.image.image = photo.get('mediumPath');
+	
+	if (OS_IOS){
+		$.threadCount.setBackgroundPaddingBottom(3);	
+	}
 };
 
 self.closeWindow = function() {

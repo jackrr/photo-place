@@ -1,3 +1,5 @@
+exports.serverURL = Alloy.CFG.serverURL;
+
 exports.sendPhoto = function(url, blob, place, caption) {
     var userID = Ti.App.Properties.getObject("authInfo").id;
     var client = Ti.Network.createHTTPClient({
