@@ -13,6 +13,7 @@ app.db = require('./db/index.js');
 var routes = require('./routes/index')(app.db);
 var user = routes.user;
 var photos = routes.photos;
+var threads = routes.threads;
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -40,11 +41,17 @@ function log(req, res, next) {
 
 app.post('/photos', log, photos.newFromUser);
 app.get('/photos', log, photos.byPage);
-app.post('/photos/placeselect', log, photos.placeConfirm);
 app.get('/photos/page/:page', log, photos.byPage);
+
 app.get('/photos/place/:placeID/page/:page', log, photos.byPlace);
 app.get('/photos/user/:userID/page/:page', log, photos.byUser);
 app.get('/photos/nearby/:placeIDs', log, photos.nearby);
+
+app.get('/photo/:photoID/threads', log, threads.getThreadPreviews);
+app.get('/thread/:threadID', log, threads.getThread);
+app.post('/threads', log, threads.newThread);
+app.put('/thread/:threadID/comment', log, threads.newComment);
+
 
 // app.post('/photos/user/:userID', log, photos.newFromUser);
 // app.get('/photo/:id', photos.byID);
