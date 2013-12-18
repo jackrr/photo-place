@@ -78,7 +78,6 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var LocationUtil = require("locationUtil");
-    Ti.App.Properties.removeProperty("authInfo");
     var self = this;
     self.closeWindow = function() {
         $.index.close();

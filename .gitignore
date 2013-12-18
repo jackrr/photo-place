@@ -5,3 +5,4 @@ Server/public/upload_images/*
 *.swp_emacs
 Server/node_modules/
 Server/googleAPIkey.json
+*.DS_Store
