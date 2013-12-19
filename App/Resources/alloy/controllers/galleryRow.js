@@ -62,6 +62,7 @@ function Controller() {
     var args = arguments[0] || {};
     var photo = args.photo;
     var parent = args.parent;
+    $.imageView.preventDefaultImage = true;
     $.userName.text = photo.get("userName");
     $.placeName.text = photo.get("placeName");
     $.uploadDate.text = dateUtil.prettyDate(photo.get("createdDate"));

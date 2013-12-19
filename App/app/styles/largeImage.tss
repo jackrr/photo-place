@@ -12,14 +12,14 @@
 },
 
 "#imageMapContainer": {
-	top : 10,
-	height: 300,
+	//top : 10,
+	height: Ti.UI.SIZE,
 	width: Ti.UI.SIZE,
 	layout: 'composite'
 },
 
 "#caption": {
-	top: 10,
+	height : 'auto',
 	font : {
 		fontSize : 12
 	}
@@ -31,17 +31,19 @@
 
 "#newThread": {
 	text : L('addThread'),
-	left : 20
+	right : 10,
+	text : L('add')
 },
 
 "#back": {
 	text : L('back'),
-	right : 20
+	left : 10
 },
 
 "#titleBar": {
-	layout : 'composite',
-	height : 40
+	height: 40,
+	backgroundColor: Alloy.CFG.darkRed,
+	width: "100%",
 },
 
 "#title": {
@@ -60,9 +62,5 @@
 	}
 },
 
-"#actionBar": {
-	layout : 'composite',
-	top : 10
-}
 
 

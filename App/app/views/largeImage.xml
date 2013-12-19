@@ -1,17 +1,15 @@
 <Alloy>
 	<Window id="largeImage" class="container">
 		<View id="titleBar">
-			<Label id="title"/>
-			<Label id="titleDate"/>
+			<!-- <Label id="title"/>
+			<Label id="titleDate"/> -->
+			<Label id="back" onClick="back"/>
+			<Label id="caption"/>
+			<Label id="newThread" onClick="newThread">
 		</View>
+		<View id="threadObject"/> <!-- the BetterPicker object -->
 		<View id="imageMapContainer">
 			<ImageView id="image"/>
-		</View>
-		<Label id="caption"/>
-		<View id="threadObject"/>
-		<View id="actionBar">
-			<Label id="newThread" onClick="newThread"/>
-			<Label id="back" onClick="back"/>
 		</View>
 	</Window>
 </Alloy>

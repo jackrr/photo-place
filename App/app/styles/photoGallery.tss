@@ -62,7 +62,7 @@
 	width: 45,
 	height: 45,
 	top: 8
-}
+},
 
 "#globalContainer": {
 	left: 0,

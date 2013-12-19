@@ -37,23 +37,30 @@ function nameClick() {
 
 function threadOverlay(threadPreview) {
 	var overlay = graphicUtil.coloredRectView(threadPreview.get('topCorner'), threadPreview.get('bottomCorner'), 1);
-	var preview = threadPreview;
-	overlay.addEventListener('click', function() {
-		Ti.API.info('clicked: ' + threadPreview.get('name'));
-		changeThreadName(preview);
-	});
+	// var preview = threadPreview;
+	// overlay.addEventListener('click', function() {
+		// Ti.API.info('clicked: ' + threadPreview.get('name'));
+		// changeThreadName(preview);
+	// });
 	return overlay;
 }
 
-function addPreview(threadPreview) {
-	// create overlay on image
-	$.imageMapContainer.add(threadOverlay(threadPreview));
-};
+// function addPreview(threadPreview) {
+// // create overlay on image
+// $.imageMapContainer.add(threadOverlay(threadPreview));
+// };
 
 function loadThreads() {
+	data = [];
 	_.each(threadsCollection.models, function(threadPreview) {
-		addPreview(threadPreview);
+		data.push({
+			text : threadPreview.get('name'),
+//			color : 
+		});
+		//addPreview(threadPreview);
 	});
+	
+	threadSlider.setData(data);
 };
 
 function refreshThreads() {
@@ -101,14 +108,17 @@ $.largeImage.addEventListener('android:back', function() {
 /*
  * initialize
  */
-$.threadObject.add(new BetterPicker({
+var threadSlider = new BetterPicker({
 	data : testArray,
 	height : 40
-}));
+});
+$.threadObject.add(threadSlider);
+
 $.image.image = photo.get('largePath');
 $.caption.text = "\"" + photo.get('caption') + "\"";
-$.title.text = photo.get('userName') + ' at\n' + photo.get('placeName');
-$.titleDate.text = dateUtil.prettyDate(photo.get('createdDate'));
+//$.title.text = photo.get('userName') + ' at\n' + photo.get('placeName');
+//$.titleDate.text = dateUtil.prettyDate(photo.get('createdDate'));
 loadThreads();
+$.image.setTop($.largeImage.getWidth()-$.image.getWidth());
 $.largeImage.open();
-Ti.API.info(JSON.stringify(self));
+

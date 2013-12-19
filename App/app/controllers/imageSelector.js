@@ -5,22 +5,19 @@ var args = arguments[0] || {};
 var parent = args.parent;
 var photo = args.photo;
 var thread = Alloy.createModel('Thread', {
-	photoID: photo.id,
-	userID: Ti.App.Properties.getObject('authInfo').id
+	photoID : photo.id,
+	userID : Ti.App.Properties.getObject('authInfo').id
 });
 
-var top = 0,
-	left = 0,
-	height = 0,
-	width = 0;
-	
+var top = 0, left = 0, height = 0, width = 0;
+
 var p1 = {
-	x: 0,
-	y: 0
+	x : 0,
+	y : 0
 };
 var p2 = {
-	x: 0,
-	y: 0
+	x : 0,
+	y : 0
 };
 
 $.image.image = photo.get('largePath');
@@ -55,7 +52,7 @@ $.image.addEventListener('touchmove', function(e) {
 		top = p1.y;
 		height = p2.y - p1.y;
 	}
-	
+
 	// give visual feedback of rectangle
 	$.overlayRegion.top = top;
 	$.overlayRegion.left = left;
@@ -73,30 +70,32 @@ $.imageSelector.addEventListener('android:back', function() {
 	cancel();
 });
 
-
 function done() {
 	var topCorner = {
-		x: left,
-		y: top
+		x : left,
+		y : top
 	};
-	
+
 	var bottomCorner = {
-		x: left + width,
-		y: top + height
+		x : left + width,
+		y : top + height
 	};
 
 	self.destroy();
 	thread.save({
-		topCorner: topCorner,
-		bottomCorner: bottomCorner,
-		name: $.name.value
+		topCorner : topCorner,
+		bottomCorner : bottomCorner,
+		name : $.name.value,
+		color : $.overlayRegion.backgroundColor
 	}, {
-		success: function(newThread) {
+		success : function(newThread) {
 			$.imageSelector.close();
 			self.destroy();
-			parent.openWindow({update: true});
+			parent.openWindow({
+				update : true
+			});
 		},
-		error: function() {
+		error : function() {
 			alert('Failed to create thread');
 		}
 	});

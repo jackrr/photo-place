@@ -6,7 +6,6 @@ var args = arguments[0] || {};
 //var parent = args.parent;
 var photos = Alloy.createCollection('photo');
 
-
 function changeGallery(options) {
 	if (options) {
 		if (options.placeID) {
@@ -29,22 +28,28 @@ function globeButt() {
 }
 
 function nearButt() {
-	changeGallery({nearby: true});
+	changeGallery({
+		nearby : true
+	});
 	setTab(1);
 }
 
 function myPlaceButt() {
-	changeGallery({placeID: Ti.App.Properties.getObject('currentPlace').id});
+	changeGallery({
+		placeID : Ti.App.Properties.getObject('currentPlace').id
+	});
 	setTab(2);
 }
 
 function myPhotosButt() {
-	changeGallery({userID: Ti.App.Properties.getObject('authInfo').id});
+	changeGallery({
+		userID : Ti.App.Properties.getObject('authInfo').id
+	});
 	setTab(3);
 }
 
-function resetColors(){
-	var bgc = Alloy.CFG.lightYellow; 
+function resetColors() {
+	var bgc = Alloy.CFG.lightYellow;
 	$.globalContainer.backgroundColor = bgc;
 	$.nearbyContainer.backgroundColor = bgc;
 	$.myPlaceContainer.backgroundColor = bgc;
@@ -54,7 +59,7 @@ function resetColors(){
 function setTab(tabnum, text) {
 	Ti.API.info(tabnum, JSON.stringify(self.currentTab));
 	// $.removeClass(self.currentTab, 'selected');
-	
+
 	resetColors();
 	if (tabnum === 0) {
 		self.currentTab = $.globalContainer;
@@ -72,7 +77,7 @@ function setTab(tabnum, text) {
 		self.currentTab = $.myPhotosContainer;
 	} else {
 	}
-	
+
 	self.currentTab.backgroundColor = Alloy.CFG.darkYellow;
 
 	// $.addClass(self.currentTab, 'selected');
@@ -97,11 +102,11 @@ self.openWindow = function() {
 self.here = function() {
 	self.updating = true;
 	photos.byPlace(Ti.App.Properties.getObject('curLocID'), {
-		success: function(newPhotos) {
+		success : function(newPhotos) {
 			changePhotos(newPhotos);
 			scrollLoadListener(true);
 		},
-		error: function(e) {
+		error : function(e) {
 			alert(JSON.stringify(e));
 		}
 	});
@@ -110,11 +115,11 @@ self.here = function() {
 self.nearby = function() {
 	self.updating = true;
 	photos.nearby({
-		success: function(newPhotos) {
+		success : function(newPhotos) {
 			changePhotos(newPhotos, true);
 			scrollLoadListener();
 		},
-		error: function(e) {
+		error : function(e) {
 			alert(JSON.stringify(e));
 		}
 	});
@@ -123,11 +128,11 @@ self.nearby = function() {
 self.openGlobal = function() {
 	self.updating = true;
 	photos.global({
-		success: function(newPhotos) {
+		success : function(newPhotos) {
 			changePhotos(newPhotos);
 			scrollLoadListener(true);
 		},
-		error: function(e) {
+		error : function(e) {
 			alert(JSON.stringify(e));
 		}
 	});
@@ -136,11 +141,11 @@ self.openGlobal = function() {
 self.byPlace = function(placeID) {
 	self.updating = true;
 	photos.byPlaceID(placeID, {
-		success: function(newPhotos) {
+		success : function(newPhotos) {
 			changePhotos(newPhotos);
 			scrollLoadListener(true);
 		},
-		error: function(e) {
+		error : function(e) {
 			alert(JSON.stringify(e));
 		}
 	});
@@ -149,11 +154,11 @@ self.byPlace = function(placeID) {
 self.byUser = function(userID) {
 	self.updating = true;
 	photos.byUserID(userID, {
-		success: function(newPhotos) {
+		success : function(newPhotos) {
 			changePhotos(newPhotos);
 			scrollLoadListener(true);
 		},
-		error: function(e) {
+		error : function(e) {
 			alert(JSON.stringify(e));
 		}
 	});
@@ -166,7 +171,7 @@ function addPhotos(newPhotos, placeLabels) {
 		if (placeLabels && photo.get('placeName') != lastPlace) {
 			lastPlace = photo.get('placeName');
 			var placeRow = Ti.UI.createTableViewRow({
-				title: lastPlace
+				title : lastPlace
 			});
 			rows.push(placeRow);
 		}
@@ -188,7 +193,7 @@ function changePhotos(newPhotos, placeLabels) {
 		if (placeLabels && photo.get('placeName') != lastPlace) {
 			lastPlace = photo.get('placeName');
 			var placeRow = Ti.UI.createTableViewRow({
-				title: lastPlace
+				title : lastPlace
 			});
 			rows.push(placeRow);
 		}
@@ -205,21 +210,21 @@ function changePhotos(newPhotos, placeLabels) {
 
 function choosePhoto() {
 	// Ti.Media.showCamera({
-		// mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
-//
-		// success : function(event) {
-			// if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
-				// self.closeWindow();
-				// var place = Ti.App.Properties.getObject('currentPlace');
-				// Alloy.createController('photoUpload', {parent: self, image: event.media, place: place});
-			// }
-		// },
-		// cancel : function() {
-//
-		// },
-		// error : function(error) {
-			// alert(JSON.stringify(error));
-		// }
+	// mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
+	//
+	// success : function(event) {
+	// if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+	// self.closeWindow();
+	// var place = Ti.App.Properties.getObject('currentPlace');
+	// Alloy.createController('photoUpload', {parent: self, image: event.media, place: place});
+	// }
+	// },
+	// cancel : function() {
+	//
+	// },
+	// error : function(error) {
+	// alert(JSON.stringify(error));
+	// }
 	// });
 	Ti.Media.openPhotoGallery({
 		mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO],
@@ -228,7 +233,11 @@ function choosePhoto() {
 			if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 				// self.closeWindow();
 				var place = Ti.App.Properties.getObject('currentPlace');
-				Alloy.createController('photoUpload', {parent: self, image: event.media, place: place});
+				Alloy.createController('photoUpload', {
+					parent : self,
+					image : event.media,
+					place : place
+				});
 			}
 		},
 		cancel : function() {
@@ -253,16 +262,15 @@ function nextPage() {
 }
 
 // function previousPage() {
-	// photos.previousPage({
-		// success : function(newPhotos) {
-			// openPhotos(newPhotos);
-		// },
-		// error : function(e) {
-			// alert(JSON.stringify(e));
-		// }
-	// });
+// photos.previousPage({
+// success : function(newPhotos) {
+// openPhotos(newPhotos);
+// },
+// error : function(e) {
+// alert(JSON.stringify(e));
 // }
-
+// });
+// }
 
 function currentPage() {
 	self.updating = true;

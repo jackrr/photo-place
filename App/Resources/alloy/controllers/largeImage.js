@@ -1,20 +1,12 @@
 function Controller() {
-    function threadOverlay(threadPreview) {
-        var overlay = graphicUtil.coloredRectView(threadPreview.get("topCorner"), threadPreview.get("bottomCorner"), 1);
-        var preview = threadPreview;
-        overlay.addEventListener("click", function() {
-            Ti.API.info("clicked: " + threadPreview.get("name"));
-            changeThreadName(preview);
-        });
-        return overlay;
-    }
-    function addPreview(threadPreview) {
-        $.imageMapContainer.add(threadOverlay(threadPreview));
-    }
     function loadThreads() {
+        data = [];
         _.each(threadsCollection.models, function(threadPreview) {
-            addPreview(threadPreview);
+            data.push({
+                text: threadPreview.get("name")
+            });
         });
+        threadSlider.setData(data);
     }
     function refreshThreads() {
         threadsCollection.forPhoto(photo.id, {
@@ -55,38 +47,53 @@ function Controller() {
     });
     $.__views.largeImage && $.addTopLevelView($.__views.largeImage);
     $.__views.titleBar = Ti.UI.createView({
-        layout: "composite",
         height: 40,
+        backgroundColor: Alloy.CFG.darkRed,
+        width: "100%",
         id: "titleBar"
     });
     $.__views.largeImage.add($.__views.titleBar);
-    $.__views.title = Ti.UI.createLabel({
+    $.__views.back = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: "left",
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
         top: 10,
-        left: 5,
+        text: L("back"),
+        left: 10,
+        id: "back"
+    });
+    $.__views.titleBar.add($.__views.back);
+    back ? $.__views.back.addEventListener("click", back) : __defers["$.__views.back!click!back"] = true;
+    $.__views.caption = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        color: "black",
+        top: 10,
+        height: "auto",
         font: {
             fontSize: 12
         },
-        id: "title"
+        id: "caption"
     });
-    $.__views.titleBar.add($.__views.title);
-    $.__views.titleDate = Ti.UI.createLabel({
+    $.__views.titleBar.add($.__views.caption);
+    $.__views.newThread = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: "right",
+        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
         top: 10,
-        right: 5,
-        font: {
-            fontSize: 12
-        },
-        id: "titleDate"
+        text: L("add"),
+        right: 10,
+        id: "newThread"
     });
-    $.__views.titleBar.add($.__views.titleDate);
+    $.__views.titleBar.add($.__views.newThread);
+    newThread ? $.__views.newThread.addEventListener("click", newThread) : __defers["$.__views.newThread!click!newThread"] = true;
+    $.__views.threadObject = Ti.UI.createView({
+        height: 40,
+        id: "threadObject"
+    });
+    $.__views.largeImage.add($.__views.threadObject);
     $.__views.imageMapContainer = Ti.UI.createView({
-        top: 10,
-        height: 300,
+        height: Ti.UI.SIZE,
         width: Ti.UI.SIZE,
         layout: "composite",
         id: "imageMapContainer"
@@ -96,54 +103,10 @@ function Controller() {
         id: "image"
     });
     $.__views.imageMapContainer.add($.__views.image);
-    $.__views.caption = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        color: "black",
-        top: 10,
-        font: {
-            fontSize: 12
-        },
-        id: "caption"
-    });
-    $.__views.largeImage.add($.__views.caption);
-    $.__views.threadObject = Ti.UI.createView({
-        height: 40,
-        id: "threadObject"
-    });
-    $.__views.largeImage.add($.__views.threadObject);
-    $.__views.actionBar = Ti.UI.createView({
-        layout: "composite",
-        top: 10,
-        id: "actionBar"
-    });
-    $.__views.largeImage.add($.__views.actionBar);
-    $.__views.newThread = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        color: "black",
-        top: 10,
-        text: L("addThread"),
-        left: 20,
-        id: "newThread"
-    });
-    $.__views.actionBar.add($.__views.newThread);
-    newThread ? $.__views.newThread.addEventListener("click", newThread) : __defers["$.__views.newThread!click!newThread"] = true;
-    $.__views.back = Ti.UI.createLabel({
-        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-        color: "black",
-        top: 10,
-        text: L("back"),
-        right: 20,
-        id: "back"
-    });
-    $.__views.actionBar.add($.__views.back);
-    back ? $.__views.back.addEventListener("click", back) : __defers["$.__views.back!click!back"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var dateUtil = require("dateUtil");
-    var graphicUtil = require("graphicUtil");
+    require("dateUtil");
+    require("graphicUtil");
     var BetterPicker = require("betterPicker");
     var self = this;
     var testArray = [ "One fish two fish", "Green eggs and ham", "How the Grinch stole", "Yurtle the Turtle", "Ten apples up on top" ];
@@ -161,19 +124,18 @@ function Controller() {
     $.largeImage.addEventListener("android:back", function() {
         back();
     });
-    $.threadObject.add(new BetterPicker({
+    var threadSlider = new BetterPicker({
         data: testArray,
         height: 40
-    }));
+    });
+    $.threadObject.add(threadSlider);
     $.image.image = photo.get("largePath");
     $.caption.text = '"' + photo.get("caption") + '"';
-    $.title.text = photo.get("userName") + " at\n" + photo.get("placeName");
-    $.titleDate.text = dateUtil.prettyDate(photo.get("createdDate"));
     loadThreads();
+    $.image.setTop($.largeImage.getWidth() - $.image.getWidth());
     $.largeImage.open();
-    Ti.API.info(JSON.stringify(self));
-    __defers["$.__views.newThread!click!newThread"] && $.__views.newThread.addEventListener("click", newThread);
     __defers["$.__views.back!click!back"] && $.__views.back.addEventListener("click", back);
+    __defers["$.__views.newThread!click!newThread"] && $.__views.newThread.addEventListener("click", newThread);
     _.extend($, exports);
 }
 

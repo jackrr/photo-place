@@ -17,7 +17,8 @@ function Controller() {
         thread.save({
             topCorner: topCorner,
             bottomCorner: bottomCorner,
-            name: $.name.value
+            name: $.name.value,
+            color: $.overlayRegion.backgroundColor
         }, {
             success: function() {
                 $.imageSelector.close();
