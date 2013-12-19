@@ -2,17 +2,17 @@ var dateUtil = require('dateUtil');
 var graphicUtil = require('graphicUtil');
 var self = this;
 
+/*
+ * Functions
+ */
 self.setPhoto = function(photo) {
 	self.photo = photo;
 	$.caption.text = "\"" + photo.get('caption') + "\"";
 	$.title.text = photo.get('userName') + ' at ' + photo.get('placeName') + '\n' + dateUtil.prettyDate(photo.get('createdDate'));
-	// $.userName.text = photo.get('userName');
-	// $.placeName.text = photo.get('placeName');
-	// $.uploadDate.text = dateUtil.prettyDate(photo.get('createdDate'));
 	$.image.image = photo.get('mediumPath');
-	
-	if (OS_IOS){
-		$.threadCount.setBackgroundPaddingBottom(3);	
+
+	if (OS_IOS) {
+		$.threadCount.setBackgroundPaddingBottom(3);
 	}
 };
 
@@ -46,13 +46,13 @@ function addPreview(threadPreview) {
 
 function loadThreads() {
 	self.threadsCollection.forPhoto(self.photo.id, {
-		success: function(newThreads) {
+		success : function(newThreads) {
 			$.threadCount.text = '' + newThreads.models.length;
 			_.each(newThreads.models, function(threadPreview) {
 				addPreview(threadPreview);
 			});
 		},
-		error: function() {
+		error : function() {
 			alert('Failed to get threads for photo');
 		}
 	});
@@ -66,9 +66,9 @@ function back() {
 
 function fullPhoto() {
 	var full = Alloy.createController('largeImage', {
-		photo: self.photo,
-		threads: self.threadsCollection,
-		parent: self
+		photo : self.photo,
+		threads : self.threadsCollection,
+		parent : self
 	});
 	self.closeWindow();
 }
@@ -83,10 +83,12 @@ function openPlace() {
 	back();
 }
 
-
 var args = arguments[0] || {};
 var parent = args.parent;
 
+/*
+ * Initialize
+ */
 self.setPhoto(args.photo);
 self.threadsCollection = Alloy.createCollection('threadPreview');
 loadThreads();

@@ -1,8 +1,8 @@
 <Alloy>
 	<TableViewRow id="rowView" onClick="openPhotoView">
 		<ImageView id="imageView"/>
-		<Label id="userName"></Label>
-		<Label id="placeName"></Label>
-		<Label id="uploadDate"></Label>
+		<Label id="userName"/>
+		<Label id="placeName"/>
+		<Label id="uploadDate"/>
 	</TableViewRow>
 </Alloy>

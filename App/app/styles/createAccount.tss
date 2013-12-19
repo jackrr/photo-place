@@ -18,7 +18,7 @@
 },
 
 "#email": {
-	hintText : "Email",
+	hintText : L("email"),
 	keyboardType : Ti.UI.KEYBOARD_EMAIL
 },
 
@@ -26,23 +26,29 @@
 	top : 150,
 	font : {
 		fontSize : 20
-	}
+	},
+	text : L('createAccount')
 },
 
 "#username": {
-	hintText : "Username",
+	hintText : L("username"),
 },
 
 "#password1": {
-	hintText : "Password",
+	hintText : L("password"),
 	passwordMask : true
 },
 
 "#password2": {
-	hintText : "Re-enter Password",
+	hintText : L("passwordAgain"),
 	passwordMask : true
 },
 
 "#submit": {
-	top : 20
+	top : 20,
+	text : L('submit')
+},
+
+"#cancel": {
+	text : L('back')
 }

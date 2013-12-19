@@ -81,7 +81,7 @@ function Controller() {
     });
     $.__views.textInteracts.add($.__views.nameArea);
     $.__views.name = Ti.UI.createTextField({
-        hintText: "comment on region",
+        hintText: L("addComment"),
         id: "name"
     });
     $.__views.nameArea.add($.__views.name);
@@ -97,7 +97,7 @@ function Controller() {
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
-        text: "Cancel",
+        text: L("cancel"),
         font: {
             fontSize: 12
         },
@@ -110,7 +110,7 @@ function Controller() {
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
-        text: "Done",
+        text: L("done"),
         font: {
             fontSize: 12
         },

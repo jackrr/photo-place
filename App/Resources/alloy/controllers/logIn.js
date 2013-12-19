@@ -56,7 +56,7 @@ function Controller() {
         width: 150,
         top: 180,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        hintText: "Username",
+        hintText: L("username"),
         id: "username"
     });
     $.__views.logIn.add($.__views.username);
@@ -66,7 +66,7 @@ function Controller() {
         width: 150,
         top: 10,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        hintText: "Password",
+        hintText: L("password"),
         passwordMask: true,
         id: "password"
     });
@@ -77,7 +77,7 @@ function Controller() {
         color: "black",
         width: Ti.UI.SIZE,
         top: 20,
-        text: "Submit",
+        text: L("submit"),
         id: "submit"
     });
     $.__views.logIn.add($.__views.submit);
@@ -88,7 +88,7 @@ function Controller() {
         color: "black",
         width: Ti.UI.SIZE,
         top: 10,
-        text: "Back",
+        text: L("back"),
         id: "cancel"
     });
     $.__views.logIn.add($.__views.cancel);

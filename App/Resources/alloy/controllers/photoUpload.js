@@ -50,7 +50,7 @@ function Controller() {
     $.__views.__alloyId2.add($.__views.imageView);
     $.__views.caption = Ti.UI.createTextField({
         top: 20,
-        hintText: "add caption",
+        hintText: L("addCaption"),
         width: 250,
         maxLength: 50,
         textAlign: "center",
@@ -62,7 +62,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
         top: 20,
-        text: "Location:",
+        text: L("location"),
         font: {
             fontSize: 12
         },
@@ -82,7 +82,7 @@ function Controller() {
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
         top: 10,
-        text: "Upload",
+        text: L("upload"),
         id: "submit"
     });
     $.__views.__alloyId2.add($.__views.submit);

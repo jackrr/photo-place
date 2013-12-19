@@ -33,8 +33,7 @@
 },
 
 "#caption": {
-	//center : "50%",
-	width : "900%",
+	width : "90%",
 	height : 40,
 	font : {
 		fontSize : 12

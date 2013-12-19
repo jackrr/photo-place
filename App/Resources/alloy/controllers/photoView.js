@@ -129,7 +129,7 @@ function Controller() {
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
-        width: "900%",
+        width: "90%",
         height: 40,
         font: {
             fontSize: 12

@@ -84,7 +84,7 @@ function Controller() {
         font: {
             fontSize: 20
         },
-        text: "Create New Account",
+        text: L("createAccount"),
         id: "winlabel"
     });
     $.__views.createAccount.add($.__views.winlabel);
@@ -94,7 +94,7 @@ function Controller() {
         autocorrect: false,
         width: 250,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        hintText: "Email",
+        hintText: L("email"),
         keyboardType: Ti.UI.KEYBOARD_EMAIL,
         id: "email"
     });
@@ -105,7 +105,7 @@ function Controller() {
         autocorrect: false,
         width: 250,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        hintText: "Username",
+        hintText: L("username"),
         id: "username"
     });
     $.__views.createAccount.add($.__views.username);
@@ -115,7 +115,7 @@ function Controller() {
         autocorrect: false,
         width: 250,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        hintText: "Password",
+        hintText: L("password"),
         passwordMask: true,
         id: "password1"
     });
@@ -126,7 +126,7 @@ function Controller() {
         autocorrect: false,
         width: 250,
         autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
-        hintText: "Re-enter Password",
+        hintText: L("passwordAgain"),
         passwordMask: true,
         id: "password2"
     });
@@ -137,7 +137,7 @@ function Controller() {
         color: "black",
         top: 20,
         width: Ti.UI.SIZE,
-        text: "Submit",
+        text: L("submit"),
         id: "submit"
     });
     $.__views.createAccount.add($.__views.submit);
@@ -148,7 +148,7 @@ function Controller() {
         color: "black",
         top: 10,
         width: Ti.UI.SIZE,
-        text: "Back",
+        text: L("back"),
         id: "cancel"
     });
     $.__views.createAccount.add($.__views.cancel);

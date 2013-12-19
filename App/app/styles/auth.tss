@@ -22,6 +22,11 @@
 },
 
 "#createAccount": {
-	top : 275
+	top : 275,
+	text : L("createAccount")
+},
+
+"#logIn": {
+	text : L('login')
 }
 

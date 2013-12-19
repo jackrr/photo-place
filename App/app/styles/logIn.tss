@@ -19,22 +19,22 @@
 },
 
 "#username": {
-	hintText : 'Username',
+	hintText : L('username'),
 	top : 180
 },
 
 "#password": {
-	hintText : 'Password',
+	hintText : L('password'),
 	passwordMask : true
 },
 
 "#submit": {
 	top: 20,
-	text : 'Submit'
+	text : L('submit')
 },
 
 "#cancel": {
 	top: 10,
-	text: 'Back'
+	text: L('back')
 }
 

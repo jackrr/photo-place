@@ -21,20 +21,20 @@
 
 "#caption": {
 	top: 20,
-	hintText : "add caption",
+	hintText : L("addCaption"),
 	width : 250,
 	maxLength : 50,
 	textAlign : 'center'
 },
 
 "#submit": {
-	text : "Upload",
+	text : L("upload"),
 	top : 10
 },
 
 "#info": {
 	top : 20,
-	text : "Location:",
+	text : L('location'),
 	font : {
 		fontSize : 12
 	}

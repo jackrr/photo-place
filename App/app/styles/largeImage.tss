@@ -1,4 +1,8 @@
-"#largeImage" : {
+"Label": {
+	top: 10
+},
+
+"#largeImage": {
 	orientationModes: [
 		Ti.UI.PORTRAIT,
 		Ti.UI.LANDSCAPE_LEFT,
@@ -8,16 +12,57 @@
 },
 
 "#imageMapContainer": {
-	height: Ti.UI.SIZE,
+	top : 10,
+	height: 300,
 	width: Ti.UI.SIZE,
-	top: 30,
 	layout: 'composite'
 },
 
 "#caption": {
-	top: 20
+	top: 10,
+	font : {
+		fontSize : 12
+	}
 },
 
-"Label": {
-	top: 10
+"#threadObject": {
+	height : 40
+},
+
+"#newThread": {
+	text : L('addThread'),
+	left : 20
+},
+
+"#back": {
+	text : L('back'),
+	right : 20
+},
+
+"#titleBar": {
+	layout : 'composite',
+	height : 40
+},
+
+"#title": {
+	left : 5,
+	textAlign : 'left',
+	font : {
+		fontSize : 12
+	},
+},
+
+"#titleDate": {
+	right : 5,
+	textAlign : 'right',
+	font : {
+		fontSize : 12
+	}
+},
+
+"#actionBar": {
+	layout : 'composite',
+	top : 10
 }
+
+

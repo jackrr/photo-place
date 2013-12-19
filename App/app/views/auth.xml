@@ -1,6 +1,6 @@
 <Alloy>
 	<Window class="container">
-		<Label id="createAccount" onClick="openCreateAccount">Create Account</Label>
-		<Label id="logIn" onClick="openLogIn">Log In</Label>
+		<Label id="createAccount" onClick="openCreateAccount"/>
+		<Label id="logIn" onClick="openLogIn"/>
 	</Window>
 </Alloy>

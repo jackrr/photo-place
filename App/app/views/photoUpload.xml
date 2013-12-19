@@ -1,11 +1,11 @@
 <Alloy>
 	<Window>
-		<View class="dialogOverlay" onClick="back"></View>
+		<View class="dialogOverlay" onClick="back"/>
 		<View class="dialog">
-			<ImageView id="imageView"></ImageView>
-			<TextField id="caption"></TextField>
+			<ImageView id="imageView"/>
+			<TextField id="caption"/>
 			<Label id="info"/>
-			<Label id="placeName"></Label>
+			<Label id="placeName"/>
 			<Label id="submit" onClick="done"/>
 		</View>
 	</Window>

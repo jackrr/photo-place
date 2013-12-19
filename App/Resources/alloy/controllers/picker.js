@@ -29,7 +29,7 @@ function Controller() {
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
-        text: "Done",
+        text: L("done"),
         id: "done"
     });
     $.__views.win.add($.__views.done);

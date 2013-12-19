@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="back">Back</string>
+  <string name="addThread">Add thread</string>
+  <string name="done">Done</string>
+  <string name="upload">Upload</string>
+  <string name="location">Location</string>
+  <string name="addCaption">add caption</string>
+  <string name="username">Username</string>
+  <string name="password">Password</string>
+  <string name="submit">Submit</string>
+  <string name="addComment">add comment</string>
+  <string name="cancel">Cancel</string>
+  <string name="createAccount">Create New Account</string>
+  <string name="passwordAgain">Re-enter Password</string>
+  <string name="email">Email</string>
+  <string name="login">Log In</string>
+</resources>

@@ -1,13 +1,4 @@
 function Controller() {
-    function nameClick() {
-        Ti.API.info("clicked " + self.currentThreadID);
-    }
-    function changeThreadName(threadPreview) {
-        Ti.API.info("in change name: " + threadPreview.get("name"));
-        self.currentThreadID || $.threadName.addEventListener("click", nameClick);
-        $.threadName.text = threadPreview.get("name");
-        self.currentThreadID = threadPreview.id;
-    }
     function threadOverlay(threadPreview) {
         var overlay = graphicUtil.coloredRectView(threadPreview.get("topCorner"), threadPreview.get("bottomCorner"), 1);
         var preview = threadPreview;
@@ -63,18 +54,40 @@ function Controller() {
         id: "largeImage"
     });
     $.__views.largeImage && $.addTopLevelView($.__views.largeImage);
-    $.__views.threadName = Ti.UI.createLabel({
+    $.__views.titleBar = Ti.UI.createView({
+        layout: "composite",
+        height: 40,
+        id: "titleBar"
+    });
+    $.__views.largeImage.add($.__views.titleBar);
+    $.__views.title = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+        textAlign: "left",
         color: "black",
         top: 10,
-        id: "threadName"
+        left: 5,
+        font: {
+            fontSize: 12
+        },
+        id: "title"
     });
-    $.__views.largeImage.add($.__views.threadName);
+    $.__views.titleBar.add($.__views.title);
+    $.__views.titleDate = Ti.UI.createLabel({
+        verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+        textAlign: "right",
+        color: "black",
+        top: 10,
+        right: 5,
+        font: {
+            fontSize: 12
+        },
+        id: "titleDate"
+    });
+    $.__views.titleBar.add($.__views.titleDate);
     $.__views.imageMapContainer = Ti.UI.createView({
-        height: Ti.UI.SIZE,
+        top: 10,
+        height: 300,
         width: Ti.UI.SIZE,
-        top: 30,
         layout: "composite",
         id: "imageMapContainer"
     });
@@ -87,35 +100,53 @@ function Controller() {
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
-        top: 20,
+        top: 10,
+        font: {
+            fontSize: 12
+        },
         id: "caption"
     });
     $.__views.largeImage.add($.__views.caption);
+    $.__views.threadObject = Ti.UI.createView({
+        height: 40,
+        id: "threadObject"
+    });
+    $.__views.largeImage.add($.__views.threadObject);
+    $.__views.actionBar = Ti.UI.createView({
+        layout: "composite",
+        top: 10,
+        id: "actionBar"
+    });
+    $.__views.largeImage.add($.__views.actionBar);
     $.__views.newThread = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
         top: 10,
-        text: "Make new thread",
+        text: L("addThread"),
+        left: 20,
         id: "newThread"
     });
-    $.__views.largeImage.add($.__views.newThread);
+    $.__views.actionBar.add($.__views.newThread);
     newThread ? $.__views.newThread.addEventListener("click", newThread) : __defers["$.__views.newThread!click!newThread"] = true;
     $.__views.back = Ti.UI.createLabel({
         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
         color: "black",
         top: 10,
-        text: "Back",
+        text: L("back"),
+        right: 20,
         id: "back"
     });
-    $.__views.largeImage.add($.__views.back);
+    $.__views.actionBar.add($.__views.back);
     back ? $.__views.back.addEventListener("click", back) : __defers["$.__views.back!click!back"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    require("dateUtil");
+    var dateUtil = require("dateUtil");
     var graphicUtil = require("graphicUtil");
+    var BetterPicker = require("betterPicker");
     var self = this;
+    var testArray = [ "One fish two fish", "Green eggs and ham", "How the Grinch stole", "Yurtle the Turtle", "Ten apples up on top" ];
     var args = arguments[0] || {};
     var parent = args.parent;
     var photo = args.photo;
@@ -130,10 +161,17 @@ function Controller() {
     $.largeImage.addEventListener("android:back", function() {
         back();
     });
+    $.threadObject.add(new BetterPicker({
+        data: testArray,
+        height: 40
+    }));
     $.image.image = photo.get("largePath");
     $.caption.text = '"' + photo.get("caption") + '"';
+    $.title.text = photo.get("userName") + " at\n" + photo.get("placeName");
+    $.titleDate.text = dateUtil.prettyDate(photo.get("createdDate"));
     loadThreads();
     $.largeImage.open();
+    Ti.API.info(JSON.stringify(self));
     __defers["$.__views.newThread!click!newThread"] && $.__views.newThread.addEventListener("click", newThread);
     __defers["$.__views.back!click!back"] && $.__views.back.addEventListener("click", back);
     _.extend($, exports);

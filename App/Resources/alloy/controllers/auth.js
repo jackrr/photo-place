@@ -36,7 +36,7 @@ function Controller() {
         font: {
             fontSize: 20
         },
-        text: "Create Account",
+        text: L("createAccount"),
         id: "createAccount"
     });
     $.__views.auth.add($.__views.createAccount);
@@ -50,7 +50,7 @@ function Controller() {
         font: {
             fontSize: 20
         },
-        text: "Log In",
+        text: L("login"),
         id: "logIn"
     });
     $.__views.auth.add($.__views.logIn);

@@ -36,11 +36,11 @@
 },
 
 "#name": {
-	hintText : 'comment on region'
+	hintText : L('addComment')
 },
 
 "#cancel": {
-	text : 'Cancel',
+	text : L('cancel'),
 	font : {
 		fontSize : 12
 	},
@@ -48,7 +48,7 @@
 },
 
 "#done": {
-	text : 'Done',
+	text : L('done'),
 	font : {
 		fontSize : 12
 	},

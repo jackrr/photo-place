@@ -1,7 +1,9 @@
 var dateUtil = require('dateUtil');
 var graphicUtil = require('graphicUtil');
+var BetterPicker = require('betterPicker');
 var self = this;
 
+var testArray = ["One fish two fish", "Green eggs and ham", "How the Grinch stole", "Yurtle the Turtle", "Ten apples up on top"];
 
 /*
  * Arguments
@@ -16,22 +18,22 @@ var threadsCollection = args.threads;
  */
 function nameClick() {
 	Ti.API.info('clicked ' + self.currentThreadID);
-		// Alloy.createController('threadView', {
-			// threadID: overlay.value,
-			// photo: self.photo,
-			// parent: self 
-		// });
-		// self.closeWindow();	
+	// Alloy.createController('threadView', {
+	// threadID: overlay.value,
+	// photo: self.photo,
+	// parent: self
+	// });
+	// self.closeWindow();
 }
 
-function changeThreadName(threadPreview) {
-	Ti.API.info('in change name: ' + threadPreview.get('name'));
-	if (!self.currentThreadID) {
-		$.threadName.addEventListener('click', nameClick);	
-	}
-	$.threadName.text = threadPreview.get('name');
-	self.currentThreadID = threadPreview.id;
-}
+// function changeThreadName(threadPreview) {
+// Ti.API.info('in change name: ' + threadPreview.get('name'));
+// if (!self.currentThreadID) {
+// $.threadName.addEventListener('click', nameClick);
+// }
+// $.threadName.text = threadPreview.get('name');
+// self.currentThreadID = threadPreview.id;
+// }
 
 function threadOverlay(threadPreview) {
 	var overlay = graphicUtil.coloredRectView(threadPreview.get('topCorner'), threadPreview.get('bottomCorner'), 1);
@@ -56,10 +58,10 @@ function loadThreads() {
 
 function refreshThreads() {
 	threadsCollection.forPhoto(photo.id, {
-		success: function(newThreads) {
+		success : function(newThreads) {
 			loadThreads();
 		},
-		error: function() {
+		error : function() {
 			alert('Failed to get threads for photo');
 		}
 	});
@@ -67,8 +69,8 @@ function refreshThreads() {
 
 function newThread() {
 	var thread = Alloy.createController('imageSelector', {
-		photo: photo,
-		parent:self
+		photo : photo,
+		parent : self
 	});
 	self.closeWindow();
 }
@@ -94,10 +96,19 @@ $.largeImage.addEventListener('android:back', function() {
 	back();
 });
 
+//$.threadObject.addEventListener()
+
 /*
  * initialize
  */
+$.threadObject.add(new BetterPicker({
+	data : testArray,
+	height : 40
+}));
 $.image.image = photo.get('largePath');
 $.caption.text = "\"" + photo.get('caption') + "\"";
+$.title.text = photo.get('userName') + ' at\n' + photo.get('placeName');
+$.titleDate.text = dateUtil.prettyDate(photo.get('createdDate'));
 loadThreads();
 $.largeImage.open();
+Ti.API.info(JSON.stringify(self));
